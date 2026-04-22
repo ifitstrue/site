@@ -7,6 +7,12 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    slug: "personal-site",
+    title: "Personal Site",
+    description: "Where you are, right now! Written in Next.js + TypeScript",
+    href: "https://github.com/ifitstrue/site",
+  },
+  {
     slug: "super-tic-tac-toe",
     title: "Super Tic Tac Toe",
     description:

@@ -7,14 +7,20 @@ import { ReactNode } from "react";
 
 const totalRecipes = CATEGORIES.reduce((n, c) => n + c.recipes.length, 0);
 
-function RecipeRow({ recipe, linked }: { recipe: Recipe; linked?: boolean }) {
+function RecipeRow({
+  recipe,
+  isExternal,
+}: {
+  recipe: Recipe;
+  isExternal?: boolean;
+}) {
   return (
     <div className="relative py-7 flex-1 min-w-0">
       <div className="flex items-start justify-between gap-4 mb-3">
         <h2 className="font-headline text-2xl md:text-3xl italic text-on-surface group-hover:text-tertiary transition-colors duration-200 leading-tight">
           {recipe.title}
         </h2>
-        {linked && (
+        {isExternal && (
           <span className="text-xl text-tertiary-fixed-dim/50 group-hover:text-tertiary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200 mt-1 shrink-0">
             ↗
           </span>
@@ -29,13 +35,30 @@ function RecipeRow({ recipe, linked }: { recipe: Recipe; linked?: boolean }) {
 }
 
 function RecipeEntry({ recipe }: { recipe: Recipe }): ReactNode {
-  if (recipe.slug in RECIPES) {
+  const isInternal = recipe.slug in RECIPES;
+  const isExternal = recipe.slug.startsWith("http");
+
+  if (isInternal) {
     return (
       <Link href={`/recipes/${recipe.slug}`} className="group flex">
-        <RecipeRow recipe={recipe} linked />
+        <RecipeRow recipe={recipe} />
       </Link>
     );
   }
+
+  if (isExternal) {
+    return (
+      <Link
+        href={recipe.slug}
+        className="group flex"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <RecipeRow recipe={recipe} isExternal />
+      </Link>
+    );
+  }
+
   return (
     <div className="group flex">
       <RecipeRow recipe={recipe} />

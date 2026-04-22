@@ -23,32 +23,44 @@ export default function Projects() {
       </div>
 
       <div>
-        {PROJECTS.map((project, index) => (
-          <Link key={project.slug} href={project.href} className="group block">
-            <div className="relative py-10 flex gap-6 md:gap-10 items-start">
-              <span className="hidden md:block font-headline text-7xl italic leading-none text-secondary/20 group-hover:text-tertiary-fixed-dim/40 transition-colors duration-500 select-none w-20 shrink-0 pt-1 text-right">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+        {PROJECTS.map((project, index) => {
+          const isExternal = project.href.startsWith("http");
+          return (
+            <Link
+              key={project.slug}
+              href={project.href}
+              className="group block"
+              {...(isExternal
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <div className="relative py-10 flex gap-6 md:gap-10 items-start">
+                <span className="hidden md:block font-headline text-7xl italic leading-none text-secondary/20 group-hover:text-tertiary-fixed-dim/40 transition-colors duration-500 select-none w-20 shrink-0 pt-1 text-right">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
 
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <h2 className="font-headline text-3xl md:text-4xl italic text-on-surface group-hover:text-tertiary transition-colors duration-200 leading-tight">
-                    {project.title}
-                  </h2>
-                  <span className="text-2xl text-tertiary-fixed-dim/50 group-hover:text-tertiary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200 mt-1 shrink-0">
-                    ↗
-                  </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <h2 className="font-headline text-3xl md:text-4xl italic text-on-surface group-hover:text-tertiary transition-colors duration-200 leading-tight">
+                      {project.title}
+                    </h2>
+                    {isExternal && (
+                      <span className="text-2xl text-tertiary-fixed-dim/50 group-hover:text-tertiary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200 mt-1 shrink-0">
+                        ↗
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-6 max-w-prose">
+                    {project.description}
+                  </p>
                 </div>
 
-                <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-6 max-w-prose">
-                  {project.description}
-                </p>
+                <div className="absolute left-0 bottom-0 h-px w-full bg-outline-variant group-hover:bg-tertiary-fixed-dim transition-colors duration-300" />
               </div>
-
-              <div className="absolute left-0 bottom-0 h-px w-full bg-outline-variant group-hover:bg-tertiary-fixed-dim transition-colors duration-300" />
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </main>
   );
