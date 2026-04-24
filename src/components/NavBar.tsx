@@ -22,13 +22,8 @@ export function NavBar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  const activeLink = NAV_LINKS.find(
-    ({ href }) => pathname === href || pathname.startsWith(href + "/")
-  );
-
   return (
     <>
-      {/* Desktop nav */}
       <nav className="hidden md:block">
         <ul className="flex items-center gap-14">
           {NAV_LINKS.map(({ href, label }, i) => {
@@ -72,11 +67,7 @@ export function NavBar() {
         </ul>
       </nav>
 
-      {/* Mobile nav bar */}
-      <nav className="md:hidden flex items-center justify-between w-full">
-        <span className="font-headline italic text-xl text-tertiary">
-          {activeLink?.label ?? ""}
-        </span>
+      <nav className="md:hidden flex items-center justify-end w-full">
         <button
           onClick={() => setMobileOpen((o) => !o)}
           aria-label="Toggle menu"
@@ -102,7 +93,6 @@ export function NavBar() {
         </button>
       </nav>
 
-      {/* Mobile menu overlay */}
       {mobileOpen && (
         <div className="md:hidden fixed inset-x-0 top-17 bottom-0 bg-surface z-40 px-8 py-6">
           <ul className="flex flex-col gap-1">
