@@ -4,10 +4,10 @@ import { useConnectionsStore } from "../store";
 
 export const HintButton = () => {
   const gameStatus = useConnectionsStore((s) => s.gameStatus);
-  const hintStep = useConnectionsStore((s) => s.hintStep);
+  const selections = useConnectionsStore((s) => s.selections);
   const useHint = useConnectionsStore((s) => s.useHint);
 
-  const disabled = gameStatus !== "playing" || hintStep >= 4;
+  const disabled = gameStatus !== "playing" || selections.length >= 4;
 
   return (
     <button
