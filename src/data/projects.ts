@@ -10,7 +10,7 @@ export const PROJECTS: Project[] = [
     slug: "liars-dice",
     title: "Liar's Dice",
     description:
-      "A companion app for the classic bluffing dice game. Replaces physical cups and dice — shake your phone to roll.",
+      "A companion app for the classic bluffing dice game. Replaces physical cups and dice; shake your phone to roll!",
     href: "/games/liarsdice",
   },
   {
@@ -19,5 +19,11 @@ export const PROJECTS: Project[] = [
     description:
       "A nested 3×3 strategy game where each move determines which board your opponent must play on next. Supports multiple players with customizable names, colors, and icons.",
     href: "/games/tictactoe",
+  },
+  {
+    slug: "personal-site",
+    title: "Personal Site",
+    description: "Where you are, right now! Written in Next.js + TypeScript",
+    href: "https://github.com/ifitstrue/site",
   },
 ];
