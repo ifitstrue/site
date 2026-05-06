@@ -15,7 +15,9 @@ export const RulesModal = ({ isOpen, onClose }: RulesModalProps) => (
           The Game
         </h3>
         <p>
-          {"Liar's Dice is a game of bluffing and deduction. Players take turns making bids about the dice in their cup and the cups of other players. To read the full rules for Single Hand Liar's Dice, I recommend checking out the "}
+          {
+            "Liar's Dice is a game of bluffing and deduction. Players take turns making bids about the dice in their cup and the cups of other players. To read the full rules for Single Hand Liar's Dice, I recommend checking out the "
+          }
           <a
             href="https://www.dicegamedepot.com/liars-dice-rules/"
             target="_blank"
@@ -32,7 +34,9 @@ export const RulesModal = ({ isOpen, onClose }: RulesModalProps) => (
           Using This App
         </h3>
         <p>
-          {"This page replaces the physical cups and dice. Bidding and challenging still happens in person; it's more fun that way."}
+          {
+            "This page replaces the physical cups and dice. Bidding and challenging still happens in person; it's more fun that way!"
+          }
         </p>
         <ul className="flex flex-col gap-2 list-none mt-1">
           <li>
@@ -48,11 +52,15 @@ export const RulesModal = ({ isOpen, onClose }: RulesModalProps) => (
             survived; roll for the next round.
           </li>
           <li>
-            <span className="font-label text-on-surface">Bluff Unsuccessful:</span>
+            <span className="font-label text-on-surface">
+              Bluff Unsuccessful:
+            </span>
             {" you got caught bluffing; lose a die."}
           </li>
           <li>
-            <span className="font-label text-on-surface">Challenge Unsuccessful:</span>
+            <span className="font-label text-on-surface">
+              Challenge Unsuccessful:
+            </span>
             {" you challenged a bid that held up; lose a die."}
           </li>
         </ul>
@@ -64,7 +72,9 @@ export const RulesModal = ({ isOpen, onClose }: RulesModalProps) => (
         </h3>
         <p>
           {"Dice showing "}
-          <span className="font-label" style={{ color: "#c0392b" }}>1</span>
+          <span className="font-label" style={{ color: "#c0392b" }}>
+            1
+          </span>
           {" are wild. They count as any face value when tallying bids."}
         </p>
       </section>

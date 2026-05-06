@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { FiHelpCircle } from "react-icons/fi";
 import { useConnectionsStore } from "../store";
 import { HintButton } from "./HintButton";
 import { DatePicker } from "./DatePicker";
+import { RulesModal } from "./RulesModal";
 import { useDayStatuses } from "../hooks/useDayStatuses";
 import { formatDisplayDate, addDays } from "../utils/calendarUtils";
 
@@ -21,10 +23,12 @@ export const GameHeader = ({ date, today, streak, onSubmit, onDateChange }: Game
   const selections = useConnectionsStore((s) => s.selections);
   const gameStatus = useConnectionsStore((s) => s.gameStatus);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [rulesOpen, setRulesOpen] = useState(false);
   const statuses = useDayStatuses(date);
 
   return (
     <div className="flex flex-col gap-4">
+      <RulesModal isOpen={rulesOpen} onClose={() => setRulesOpen(false)} />
       <div className="relative flex items-center">
         <button
           type="button"
@@ -84,6 +88,14 @@ export const GameHeader = ({ date, today, streak, onSubmit, onDateChange }: Game
       <div className="h-px bg-tertiary-fixed-dim/50" />
 
       <div className="flex items-center justify-end gap-3">
+        <button
+          type="button"
+          onClick={() => setRulesOpen(true)}
+          aria-label="How to play"
+          className="w-8 h-8 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"
+        >
+          <FiHelpCircle size={18} />
+        </button>
         <HintButton />
         <button
           type="button"
