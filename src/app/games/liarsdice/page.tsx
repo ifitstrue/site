@@ -62,7 +62,7 @@ export default function LiarsDicePage() {
 
   useEffect(() => {
     let lastShake = 0;
-    const THRESHOLD = 25;
+    const THRESHOLD = 50;
     const COOLDOWN = 1200;
 
     const onMotion = (e: DeviceMotionEvent) => {

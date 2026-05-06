@@ -47,7 +47,16 @@ export const Tile = ({ tile, isSelected, isShaking, isHighlighted, onSelect }: T
         onClick={() => onSelect(tile.id)}
         className={`w-full aspect-square flex items-center justify-center rounded-sm text-sm md:text-base font-body font-medium transition-colors duration-200 overflow-hidden ${buttonClass}`}
       >
-        <motion.span layoutId={`word-${tile.id}`}>{tile.word}</motion.span>
+        {tile.imageUrl ? (
+          <img
+            src={tile.imageUrl}
+            alt={tile.imageAlt ?? tile.word}
+            className="w-3/4 h-3/4 object-contain"
+            draggable={false}
+          />
+        ) : (
+          <motion.span layoutId={`word-${tile.id}`}>{tile.word}</motion.span>
+        )}
       </button>
     </motion.div>
   );

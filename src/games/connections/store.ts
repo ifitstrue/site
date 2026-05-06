@@ -15,9 +15,15 @@ const buildTiles = (puzzle: ConnectionsPuzzle): TileState[] => {
   puzzle.categories.forEach((cat, catIdx) => {
     const level = cat.level ?? catIdx;
     cat.cards.forEach((card, cardIdx) => {
+      const word = card.content ?? card.image_alt_text ?? "";
+      const imageUrl = card.image_url
+        ? `/api/connections/image?url=${encodeURIComponent(card.image_url)}`
+        : undefined;
       tiles.push({
         id: `${level}-${cardIdx}`,
-        word: card.content,
+        word,
+        imageUrl,
+        imageAlt: card.image_alt_text,
         slotIndex: tiles.length,
         level,
       });

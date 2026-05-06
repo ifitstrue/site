@@ -3,7 +3,9 @@ export interface ConnectionsPuzzle {
 }
 
 export interface CardsItem {
-  content: string;
+  content?: string;
+  image_url?: string;
+  image_alt_text?: string;
   position: number;
 }
 
@@ -16,6 +18,8 @@ export interface Category {
 export interface TileState {
   id: string;
   word: string;
+  imageUrl?: string;
+  imageAlt?: string;
   slotIndex: number;
   level: number;
 }
