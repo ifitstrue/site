@@ -68,7 +68,7 @@ function RecipeEntry({ recipe }: { recipe: Recipe }): ReactNode {
 
 export default function Recipes() {
   return (
-    <main className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
+    <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
       <div className="mb-16">
         <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary mb-4">
           Kitchen

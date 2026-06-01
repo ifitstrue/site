@@ -40,6 +40,8 @@ export const TileGrid = ({ animatingIds, animPhase }: TileGridProps) => {
   return (
     <div
       id="connections-grid"
+      role="group"
+      aria-label="Connections tile grid"
       className="grid grid-cols-[repeat(4,minmax(70px,130px))] gap-2 mx-auto"
       style={{ maxWidth: "100%" }}
     >

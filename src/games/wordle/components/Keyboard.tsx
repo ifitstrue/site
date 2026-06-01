@@ -38,11 +38,20 @@ export const Keyboard = ({ keyboardState, onLetter, onDelete, onEnter }: Keyboar
             const status = keyboardState[key];
             const style = status ? KEY_STYLES[status] : KEY_STYLES.unused;
 
+            const statusLabel = status ? `, ${status}` : "";
+            const ariaLabel =
+              key === "Backspace"
+                ? "Delete"
+                : key === "Enter"
+                ? "Enter"
+                : `${key.toUpperCase()}${statusLabel}`;
+
             return (
               <button
                 key={key}
                 type="button"
                 onClick={() => handleClick(key)}
+                aria-label={ariaLabel}
                 className={`flex items-center justify-center rounded-sm font-label font-bold transition-colors duration-200 ${
                   isEnterOrDel ? "text-xs px-3" : "text-sm"
                 }`}
@@ -56,7 +65,7 @@ export const Keyboard = ({ keyboardState, onLetter, onDelete, onEnter }: Keyboar
                   fontFamily: "var(--font-label), sans-serif",
                 }}
               >
-                {key === "Backspace" ? "⌫" : key.toUpperCase()}
+                <span aria-hidden="true">{key === "Backspace" ? "⌫" : key.toUpperCase()}</span>
               </button>
             );
           })}

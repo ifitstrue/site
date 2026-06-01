@@ -40,6 +40,7 @@ export function NavBar() {
               >
                 <Link
                   href={href}
+                  aria-current={isActive ? "page" : undefined}
                   className={`flex items-baseline transition-all duration-300 font-headline italic text-xl py-2 ${
                     isActive
                       ? "text-tertiary scale-105"
@@ -74,6 +75,8 @@ export function NavBar() {
         <button
           onClick={() => dispatch(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-menu"
           className="p-2 -mr-2 text-on-surface/60"
         >
           <div className="w-5 flex flex-col gap-1.25">
@@ -97,7 +100,7 @@ export function NavBar() {
       </nav>
 
       {mobileOpen && (
-        <div className="md:hidden fixed inset-x-0 top-17 bottom-0 bg-surface z-40 px-8 py-6">
+        <div id="mobile-nav-menu" className="md:hidden fixed inset-x-0 top-17 bottom-0 bg-surface z-40 px-8 py-6">
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map(({ href, label }, i) => {
               const isActive =
@@ -106,6 +109,7 @@ export function NavBar() {
                 <li key={href}>
                   <Link
                     href={href}
+                    aria-current={isActive ? "page" : undefined}
                     className={`flex items-baseline py-3 transition-colors duration-300 font-headline italic text-2xl ${
                       isActive
                         ? "text-tertiary"

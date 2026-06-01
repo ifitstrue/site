@@ -34,7 +34,7 @@ export default async function RecipePage({
   ];
 
   return (
-    <main className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
+    <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
       <Link
         href="/recipes"
         className="font-label text-[0.65rem] tracking-[0.25em] uppercase text-on-surface-variant/50 hover:text-tertiary transition-colors mb-10 block"

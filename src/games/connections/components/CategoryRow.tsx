@@ -2,15 +2,13 @@
 
 import { motion } from "framer-motion";
 import type { RevealedCategory } from "../types";
+import { LEVEL_COLORS } from "../levelColors";
 
-const LEVEL_STYLES: Record<
-  number,
-  { bg: string; text: string; label: string }
-> = {
-  0: { bg: "#F9DF6D", text: "#1c1c19", label: "🟨" },
-  1: { bg: "#A0C35A", text: "#1c1c19", label: "🟩" },
-  2: { bg: "#B0C4EF", text: "#1c1c19", label: "🟦" },
-  3: { bg: "#BA81C5", text: "#ffffff", label: "🟪" },
+const LEVEL_STYLES: Record<number, { bg: string; text: string; label: string; difficulty: string }> = {
+  0: { ...LEVEL_COLORS[0], label: "🟨", difficulty: "Easiest" },
+  1: { ...LEVEL_COLORS[1], label: "🟩", difficulty: "Easy" },
+  2: { ...LEVEL_COLORS[2], label: "🟦", difficulty: "Medium" },
+  3: { ...LEVEL_COLORS[3], label: "🟪", difficulty: "Hardest" },
 };
 
 interface CategoryRowProps {
@@ -36,6 +34,7 @@ export const CategoryRow = ({ category, style }: CategoryRowProps) => {
       }}
     >
       <span className="font-headline text-lg md:text-xl font-semibold tracking-wide uppercase text-center leading-tight">
+        <span className="sr-only">{s.difficulty}: </span>
         {category.title}
       </span>
       <p className="font-body font-medium text-xs md:text-sm text-center leading-tight">

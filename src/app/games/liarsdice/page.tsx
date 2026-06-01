@@ -107,7 +107,7 @@ export default function LiarsDicePage() {
 
   if (!hydrated) {
     return (
-      <main className={LAYOUT}>
+      <main id="main-content" className={LAYOUT}>
         <div className="flex items-center justify-between py-1">
           <h1 className="font-headline italic text-2xl text-primary">{"Liar's Dice"}</h1>
         </div>
@@ -120,7 +120,7 @@ export default function LiarsDicePage() {
   }
 
   return (
-    <main className={LAYOUT}>
+    <main id="main-content" className={LAYOUT}>
       <RulesModal isOpen={rulesOpen} onClose={() => setRulesOpen(false)} />
 
       <div className="flex items-center justify-between py-1">

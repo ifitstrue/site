@@ -10,7 +10,7 @@ export default function TicTacToePage() {
   const [isPlayersModalOpen, setIsPlayersModalOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-surface pt-24 pb-20 px-8 md:px-16 max-w-4xl mx-auto flex flex-col gap-10">
+    <main id="main-content" className="min-h-screen bg-surface pt-24 pb-20 px-8 md:px-16 max-w-4xl mx-auto flex flex-col gap-10">
       <div>
         <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary mb-4">
           Game

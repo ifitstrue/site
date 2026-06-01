@@ -190,7 +190,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen px-8 md:px-16 flex flex-col justify-center pt-24 pb-[20vh] relative overflow-hidden">
+    <main id="main-content" className="min-h-screen px-8 md:px-16 flex flex-col justify-center pt-24 pb-[20vh] relative overflow-hidden">
       <section className="w-full max-w-5xl z-10">
         <h1
           ref={h1Ref}

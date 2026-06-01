@@ -45,6 +45,8 @@ export const Tile = ({ tile, isSelected, isShaking, isHighlighted, onSelect }: T
       <button
         type="button"
         onClick={() => onSelect(tile.id)}
+        aria-pressed={isSelected}
+        aria-label={tile.word}
         className={`w-full aspect-square flex items-center justify-center rounded-sm text-sm md:text-base font-body font-medium transition-colors duration-200 overflow-hidden ${buttonClass}`}
       >
         {tile.imageUrl ? (
