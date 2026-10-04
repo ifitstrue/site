@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { usePuzzle } from "@/games/connections/hooks/usePuzzle";
 import { LEVEL_COLORS } from "@/games/connections/levelColors";
 import { DateNav } from "@/components/DateNav";
@@ -15,15 +15,20 @@ const LEVEL_META: Record<number, { label: string; bg: string; text: string }> = 
 export default function ConnectionsHintPage() {
   const today = new Date().toISOString().split("T")[0];
   const [selectedDate, setSelectedDate] = useState(today);
-  const { puzzle, loading, error } = usePuzzle(selectedDate);
+
+  return (
+    <main id="main-content" className="min-h-screen bg-surface pt-24 pb-20 px-6 max-w-105 w-full mx-auto flex flex-col gap-6">
+      <DateNav date={selectedDate} today={today} onDateChange={setSelectedDate} />
+      <ConnectionsHints key={selectedDate} date={selectedDate} />
+    </main>
+  );
+}
+
+function ConnectionsHints({ date }: { date: string }) {
+  const { puzzle, loading, error } = usePuzzle(date);
 
   const [hintCounts, setHintCounts] = useState<Record<number, number>>({});
   const [solved, setSolved] = useState<Set<number>>(new Set());
-
-  useEffect(() => {
-    setHintCounts({});
-    setSolved(new Set());
-  }, [selectedDate]);
 
   const categories = useMemo(
     () =>
@@ -70,9 +75,7 @@ export default function ConnectionsHintPage() {
     );
 
   return (
-    <main id="main-content" className="min-h-screen bg-surface pt-24 pb-20 px-6 max-w-105 w-full mx-auto flex flex-col gap-6">
-      <DateNav date={selectedDate} today={today} onDateChange={setSelectedDate} />
-
+    <>
       {loading && (
         <div className="animate-pulse flex flex-col gap-3 pt-4">
           {[0, 1, 2, 3].map((i) => (
@@ -147,6 +150,6 @@ export default function ConnectionsHintPage() {
           </div>
         </>
       )}
-    </main>
+    </>
   );
 }

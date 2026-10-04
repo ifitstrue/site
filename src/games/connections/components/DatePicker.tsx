@@ -1,8 +1,12 @@
 "use client";
 
 import { useReducer, useEffect, useRef } from "react";
-import type { DayStatus } from "../hooks/useDayStatuses";
 import { getCalendarCells, formatMonthYear } from "../utils/calendarUtils";
+
+interface DayStatus {
+  status: "won" | "lost" | "playing";
+  mistakes: number;
+}
 
 interface DatePickerProps {
   value: string;

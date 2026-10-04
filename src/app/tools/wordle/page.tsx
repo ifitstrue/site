@@ -75,6 +75,23 @@ function HintTile({
 export default function WordleHintPage() {
   const today = new Date().toISOString().split("T")[0];
   const [selectedDate, setSelectedDate] = useState(today);
+
+  return (
+    <main
+      id="main-content"
+      className="min-h-screen bg-surface pt-24 pb-20 px-8 md:px-16 max-w-xl mx-auto flex flex-col gap-6"
+    >
+      <DateNav
+        date={selectedDate}
+        today={today}
+        onDateChange={setSelectedDate}
+      />
+      <WordleHints key={selectedDate} date={selectedDate} />
+    </main>
+  );
+}
+
+function WordleHints({ date }: { date: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [answer, setAnswer] = useState("");
@@ -91,14 +108,8 @@ export default function WordleHintPage() {
   }, [tiles]);
 
   useEffect(() => {
-    setTiles(Array.from({ length: 5 }, () => ({ ...EMPTY_TILE })));
-    setYellowPool([]);
-    setFocusedTile(null);
-    setLoading(true);
-    setError(null);
-
     let cancelled = false;
-    fetch(`/api/wordle/${selectedDate}`)
+    fetch(`/api/wordle/${date}`)
       .then((r) => {
         if (!r.ok)
           throw new Error(
@@ -124,7 +135,7 @@ export default function WordleHintPage() {
     return () => {
       cancelled = true;
     };
-  }, [selectedDate]);
+  }, [date]);
 
   const handleTileKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
@@ -232,16 +243,7 @@ export default function WordleHintPage() {
     : false;
 
   return (
-    <main
-      id="main-content"
-      className="min-h-screen bg-surface pt-24 pb-20 px-8 md:px-16 max-w-xl mx-auto flex flex-col gap-6"
-    >
-      <DateNav
-        date={selectedDate}
-        today={today}
-        onDateChange={setSelectedDate}
-      />
-
+    <>
       {loading && (
         <div className="animate-pulse pt-4 flex flex-col gap-6">
           <div className="grid grid-cols-5 gap-2 max-w-xs mx-auto w-full">
@@ -332,6 +334,6 @@ export default function WordleHintPage() {
           </div>
         </>
       )}
-    </main>
+    </>
   );
 }

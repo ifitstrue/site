@@ -30,254 +30,203 @@ export type RecipeSummary = {
 };
 
 export const RECIPES: Record<string, FullRecipe> = {
-  "chocolate-chip-shortbread-cookies": {
-    slug: "chocolate-chip-shortbread-cookies",
-    category: "Baking",
-    title: "Salted Chocolate Chunk Shortbread Cookies",
-    description: "My take on the New York Times' popular recipe",
-    lede: "My take on the NYT recipe, incorporating tweaks from the comments and my own testing. The dough slices much cleaner after a full night in the fridge; two hours is the minimum but overnight is better.",
-    yield: "24 cookies",
-    prepTime: "20 min",
-    cookTime: "20-25 min",
-    cookTimeLabel: "bake",
-    ingredients: [
-      { amount: "255g", name: "salted butter", note: "cold" },
-      { amount: "90g", name: "powdered sugar" },
-      { amount: "60g", name: "light brown sugar" },
-      { amount: "1 tbsp", name: "vanilla extract" },
-      { amount: "325g", name: "pastry flour" },
-      {
-        amount: "180g",
-        name: "chocolate",
-        note: "bittersweet, semi-sweet, or both",
-      },
-      { amount: "1 large", name: "egg", note: "for egg wash" },
-      { amount: "75g", name: "demerara sugar", note: "for coating" },
-      { amount: "20g", name: "flaky sea salt", note: "for finishing" },
-    ],
-    steps: [
-      {
-        instruction:
-          "Using a stand mixer fitted with the paddle attachment, beat the butter, sugars, and vanilla on medium-high until very light and fluffy, 3-5 minutes.",
-      },
-      {
-        instruction:
-          "Turn the mixer off and scrape down the sides. Set the mixer to low.",
-      },
-      {
-        instruction:
-          "Add the flour in about 8 increments, letting each addition become fully incorporated before adding more.",
-      },
-      {
-        instruction:
-          "Turn the mixer off. Add the chocolate to the dough and fold in by hand or with a wooden spoon; don't mix too aggressively.",
-      },
-      {
-        instruction:
-          'Divide the dough into two equal halves and shape each into a log roughly 8" (20cm) long. Wrap in plastic and refrigerate overnight, or for at least 2 hours.',
-      },
-      {
-        instruction: "When ready to bake, preheat the oven to 350°F (180°C).",
-      },
-      {
-        instruction:
-          "Lightly beat the egg in a small bowl. Pour the demerara sugar into a separate shallow bowl. Line two baking sheets with parchment.",
-      },
-      {
-        instruction:
-          "Remove one log from the fridge and use a straight-edge knife to cut it into 12 equal slices.",
-      },
-      {
-        instruction:
-          "Roll the edge of each slice in the egg wash, then press into the demerara sugar to coat.",
-      },
-      {
-        instruction: "Repeat with the second log.",
-      },
-      {
-        instruction:
-          "Place both trays in the oven. After 10 minutes, check and rotate the trays if baking unevenly. Bake another 10-15 minutes for 20-25 minutes total.",
-      },
-      {
-        instruction:
-          "Immediately out of the oven, sprinkle each cookie with flaky sea salt. Cool on the tray for 3-5 minutes, then transfer to a rack for another 10 minutes.",
-      },
-    ],
-  },
-
   "chocolate-chip-cookies": {
     slug: "chocolate-chip-cookies",
     category: "Baking",
-    title: "Classic Chocolate Chip Cookies",
+    title: "My Chocolate Chip Cookies",
     description:
-      "Substantial 60g cookies with a hint of almond and a blend of dark and semi-sweet chocolate.",
-    lede: "A classic chocolate chip cookie, with a hint of almond and a blend of dark and semi-sweet chocolate. Designed to be portioned, frozen, and baked on demand.",
-    yield: "18-20 cookies",
-    prepTime: "20 min",
-    cookTime: "8-10 min",
+      "Big chocolate chip cookies with a hint of almond, made to freeze and bake on demand.",
+    lede:
+      "My version of a classic chocolate chip cookie: substantial 60g cookies with semisweet and dark chocolate, a little almond extract, and plenty of time to chill. I usually freeze the shaped dough so warm cookies are always within reach.",
+    yield: "about 22 cookies",
+    prepTime: "25 min, plus chilling",
+    cookTime: "13-15 min",
     cookTimeLabel: "bake",
     ingredients: [
       { amount: "227g", name: "salted butter", note: "softened" },
       { amount: "205g", name: "granulated sugar" },
       { amount: "205g", name: "light brown sugar", note: "packed" },
-      { amount: "1.5 tsp", name: "pure vanilla extract" },
-      { amount: "0.5 tsp", name: "almond extract" },
-      { amount: "2 large", name: "eggs" },
+      { amount: "1.75 tsp", name: "vanilla extract" },
+      { amount: "0.25 tsp", name: "almond extract" },
+      {
+        amount: "2 large",
+        name: "eggs",
+        note: "at room temperature",
+      },
       { amount: "360g", name: "all-purpose flour" },
       { amount: "1 tsp", name: "baking soda" },
       { amount: "0.5 tsp", name: "baking powder" },
       { amount: "1 tsp", name: "sea salt" },
-      { amount: "200g", name: "dark chocolate chips", note: "7 oz" },
-      { amount: "140g", name: "semi-sweet chocolate chips", note: "5 oz" },
+      {
+        amount: "5-7 oz",
+        name: "semisweet chocolate chips",
+        note: "adjust with the dark chocolate to no more than 12.2 oz total",
+      },
+      {
+        amount: "5-7 oz",
+        name: "dark chocolate chips",
+        note: "adjust with the semisweet chocolate to no more than 12.2 oz total",
+      },
     ],
     steps: [
+      {
+        instruction:
+          "Bring the eggs to room temperature. A room-temperature water bath for 5-10 minutes works well.",
+      },
       {
         instruction:
           "Whisk the flour, baking soda, baking powder, and salt together in a medium bowl; set aside.",
       },
       {
         instruction:
-          "In a stand mixer, cream the butter and both sugars until light and fluffy. Do not overbeat, but ensure no large sugar grains remain.",
+          "Using a hand mixer, cream the softened butter and both sugars until smooth and combined.",
       },
       {
         instruction:
-          "Add the vanilla and almond extracts, then beat in the eggs one at a time for about 1 minute until the mixture is light and aerated.",
+          "Beat the vanilla and almond extracts into the butter mixture before adding the eggs, then beat in the eggs one at a time until the mixture is light.",
       },
       {
         instruction:
-          "Mix in the dry ingredients on low speed until just barely combined. Finish the last few folds by hand to avoid toughening the dough.",
-      },
-      {
-        instruction: "Fold in the chocolate chips until evenly distributed.",
+          "Add the dry ingredients and mix on low for only a few seconds, stopping while a few dry streaks remain.",
       },
       {
         instruction:
-          "Portion the dough into 60g balls. For the best texture, freeze the dough balls on a tray until solid, then transfer to a freezer bag for storage.",
+          "Add the semisweet and dark chocolate chips, then finish mixing by hand with a wooden spoon until the dry streaks disappear. Do not overmix.",
       },
       {
         instruction:
-          "When ready to bake, preheat your oven to 375°F (190°C). Arrange up to 8 dough balls on a parchment-lined sheet.",
+          "Form the dough into 60g balls. Freeze them on a tray until firm, then transfer to an airtight container for baking on demand. If baking the same day, chill the shaped dough for 1-2 hours in the refrigerator or 15-30 minutes in the freezer.",
       },
       {
         instruction:
-          "Bake for 8-10 minutes (add 1-2 minutes if baking from frozen). Remove when the edges are just golden; the centers should still look soft.",
+          "Preheat the oven to 375°F. Arrange the chilled or frozen dough balls on a parchment-lined baking sheet.",
       },
       {
         instruction:
-          "Cool on the pan for 5-10 minutes to set before moving to a wire rack.",
+          "Put the cookies in the oven and immediately lower the temperature to 360°F. Bake one tray for 13-15 minutes. When the tops begin to brown, give them another 1-3 minutes before removing them. If baking two trays, swap and rotate them after 7-8 minutes.",
+      },
+      {
+        instruction:
+          "Let the cookies set on the baking sheet for 5 minutes, then transfer them to a wire rack.",
       },
     ],
     notes:
-      "Adding the extracts before the eggs allows the fat in the butter to better trap and carry the aromatics. Baking from frozen also controls the spread, resulting in a thicker cookie with a chewier center.",
+      "Adapted from The Best Chocolate Chip Cookie Recipe Ever by JoyFoodSunshine: https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/\n\nChilled dough is essential here. Freezing the 60g portions makes it easy to bake only as many cookies as you want.",
   },
 
-  "sun-scented-hour": {
-    slug: "sun-scented-hour",
-    category: "Cocktails",
-    title: "Sun-Scented Hour",
-    description: "A gin drink with orange, allspice, and banana.",
-    lede: "The banana is more for body and a hint of sweetness than flavor, but it makes a big difference. The allspice dram is strong, so measure carefully. This works with mezcal too!",
-    yield: "1 cocktail",
-    prepTime: "5 min",
-    ingredients: [
-      { amount: "1.5 oz", name: "gin" },
-      { amount: "1 oz", name: "Tempus Fugit Crème de Banane" },
-      { amount: "0.5 oz", name: "Cointreau" },
-      { amount: "0.25 oz", name: "St. Elizabeth Allspice Dram" },
-      { amount: "0.5 oz", name: "fresh orange juice" },
-      { amount: "0.5 oz", name: "fresh lemon juice" },
-    ],
-    steps: [
-      {
-        instruction: "Add all ingredients to a cocktail shaker with ice.",
-      },
-      {
-        instruction: "Shake vigorously until well-chilled, about 15 seconds.",
-      },
-      {
-        instruction: "Strain into a coupe or your glass of choice.",
-      },
-    ],
-  },
-
-  "cucumber-mint-martini": {
-    slug: "cucumber-mint-martini",
-    category: "Cocktails",
-    title: "Cucumber Mint Martini",
-    description: "Inspired by our favorite cocktail in Cooperstown, NY",
-    lede: "This is my attempt at our favorite cocktail in Cooperstown, NY: the Norbu Martini. If you're planning on making multiple I recommend the syrup, but in a pinch you can muddle fresh mint and cucumber with simple syrup and lemon juice.",
-    yield: "1 cocktail",
-    prepTime: "5 min",
-    ingredients: [
-      { amount: "2 oz", name: "Hendricks Gin" },
-      { amount: "¾ oz", name: "fresh lemon juice" },
-      {
-        amount: "¾ oz",
-        name: "cucumber mint syrup",
-        note: "see recipe, or use simple syrup and muddle fresh",
-      },
-    ],
-    steps: [
-      {
-        instruction:
-          "Chill a martini glass by filling it with ice water while you build the drink.",
-      },
-      {
-        instruction:
-          "Add the gin, lemon juice, and cucumber mint syrup to a cocktail shaker.",
-      },
-      {
-        instruction:
-          "Fill the shaker with ice and shake vigorously until well-chilled, about 15 seconds.",
-      },
-      {
-        instruction:
-          "Discard the ice water from the glass. Double-strain into the chilled martini glass.",
-      },
-    ],
-    notes:
-      "For the muddled version: muddle 4 mint leaves and 3 cucumber slices with the lemon and simple syrup before you add ice and gin. You can do both for an extra minty, cucumbery drink.",
-  },
-
-  "lapsang-souchong-syrup": {
-    slug: "lapsang-souchong-syrup",
-    category: "Syrups & Shrubs & Ferments",
-    title: "Lapsang Souchong Simple Syrup",
+  "lemon-ricotta-coffee-cake": {
+    slug: "lemon-ricotta-coffee-cake",
+    category: "Baking",
+    title: "Lemon Ricotta Coffee Cake with Sour Cherry Jam",
     description:
-      "Smoky and sweet, made by infusing lapsang souchong tea into a simple syrup.",
-    lede: "Simple syrup infused with lapsang souchong. I love pairing it with mezcal, but it's very versatile.",
-    yield: "about 3 cups",
-    prepTime: "5 min",
-    cookTime: "15 min",
+      "A tender lemon and ricotta coffee cake layered with sour cherry jam and cinnamon streusel.",
+    lede:
+      "Bright lemon, creamy ricotta, and a stripe of sour cherry jam under a cinnamon crumb topping. The streusel goes on after the cake has baked for ten minutes so it stays distinct and craggy.",
+    yield: "one 8-inch square cake",
+    prepTime: "35 min",
+    cookTime: "40-45 min",
+    cookTimeLabel: "bake",
     ingredients: [
-      { amount: "1 cup", name: "loose lapsang souchong tea" },
-      { amount: "4 cups", name: "water" },
       {
-        amount: "equal volume",
-        name: "granulated white sugar",
-        note: "roughly 3-4 cups; measured after straining",
+        amount: "100g",
+        name: "brown sugar for the streusel",
+        note: "dark or light, packed; 1/2 cup",
       },
+      {
+        amount: "60g",
+        name: "all-purpose flour for the streusel",
+        note: "1/2 cup",
+      },
+      { amount: "2 tsp", name: "ground cinnamon" },
+      {
+        amount: "42g",
+        name: "butter for the streusel",
+        note: "cold and cubed",
+      },
+      {
+        amount: "166g",
+        name: "all-purpose flour for the cake",
+        note: "1 1/3 cups plus 1 tbsp",
+      },
+      { amount: "1 tsp", name: "baking powder" },
+      { amount: "0.25 tsp", name: "baking soda" },
+      { amount: "0.25 tsp", name: "salt" },
+      {
+        amount: "2 tbsp",
+        name: "finely grated lemon zest",
+        note: "from about 2 lemons",
+      },
+      { amount: "150g", name: "granulated sugar" },
+      {
+        amount: "56g",
+        name: "butter for the cake",
+        note: "softened to room temperature",
+      },
+      { amount: "40g", name: "almond oil", note: "3 tbsp" },
+      { amount: "1.75 tsp", name: "vanilla extract" },
+      { amount: "0.25 tsp", name: "almond extract" },
+      {
+        amount: "120g",
+        name: "ricotta",
+        note: "at room temperature; 1/2 cup",
+      },
+      {
+        amount: "2 large",
+        name: "eggs",
+        note: "at room temperature",
+      },
+      { amount: "2 tbsp", name: "fresh lemon juice" },
+      {
+        amount: "15g",
+        name: "heavy cream or almond milk",
+        note: "1 tbsp",
+      },
+      { amount: "160g", name: "sour cherry jam" },
     ],
     steps: [
       {
         instruction:
-          "Bring the water to a gentle simmer in a medium saucepan; don't let it reach a rolling boil.",
+          "Lightly butter an 8-inch square pan, line it with parchment paper, and preheat the oven to 350°F.",
       },
       {
         instruction:
-          "Add the tea and steep for 10 minutes, stirring occasionally.",
+          "Make the lemon sugar: combine the lemon zest and granulated sugar in a small bowl, then rub them together with your fingers until fully combined. Cover and set aside.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a large measuring cup. Note the volume of the liquid.",
+          "Make the streusel: combine the brown sugar, 60g flour, and cinnamon. Cut in the cold butter with a fork, pastry cutter, or food processor until pea-sized crumbs form. Refrigerate.",
       },
       {
         instruction:
-          "Return the strained tea to the saucepan over low heat. Add an equal volume of sugar (1:1 ratio) and stir until fully dissolved.",
+          "In a medium bowl, whisk together the 166g flour, baking powder, baking soda, and salt.",
       },
       {
         instruction:
-          "Remove from heat and let cool, then bottle and refrigerate. Keeps for up to 2 weeks.",
+          "Using a handheld or stand mixer, cream the softened butter and lemon sugar on high speed until smooth and creamy, about 5-6 minutes.",
+      },
+      {
+        instruction:
+          "Add the almond oil and beat until combined, about 1 minute. Add the ricotta and beat on medium-high until visibly lighter and fluffier, about 4-5 minutes.",
+      },
+      {
+        instruction:
+          "Beat in the vanilla and almond extracts until just combined. Add the eggs one at a time, then add the lemon juice.",
+      },
+      {
+        instruction:
+          "Beat the dry ingredients into the wet ingredients on low speed until just combined, then beat in the heavy cream or almond milk.",
+      },
+      {
+        instruction:
+          "Spread half the batter evenly in the prepared pan. Carefully spread the sour cherry jam over it without disturbing the batter, then slowly spread the remaining batter over the jam.",
+      },
+      {
+        instruction:
+          "Bake for 10 minutes. Remove the streusel from the refrigerator, cover the cake evenly with it, and return the pan to the oven.",
+      },
+      {
+        instruction:
+          "Bake for another 30-35 minutes, until a toothpick inserted into the center comes out clean.",
       },
     ],
   },
@@ -287,7 +236,8 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Syrups & Shrubs & Ferments",
     title: "Cucumber Mint Syrup",
     description: "A simple 1:2 mint syrup with cucumber juice added in.",
-    lede: "A 1:1 simple syrup with mint steeped in and cucumber juice added after. Mostly I make this for the Cucumber Mint Martini, but it's useful anywhere you'd use a flavored simple.",
+    lede:
+      "A 1:1 simple syrup with mint steeped in and cucumber juice added after. It's useful anywhere you'd use a flavored simple syrup, especially drinks that could use something fresh and green.",
     yield: "about 3 cups",
     prepTime: "15 min",
     cookTime: "10 min",
@@ -330,50 +280,45 @@ export const RECIPES: Record<string, FullRecipe> = {
       "As written, very cucumber-forward. If it's too much, dial the juice back and replace with water. The mint is quieter than you'd expect; steep longer or add more leaves if you want it louder.",
   },
 
-  "fruit-shrub": {
-    slug: "fruit-shrub",
+  "earl-gray-honey-syrup": {
+    slug: "earl-gray-honey-syrup",
     category: "Syrups & Shrubs & Ferments",
-    title: "Fruit Shrub",
-    description:
-      "A vinegar-based syrup that's great in cocktails or mocktails.",
-    lede: "Fruit, sugar, vinegar. Good mixed with sparkling water, good in cocktails. The berry version is the easy entry point; the roasted peach one is worth the extra effort.",
-    yield: "about 2 cups",
+    title: "Earl Gray Honey Syrup",
+    description: "A rich honey syrup infused with Earl Grey tea.",
+    lede:
+      "A floral honey syrup with the citrusy edge of Earl Grey. Useful in cocktails, tea, or anywhere plain honey syrup needs a little more character.",
+    yield: "about 1 cup",
     prepTime: "10 min",
-    cookTime: "24 hr",
-    cookTimeLabel: "macerate",
     ingredients: [
-      { amount: "600g", name: "frozen berries" },
-      { amount: "300g", name: "white cane sugar" },
+      { amount: "130ml", name: "water" },
+      { amount: "200g", name: "honey" },
       {
-        amount: "2 cups",
-        name: "vinegar",
-        note: "cane + red wine, or red wine + white balsamic",
+        amount: "4 bags",
+        name: "Earl Grey tea",
+        note: "or about 10g loose-leaf Earl Grey",
       },
-      { amount: "a few sprigs", name: "fresh thyme", note: "or another herb" },
     ],
     steps: [
       {
-        instruction:
-          "Combine the frozen berries and sugar in a large bowl or container. Leave at room temperature, uncovered, for 24 hours. The berries will thaw and release their juice as the sugar dissolves into a thick syrup.",
+        instruction: "Heat the water until just off boiling.",
       },
       {
         instruction:
-          "Meanwhile, combine the vinegar and thyme sprigs in a separate jar. Let them infuse alongside the berries.",
+          "Add the Earl Grey tea and let it steep for 5-6 minutes.",
       },
       {
         instruction:
-          "After 24 hours, pour the herb-infused vinegar over the berry mixture and stir to combine.",
+          "Remove the tea bags or strain out the loose tea leaves.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer, pressing the berries firmly to extract all the juice.",
+          "Add the honey and stir until it is completely combined with the tea.",
       },
       {
-        instruction: "Bottle and refrigerate. Keeps for several months.",
+        instruction:
+          "Let cool, then transfer to a clean bottle and refrigerate.",
       },
     ],
-    notes:
-      "For the roasted peach version: halve and roast a batch of peaches (throw a few halved lemons in the pan too). Weigh the roasted fruit, then blend and strain. Add sugar at half the fruit weight (demerara is best here) and apple cider vinegar at 1 cup per 500g. Rest a day, then bottle.\n\nOn the vinegar: cane and red wine is what I use, but red wine alone is excellent. Red wine and white balsamic also works well with berries. Champagne vinegar is lighter and more floral if you want to go that direction.",
   },
 
   "lemon-super-juice": {
@@ -381,38 +326,38 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Syrups & Shrubs & Ferments",
     title: "Lemon Super Juice",
     description:
-      "A shelf-stable lemon juice concentrate made with citric and malic acid.",
-    lede: "Easy to make, and highly recommended if you're making cocktails for a party. One batch covers a lot of drinks and keeps for two weeks.",
-    yield: "about 2 cups (16oz)",
-    prepTime: "2 hr 15 min",
+      "An extended lemon juice made from fresh peel, citric acid, and water.",
+    lede:
+      "A concentrated way to stretch the bright oils in lemon peel into a larger batch of juice for cocktails and other drinks.",
+    yield: "about 400ml",
+    prepTime: "45 min",
     ingredients: [
-      { amount: "500g", name: "water" },
-      { amount: "15g", name: "sugar" },
-      { amount: "30g", name: "lemon peel", note: "from 1-3 lemons" },
-      { amount: "27g", name: "citric acid" },
-      { amount: "3g", name: "malic acid" },
+      { amount: "24g", name: "lemon peel" },
+      { amount: "24g", name: "citric acid" },
+      { amount: "400g", name: "water" },
       { amount: "1g", name: "salt" },
+      { amount: "1g", name: "sugar" },
     ],
     steps: [
       {
         instruction:
-          "Peel the lemons, keeping the peels in roughly fingernail-sized pieces.",
+          "Cut the lemon peel into roughly fingernail-sized pieces.",
       },
       {
         instruction:
-          "Combine the peels, sugar, citric acid, malic acid, and salt in a bowl or jar. Stir to combine.",
+          "Combine the peel, citric acid, salt, and sugar in a bowl or jar, stirring until the peel is evenly coated.",
       },
       {
         instruction:
-          "Let the mixture sit at room temperature, stirring once every 30 minutes, for 2 hours. The acids will draw the oils out of the peels.",
+          "Let the peel mixture rest at room temperature for about 30 minutes so the acid can draw out the citrus oils.",
       },
       {
         instruction:
-          "Add the water and blend lightly, just enough to incorporate. The peels should still be roughly fingernail-sized when you're done; over-blending will make it bitter.",
+          "Add the water and blend lightly, just enough to incorporate. Avoid over-blending, which can make the juice bitter.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a sanitized bottle. Keeps refrigerated for up to 2 weeks.",
+          "Strain through a fine mesh strainer into a clean bottle and refrigerate.",
       },
     ],
   },
@@ -422,139 +367,46 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Syrups & Shrubs & Ferments",
     title: "Lime Super Juice",
     description:
-      "A shelf-stable lime juice concentrate made with citric and malic acid.",
-    lede: "Easy to make, and highly recommended if you're making cocktails for a party. One batch covers a lot of drinks and keeps for two weeks.",
-    yield: "about 2 cups (16oz)",
-    prepTime: "2 hr 15 min",
+      "An extended lime juice made from fresh peel, citric and malic acids, and water.",
+    lede:
+      "A concentrated way to stretch the aromatic oils in lime peel into a larger batch of juice for cocktails and other drinks.",
+    yield: "about 400ml",
+    prepTime: "45 min",
     ingredients: [
-      { amount: "500g", name: "water" },
-      { amount: "15g", name: "sugar" },
-      { amount: "20g", name: "lime peel", note: "from 2-4 limes" },
-      { amount: "24g", name: "citric acid" },
-      { amount: "12g", name: "malic acid" },
-      { amount: "1g", name: "sea salt" },
+      { amount: "24g", name: "lime peel" },
+      { amount: "16g", name: "citric acid" },
+      { amount: "8g", name: "malic acid" },
+      { amount: "400g", name: "water" },
+      { amount: "1g", name: "salt" },
+      { amount: "1g", name: "sugar" },
     ],
     steps: [
       {
         instruction:
-          "Peel the limes, keeping the peels in roughly fingernail-sized pieces.",
+          "Cut the lime peel into roughly fingernail-sized pieces.",
       },
       {
         instruction:
-          "Combine the peels, sugar, citric acid, malic acid, and sea salt in a bowl or jar. Stir to combine.",
+          "Combine the peel, citric acid, malic acid, salt, and sugar in a bowl or jar, stirring until the peel is evenly coated.",
       },
       {
         instruction:
-          "Let the mixture sit at room temperature, stirring once every 30 minutes, for 2 hours. The acids will draw the oils out of the peels.",
+          "Let the peel mixture rest at room temperature for about 30 minutes so the acids can draw out the citrus oils.",
       },
       {
         instruction:
-          "Add the water and blend lightly, just enough to incorporate. The peels should still be roughly fingernail-sized when you're done; over-blending will make it bitter.",
+          "Add the water and blend lightly, just enough to incorporate. Avoid over-blending, which can make the juice bitter.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a sanitized bottle. Keeps refrigerated for up to 2 weeks.",
+          "Strain through a fine mesh strainer into a clean bottle and refrigerate.",
       },
     ],
-  },
-
-  tepache: {
-    slug: "tepache",
-    category: "Syrups & Shrubs & Ferments",
-    title: "Tepache",
-    description: "A traditional Mexican fermented drink made from pineapple.",
-    lede: "Fermented pineapple drink made from the rinds and core. Takes about 3 days, most of which is just waiting. This is very hard to mess up, so it's a great intro to fermentation! The flavor is lightly sweet, mildly tangy, and faintly fizzy. Store in the fridge for up to two weeks; it will continue to ferment and become more sour over time.",
-    yield: "about 1.5 L",
-    prepTime: "20 min",
-    cookTime: "2-3 days",
-    cookTimeLabel: "ferment",
-    ingredients: [
-      {
-        amount: "1 whole",
-        name: "pineapple",
-        note: "overripe, organic preferred",
-      },
-      {
-        amount: "100g",
-        name: "piloncillo or brown sugar",
-        note: "reduce to 50g if you prefer less sweet",
-      },
-      {
-        amount: "to fill",
-        name: "water",
-        note: "about 1.8 L for a 2 L jar; leave ~5 cm headspace",
-      },
-      {
-        amount: "2-3",
-        name: "cinnamon sticks",
-        note: "added after the first 24 hours",
-      },
-      {
-        amount: "1 pod",
-        name: "star anise",
-        note: "optional",
-      },
-      {
-        amount: "6",
-        name: "allspice berries",
-        note: "optional",
-      },
-      {
-        amount: "4g",
-        name: "active dry yeast",
-        note: "optional; only if fermentation is slow to start",
-      },
-    ],
-    steps: [
-      {
-        instruction:
-          "Wash the exterior of the pineapple thoroughly, especially if it's not organic.",
-      },
-      {
-        instruction:
-          "Cut the rind and core away in large pieces, leaving some flesh attached. Set the pineapple flesh aside for another use.",
-      },
-      {
-        instruction:
-          "Warm about 500 mL of the water in a saucepan over medium heat. Add the piloncillo or sugar, plus the star anise and allspice if using. Stir until the sugar is fully dissolved. Remove from heat and let cool to lukewarm.",
-      },
-      {
-        instruction:
-          "Pack the rind and core pieces into a 2 L jar. Pour in the spiced sugar water, then add remaining water to fill, leaving about 5 cm of headspace. If using yeast, sprinkle it in now.",
-      },
-      {
-        instruction:
-          "Cover with a clean cloth or cheesecloth secured with a rubber band or string. Do not seal airtight. Place in a warm spot, ideally 27-32°C.",
-      },
-      {
-        instruction:
-          "After 24 hours, fermentation should be visible: white bubbles forming on the surface. Add the cinnamon sticks.",
-      },
-      {
-        instruction:
-          "Continue fermenting for another 1-2 days, tasting as you go. The tepache is ready when it's lightly sweet, mildly tangy, and faintly fizzy. Total time is typically 2-3 days.",
-      },
-      {
-        instruction:
-          "Strain through a fine mesh strainer into a swing-top bottle or large jar.",
-      },
-      {
-        instruction:
-          "Optional: seal the bottle and leave at room temperature for another 12 hours to build additional carbonation.",
-      },
-      {
-        instruction:
-          "Refrigerate for at least 24 hours before opening. Open slowly and over a sink.",
-      },
-    ],
-    notes:
-      "Don't go past 3 days or it turns to vinegar (not bad, just different). Temperature is the main variable; warmer means faster. You can run a second batch with the same rinds and core; it'll go faster the second time.\n\nWhite bubbles on the surface after 24 hours are normal fermentation activity. If you don't see any bubbles after 48 hours, you can add a pinch of active dry yeast to kickstart it. If you see pink or orange discoloration, or if it smells off (like rotten fruit), discard and start over.",
   },
 };
 
 const CATEGORY_ORDER: Array<{ id: string; label: string }> = [
   { id: "baking", label: "Baking" },
-  { id: "cocktails", label: "Cocktails" },
   { id: "syrups", label: "Syrups & Shrubs & Ferments" },
 ];
 
@@ -562,6 +414,6 @@ export const CATEGORIES = CATEGORY_ORDER.map(({ id, label }) => ({
   id,
   label,
   recipes: Object.values(RECIPES)
-    .filter((r) => r.category === label)
+    .filter((recipe) => recipe.category === label)
     .map(({ slug, title, description }) => ({ slug, title, description })),
 }));

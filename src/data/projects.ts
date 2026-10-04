@@ -28,13 +28,6 @@ export const PROJECTS: Project[] = [
     href: "/tools/wordle",
   },
   {
-    slug: "liars-dice",
-    title: "Liar's Dice",
-    description:
-      "A companion app for the classic bluffing dice game. Replaces physical cups and dice; shake your phone to roll!",
-    href: "/games/liarsdice",
-  },
-  {
     slug: "personal-site",
     title: "Personal Site",
     description: "Where you are, right now! Written in Next.js + TypeScript",
