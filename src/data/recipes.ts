@@ -37,7 +37,7 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Baking",
     title: "My Chocolate Chip Cookies",
     lede:
-      "Hi! Here's the cookie recipe I use! This ended up being way longer than I thought it would be haha\n\nI make it with a few changes, form the cookie dough balls, then freeze them to bake on demand. I highly recommend doing that haha, but if you don't do that then you should chill the dough (formed as balls or still in the bowl) in the fridge for 1-2 hours or in the freezer for 15-30 minutes. Chilled dough is super important for cookies!!",
+      "I form the cookie dough balls, then freeze them to bake on demand. I highly recommend doing that haha, but if you don't do that then you should chill the dough in the fridge for 1-2 hours or in the freezer for 15-30 minutes. Chilled dough is super important for cookies!!",
     yield: "around 22 cookies",
     cookTime: "13-15 min",
     cookTimeLabel: "bake",
@@ -57,56 +57,46 @@ export const RECIPES: Record<string, FullRecipe> = {
       { amount: "0.5 tsp", name: "baking powder" },
       { amount: "1 tsp", name: "sea salt" },
       {
-        amount: "5-7 oz",
-        name: "semisweet chocolate chips",
-        note: "depending on mood (I never put more than 12.2oz total)",
-      },
-      {
-        amount: "5-7 oz",
-        name: "dark chocolate chips",
-        note: "depending on mood (I never put more than 12.2oz total)",
+        amount: "up to 12.2 oz total",
+        name: "semisweet and dark chocolate chips",
+        note: "I use 5-7 oz of each, depending on mood",
       },
     ],
     steps: [
+      {
+        instruction:
+          "Bring the eggs to room temperature before mixing. I like putting them in a water bath that's roughly room temp for like 5-10 minutes.",
+      },
       {
         instruction:
           "Mix the flour, baking soda, baking powder, and salt together in a medium bowl.",
       },
       {
         instruction:
-          "I use a hand mixer because it works just as well as my stand mixer for this",
+          "Cream together the butter and sugars until combined. I use a hand mixer because it works just as well as my stand mixer for this.",
       },
       {
         instruction:
-          "Cream together the butter and sugars until combined.",
+          "Add the vanilla and almond extracts. Combine them with the butter before the eggs, so that they can bind to the butter better.",
+      },
+      {
+        instruction: "Add the eggs one at a time and mix until just combined.",
       },
       {
         instruction:
-          "2tsp vanilla extract: I do 1.75tsp vanilla extract + 0.25tsp almond extract instead. Combine this with the butter before the eggs, so that it can bind to the butter better",
+          "When making cookies, it's important to mix until just combined. Mix the dry ingredients into the wet ingredients until they're almost combined; there should still be some dry streaks, but the hard part should be done. This usually takes just a few seconds with the hand mixer. Add the chocolate chips and finish mixing with a wooden spoon or something similar. You can also mix entirely by hand if you want to play it safe, but it takes a while.",
       },
       {
         instruction:
-          "2 large eggs: bring to room temp before mixing. I like putting them in a water bath that's roughly room temp for like 5-10 minutes",
+          "Form the dough into 60g balls. I make around 22. If you don't have a scale, that's probably like 3-4 tablespoons (4 tbsp is 1/4 cup).",
       },
       {
         instruction:
-          "When making cookies, it's important to mix until just combined. So when mixing the dry and wet ingredients together, use the mixer until it's almost combined; there should still be some dry streaks, but the hard part should be done. This usually takes just a few seconds with the hand mixer. From there, add the chocolate chips and finish mixing with a wooden spoon or something similar (you can also mix entirely by hand if you want to play it safe, but it takes a while)",
+          "Freeze the dough balls to bake on demand. If you don't do that, chill the dough—formed as balls or still in the bowl—in the fridge for 1-2 hours or in the freezer for 15-30 minutes.",
       },
       {
         instruction:
-          "12oz chocolate chips: I do between 5-7oz each of semisweet and dark chocolate chips, depending on mood (I never put more than 12.2oz total)",
-      },
-      {
-        instruction:
-          "When forming, I form 60g balls. The recipe says it makes 36, but I make around 22 with the 60g balls. So if you don't have a scale, that's probably like 3-4 tablespoons? (4tbsp is 1/4 cup)",
-      },
-      {
-        instruction:
-          "I make it with a few changes, form the cookie dough balls, then freeze them to bake on demand. I highly recommend doing that haha, but if you don't do that then you should chill the dough (formed as balls or still in the bowl) in the fridge for 1-2 hours or in the freezer for 15-30 minutes. Chilled dough is super important for cookies!!",
-      },
-      {
-        instruction:
-          "Preheat the oven to 375°F. Right after putting the cookies in the oven, lower the oven temp to 360. Bake for 13-15 minutes. I've never baked more than one tray at a time, but if you do then you should probably swap + rotate the trays after roughly 7-8 minutes. The recipe says to take them out \"when they are just barely starting to turn brown\". I look to see when the tops are starting to brown, then wait another 1-3 minutes. (I start high and lower it because I prefer 360, and opening the oven loses about 5-10 degrees)",
+          "Preheat the oven to 375°F. Right after putting the cookies in the oven, lower the oven temp to 360°F. Bake for 13-15 minutes. I look to see when the tops are starting to brown, then wait another 1-3 minutes. I've never baked more than one tray at a time, but if you do, you should probably swap and rotate the trays after roughly 7-8 minutes. I start high and lower it because I prefer 360°F, and opening the oven loses about 5-10 degrees.",
       },
     ],
     notes:
@@ -135,12 +125,12 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         amount: "42g",
         name: "butter",
-        note: "cold and cubed; 4 tbsp",
+        note: "cold and cubed",
       },
       {
         amount: "166g",
         name: "all-purpose flour",
-        note: "1.33 cups + 1 tbsp",
+        note: "1⅓ cups + 1 tbsp",
         group: "Cake",
       },
       { amount: "1 tsp", name: "baking powder" },
@@ -184,7 +174,7 @@ export const RECIPES: Record<string, FullRecipe> = {
           "Lightly butter an 8-inch square pan and line it with parchment paper",
       },
       {
-        instruction: "Preheat oven at 350°F",
+        instruction: "Preheat the oven to 350°F",
       },
       {
         heading: "Make Lemon Sugar",
@@ -235,7 +225,7 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         heading: "Make wet ingredients",
         instruction:
-          "Add the ricotta and beat on medium-high speed until the mixture is visibly lighter and fluffier; rougly 4-5 minutes",
+          "Add the ricotta and beat on medium-high speed until the mixture is visibly lighter and fluffier; roughly 4-5 minutes",
       },
       {
         heading: "Make wet ingredients",
@@ -269,7 +259,7 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         heading: "Layer",
         instruction:
-          "Slowly pour the remaining batter overtop the jam layer",
+          "Slowly pour the remaining batter over the jam layer",
       },
       {
         heading: "Bake",
@@ -293,9 +283,9 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "cucumber-mint-syrup",
     category: "Syrups & Shrubs & Ferments",
     title: "Cucumber Mint Syrup",
-    description: "A simple 1:2 mint syrup with cucumber juice added in.",
+    description: "A mint syrup with cucumber juice added in.",
     lede:
-      "A 1:1 simple syrup with mint steeped in and cucumber juice added after. Mostly I make this for the Cucumber Mint Martini, but it's useful anywhere you'd use a flavored simple.",
+      "A rich simple syrup with mint steeped in and cucumber juice added after. Mostly I make this for the Cucumber Mint Martini, but it's useful anywhere you'd use a flavored simple.",
     yield: "about 3 cups",
     prepTime: "15 min",
     cookTime: "10 min",
@@ -341,7 +331,7 @@ export const RECIPES: Record<string, FullRecipe> = {
   "earl-gray-honey-syrup": {
     slug: "earl-gray-honey-syrup",
     category: "Syrups & Shrubs & Ferments",
-    title: "Earl Gray Honey Syrup",
+    title: "Earl Grey Honey Syrup",
     ingredients: [
       { amount: "130ml", name: "water" },
       { amount: "200g", name: "honey" },
@@ -352,11 +342,11 @@ export const RECIPES: Record<string, FullRecipe> = {
       },
     ],
     steps: [
-      { instruction: "Heat the water to just off boiling" },
-      { instruction: "Add the 4 Earl Grey tea bags" },
-      { instruction: "Wait 5-6 minutes for the tea to steep" },
-      { instruction: "Remove the tea bags" },
-      { instruction: "Add the honey, and stir until combined" },
+      { instruction: "Heat the water to just off boiling." },
+      { instruction: "Add the Earl Grey tea bags." },
+      { instruction: "Wait 5-6 minutes for the tea to steep." },
+      { instruction: "Remove the tea bags." },
+      { instruction: "Add the honey and stir until combined." },
     ],
   },
 

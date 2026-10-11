@@ -18,7 +18,7 @@ describe("recipe catalogue", () => {
         label: "Syrups & Shrubs & Ferments",
         titles: [
           "Cucumber Mint Syrup",
-          "Earl Gray Honey Syrup",
+          "Earl Grey Honey Syrup",
           "Lemon Super Juice",
           "Lime Super Juice",
         ],
@@ -42,7 +42,7 @@ describe("recipe catalogue", () => {
     },
   );
 
-  it("preserves the Earl Gray Honey Syrup method verbatim", () => {
+  it("keeps the Earl Grey Honey Syrup method complete and concise", () => {
     const recipe = RECIPES["earl-gray-honey-syrup"];
 
     expect(recipe).not.toHaveProperty("description");
@@ -50,11 +50,11 @@ describe("recipe catalogue", () => {
     expect(recipe).not.toHaveProperty("yield");
     expect(recipe).not.toHaveProperty("prepTime");
     expect(recipe.steps).toEqual([
-      { instruction: "Heat the water to just off boiling" },
-      { instruction: "Add the 4 Earl Grey tea bags" },
-      { instruction: "Wait 5-6 minutes for the tea to steep" },
-      { instruction: "Remove the tea bags" },
-      { instruction: "Add the honey, and stir until combined" },
+      { instruction: "Heat the water to just off boiling." },
+      { instruction: "Add the Earl Grey tea bags." },
+      { instruction: "Wait 5-6 minutes for the tea to steep." },
+      { instruction: "Remove the tea bags." },
+      { instruction: "Add the honey and stir until combined." },
     ]);
   });
 
@@ -72,7 +72,7 @@ describe("recipe catalogue", () => {
     });
   });
 
-  it("keeps Andrew's cookie notes in Andrew's words", () => {
+  it("presents the cookie recipe as a standalone web recipe", () => {
     const recipe = RECIPES["chocolate-chip-cookies"];
     const authoredText = [
       recipe.lede,
@@ -80,7 +80,7 @@ describe("recipe catalogue", () => {
     ].join("\n");
 
     expect(authoredText).toContain(
-      "I make it with a few changes, form the cookie dough balls, then freeze them to bake on demand.",
+      "I form the cookie dough balls, then freeze them to bake on demand.",
     );
     expect(authoredText).toContain(
       "Chilled dough is super important for cookies!!",
@@ -88,5 +88,26 @@ describe("recipe catalogue", () => {
     expect(authoredText).toContain(
       "I use a hand mixer because it works just as well as my stand mixer for this",
     );
+    expect(authoredText).not.toContain("Hi!");
+    expect(authoredText).not.toContain("the recipe says");
+    expect(authoredText).not.toContain("2tsp vanilla extract:");
+    expect(authoredText).not.toContain("12oz chocolate chips:");
+    expect(recipe.steps[0].instruction).toContain("room temperature");
+    expect(recipe.steps.at(-1)?.instruction).toContain("Bake for 13-15 minutes");
+  });
+
+  it("does not publish contradictory or text-message-only copy", () => {
+    const allText = JSON.stringify(RECIPES);
+    const streuselButter = RECIPES["lemon-ricotta-coffee-cake"].ingredients.find(
+      (ingredient) => ingredient.amount === "42g" && ingredient.name === "butter",
+    );
+
+    expect(streuselButter?.note).toBe("cold and cubed");
+    expect(allText).not.toContain("rougly");
+    expect(allText).not.toContain("1.33 cups");
+    expect(RECIPES["cucumber-mint-syrup"].description).toBe(
+      "A mint syrup with cucumber juice added in.",
+    );
+    expect(RECIPES["cucumber-mint-syrup"].lede).not.toContain("1:1");
   });
 });
