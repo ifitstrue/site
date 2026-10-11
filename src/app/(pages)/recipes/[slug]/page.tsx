@@ -28,8 +28,8 @@ export default async function RecipePage({
   if (!recipe) notFound();
 
   const metaTags = [
-    recipe.yield,
-    `${recipe.prepTime} prep`,
+    ...(recipe.yield ? [recipe.yield] : []),
+    ...(recipe.prepTime ? [`${recipe.prepTime} prep`] : []),
     ...(recipe.cookTime ? [`${recipe.cookTime} ${recipe.cookTimeLabel ?? "cook"}`] : []),
   ];
 
@@ -50,12 +50,16 @@ export default async function RecipePage({
           {recipe.title}
         </h1>
         <div className="mt-6 h-0.5 bg-tertiary-fixed-dim" />
-        <p className="mt-5 font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
-          {metaTags.join(" • ")}
-        </p>
-        <p className="mt-5 font-headline italic text-on-surface-variant text-lg leading-relaxed">
-          {recipe.lede}
-        </p>
+        {metaTags.length > 0 && (
+          <p className="mt-5 font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
+            {metaTags.join(" • ")}
+          </p>
+        )}
+        {recipe.lede && (
+          <p className="mt-5 font-headline italic text-on-surface-variant text-lg leading-relaxed whitespace-pre-line">
+            {recipe.lede}
+          </p>
+        )}
       </div>
 
       <section className="mb-14">
@@ -69,22 +73,26 @@ export default async function RecipePage({
         </div>
         <div className="h-px bg-outline-variant" />
         <div>
-          {recipe.ingredients.map((ingredient) => (
-            <div
-              key={ingredient.name}
-              className="flex items-baseline gap-6 py-4 border-b border-outline-variant/40 last:border-0"
-            >
-              <span className="font-label text-xs tracking-widest text-tertiary uppercase w-20 shrink-0 text-right leading-relaxed">
-                {formatAmount(ingredient.amount)}
-              </span>
-              <span className="font-body text-on-surface text-sm">
-                {ingredient.name}
-                {ingredient.note && (
-                  <span className="text-on-surface/60 text-[0.8rem] ml-2 font-medium">
-                    ({ingredient.note})
-                  </span>
-                )}
-              </span>
+          {recipe.ingredients.map((ingredient, i) => (
+            <div key={`${ingredient.group ?? "ingredient"}-${ingredient.name}-${i}`}>
+              {ingredient.group && (
+                <p className="font-label text-[10px] tracking-[0.25em] uppercase text-tertiary pt-6 pb-1">
+                  {ingredient.group}
+                </p>
+              )}
+              <div className="flex items-baseline gap-6 py-4 border-b border-outline-variant/40">
+                <span className="font-label text-xs tracking-widest text-tertiary uppercase w-20 shrink-0 text-right leading-relaxed">
+                  {formatAmount(ingredient.amount)}
+                </span>
+                <span className="font-body text-on-surface text-sm">
+                  {ingredient.name}
+                  {ingredient.note && (
+                    <span className="text-on-surface/60 text-[0.8rem] ml-2 font-medium">
+                      ({ingredient.note})
+                    </span>
+                  )}
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -110,9 +118,17 @@ export default async function RecipePage({
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              <p className="font-body text-on-surface text-sm leading-relaxed">
-                {step.instruction}
-              </p>
+              <div>
+                {step.heading &&
+                  (i === 0 || recipe.steps[i - 1].heading !== step.heading) && (
+                    <p className="font-label text-[10px] tracking-[0.2em] uppercase text-tertiary mb-2">
+                      {step.heading}
+                    </p>
+                  )}
+                <p className="font-body text-on-surface text-sm leading-relaxed">
+                  {step.instruction}
+                </p>
+              </div>
             </div>
           ))}
         </div>

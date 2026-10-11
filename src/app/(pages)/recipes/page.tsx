@@ -26,9 +26,11 @@ function RecipeRow({
           </span>
         )}
       </div>
-      <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-4">
-        {recipe.description}
-      </p>
+      {recipe.description && (
+        <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-4">
+          {recipe.description}
+        </p>
+      )}
       <div className="absolute left-0 bottom-0 h-px w-full bg-outline-variant group-hover:bg-tertiary-fixed-dim transition-colors duration-300" />
     </div>
   );

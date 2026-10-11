@@ -2,20 +2,22 @@ export type Ingredient = {
   amount: string;
   name: string;
   note?: string;
+  group?: string;
 };
 
 export type Step = {
   instruction: string;
+  heading?: string;
 };
 
 export type FullRecipe = {
   slug: string;
   category: string;
   title: string;
-  description: string;
-  lede: string;
-  yield: string;
-  prepTime: string;
+  description?: string;
+  lede?: string;
+  yield?: string;
+  prepTime?: string;
   cookTime?: string;
   cookTimeLabel?: string;
   ingredients: Ingredient[];
@@ -26,7 +28,7 @@ export type FullRecipe = {
 export type RecipeSummary = {
   slug: string;
   title: string;
-  description: string;
+  description?: string;
 };
 
 export const RECIPES: Record<string, FullRecipe> = {
@@ -34,12 +36,9 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "chocolate-chip-cookies",
     category: "Baking",
     title: "My Chocolate Chip Cookies",
-    description:
-      "Big chocolate chip cookies with a hint of almond, made to freeze and bake on demand.",
     lede:
-      "My version of a classic chocolate chip cookie: substantial 60g cookies with semisweet and dark chocolate, a little almond extract, and plenty of time to chill. I usually freeze the shaped dough so warm cookies are always within reach.",
-    yield: "about 22 cookies",
-    prepTime: "25 min, plus chilling",
+      "Hi! Here's the cookie recipe I use! This ended up being way longer than I thought it would be haha\n\nI make it with a few changes, form the cookie dough balls, then freeze them to bake on demand. I highly recommend doing that haha, but if you don't do that then you should chill the dough (formed as balls or still in the bowl) in the fridge for 1-2 hours or in the freezer for 15-30 minutes. Chilled dough is super important for cookies!!",
+    yield: "around 22 cookies",
     cookTime: "13-15 min",
     cookTimeLabel: "bake",
     ingredients: [
@@ -60,107 +59,103 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         amount: "5-7 oz",
         name: "semisweet chocolate chips",
-        note: "adjust with the dark chocolate to no more than 12.2 oz total",
+        note: "depending on mood (I never put more than 12.2oz total)",
       },
       {
         amount: "5-7 oz",
         name: "dark chocolate chips",
-        note: "adjust with the semisweet chocolate to no more than 12.2 oz total",
+        note: "depending on mood (I never put more than 12.2oz total)",
       },
     ],
     steps: [
       {
         instruction:
-          "Bring the eggs to room temperature. A room-temperature water bath for 5-10 minutes works well.",
+          "Mix the flour, baking soda, baking powder, and salt together in a medium bowl.",
       },
       {
         instruction:
-          "Whisk the flour, baking soda, baking powder, and salt together in a medium bowl; set aside.",
+          "I use a hand mixer because it works just as well as my stand mixer for this",
       },
       {
         instruction:
-          "Using a hand mixer, cream the softened butter and both sugars until smooth and combined.",
+          "Cream together the butter and sugars until combined.",
       },
       {
         instruction:
-          "Beat the vanilla and almond extracts into the butter mixture before adding the eggs, then beat in the eggs one at a time until the mixture is light.",
+          "2tsp vanilla extract: I do 1.75tsp vanilla extract + 0.25tsp almond extract instead. Combine this with the butter before the eggs, so that it can bind to the butter better",
       },
       {
         instruction:
-          "Add the dry ingredients and mix on low for only a few seconds, stopping while a few dry streaks remain.",
+          "2 large eggs: bring to room temp before mixing. I like putting them in a water bath that's roughly room temp for like 5-10 minutes",
       },
       {
         instruction:
-          "Add the semisweet and dark chocolate chips, then finish mixing by hand with a wooden spoon until the dry streaks disappear. Do not overmix.",
+          "When making cookies, it's important to mix until just combined. So when mixing the dry and wet ingredients together, use the mixer until it's almost combined; there should still be some dry streaks, but the hard part should be done. This usually takes just a few seconds with the hand mixer. From there, add the chocolate chips and finish mixing with a wooden spoon or something similar (you can also mix entirely by hand if you want to play it safe, but it takes a while)",
       },
       {
         instruction:
-          "Form the dough into 60g balls. Freeze them on a tray until firm, then transfer to an airtight container for baking on demand. If baking the same day, chill the shaped dough for 1-2 hours in the refrigerator or 15-30 minutes in the freezer.",
+          "12oz chocolate chips: I do between 5-7oz each of semisweet and dark chocolate chips, depending on mood (I never put more than 12.2oz total)",
       },
       {
         instruction:
-          "Preheat the oven to 375°F. Arrange the chilled or frozen dough balls on a parchment-lined baking sheet.",
+          "When forming, I form 60g balls. The recipe says it makes 36, but I make around 22 with the 60g balls. So if you don't have a scale, that's probably like 3-4 tablespoons? (4tbsp is 1/4 cup)",
       },
       {
         instruction:
-          "Put the cookies in the oven and immediately lower the temperature to 360°F. Bake one tray for 13-15 minutes. When the tops begin to brown, give them another 1-3 minutes before removing them. If baking two trays, swap and rotate them after 7-8 minutes.",
+          "I make it with a few changes, form the cookie dough balls, then freeze them to bake on demand. I highly recommend doing that haha, but if you don't do that then you should chill the dough (formed as balls or still in the bowl) in the fridge for 1-2 hours or in the freezer for 15-30 minutes. Chilled dough is super important for cookies!!",
       },
       {
         instruction:
-          "Let the cookies set on the baking sheet for 5 minutes, then transfer them to a wire rack.",
+          "Preheat the oven to 375°F. Right after putting the cookies in the oven, lower the oven temp to 360. Bake for 13-15 minutes. I've never baked more than one tray at a time, but if you do then you should probably swap + rotate the trays after roughly 7-8 minutes. The recipe says to take them out \"when they are just barely starting to turn brown\". I look to see when the tops are starting to brown, then wait another 1-3 minutes. (I start high and lower it because I prefer 360, and opening the oven loses about 5-10 degrees)",
       },
     ],
     notes:
-      "Adapted from The Best Chocolate Chip Cookie Recipe Ever by JoyFoodSunshine: https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/\n\nChilled dough is essential here. Freezing the 60g portions makes it easy to bake only as many cookies as you want.",
+      "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/#wprm-recipe-container-8678",
   },
 
   "lemon-ricotta-coffee-cake": {
     slug: "lemon-ricotta-coffee-cake",
     category: "Baking",
     title: "Lemon Ricotta Coffee Cake with Sour Cherry Jam",
-    description:
-      "A tender lemon and ricotta coffee cake layered with sour cherry jam and cinnamon streusel.",
-    lede:
-      "Bright lemon, creamy ricotta, and a stripe of sour cherry jam under a cinnamon crumb topping. The streusel goes on after the cake has baked for ten minutes so it stays distinct and craggy.",
-    yield: "one 8-inch square cake",
-    prepTime: "35 min",
     cookTime: "40-45 min",
     cookTimeLabel: "bake",
     ingredients: [
       {
         amount: "100g",
-        name: "brown sugar for the streusel",
-        note: "dark or light, packed; 1/2 cup",
+        name: "packed dark or light brown sugar",
+        note: "1/2 cup",
+        group: "Streusel",
       },
       {
         amount: "60g",
-        name: "all-purpose flour for the streusel",
+        name: "all-purpose flour",
         note: "1/2 cup",
       },
       { amount: "2 tsp", name: "ground cinnamon" },
       {
         amount: "42g",
-        name: "butter for the streusel",
-        note: "cold and cubed",
+        name: "butter",
+        note: "cold and cubed; 4 tbsp",
       },
       {
         amount: "166g",
-        name: "all-purpose flour for the cake",
-        note: "1 1/3 cups plus 1 tbsp",
+        name: "all-purpose flour",
+        note: "1.33 cups + 1 tbsp",
+        group: "Cake",
       },
       { amount: "1 tsp", name: "baking powder" },
       { amount: "0.25 tsp", name: "baking soda" },
       { amount: "0.25 tsp", name: "salt" },
       {
         amount: "2 tbsp",
-        name: "finely grated lemon zest",
-        note: "from about 2 lemons",
+        name: "lemon zest",
+        note: "2 lemons",
       },
       { amount: "150g", name: "granulated sugar" },
       {
         amount: "56g",
-        name: "butter for the cake",
-        note: "softened to room temperature",
+        name: "butter",
+        note: "softened to room temperature; 4 tbsp",
       },
       { amount: "40g", name: "almond oil", note: "3 tbsp" },
       { amount: "1.75 tsp", name: "vanilla extract" },
@@ -186,47 +181,110 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Lightly butter an 8-inch square pan, line it with parchment paper, and preheat the oven to 350°F.",
+          "Lightly butter an 8-inch square pan and line it with parchment paper",
       },
       {
-        instruction:
-          "Make the lemon sugar: combine the lemon zest and granulated sugar in a small bowl, then rub them together with your fingers until fully combined. Cover and set aside.",
+        instruction: "Preheat oven at 350°F",
       },
       {
-        instruction:
-          "Make the streusel: combine the brown sugar, 60g flour, and cinnamon. Cut in the cold butter with a fork, pastry cutter, or food processor until pea-sized crumbs form. Refrigerate.",
+        heading: "Make Lemon Sugar",
+        instruction: "Combine the lemon zest with the sugar in a small bowl",
       },
       {
+        heading: "Make Lemon Sugar",
         instruction:
-          "In a medium bowl, whisk together the 166g flour, baking powder, baking soda, and salt.",
+          "Rub the sugar and zest together with your fingers, until fully combined",
       },
       {
-        instruction:
-          "Using a handheld or stand mixer, cream the softened butter and lemon sugar on high speed until smooth and creamy, about 5-6 minutes.",
+        heading: "Make Lemon Sugar",
+        instruction: "Cover and set aside",
       },
       {
+        heading: "Make cinnamon crumb topping",
         instruction:
-          "Add the almond oil and beat until combined, about 1 minute. Add the ricotta and beat on medium-high until visibly lighter and fluffier, about 4-5 minutes.",
+          "Combine the brown sugar, all-purpose flour, and ground cinnamon",
       },
       {
+        heading: "Make cinnamon crumb topping",
         instruction:
-          "Beat in the vanilla and almond extracts until just combined. Add the eggs one at a time, then add the lemon juice.",
+          "Cut in the butter with a fork, pastry cutter, or food processor",
       },
       {
-        instruction:
-          "Beat the dry ingredients into the wet ingredients on low speed until just combined, then beat in the heavy cream or almond milk.",
+        heading: "Make cinnamon crumb topping",
+        instruction: "Mix until the mixture is in pea-sized crumbs",
       },
       {
-        instruction:
-          "Spread half the batter evenly in the prepared pan. Carefully spread the sour cherry jam over it without disturbing the batter, then slowly spread the remaining batter over the jam.",
+        heading: "Make cinnamon crumb topping",
+        instruction: "Refrigerate",
       },
       {
+        heading: "Mix together dry ingredients",
         instruction:
-          "Bake for 10 minutes. Remove the streusel from the refrigerator, cover the cake evenly with it, and return the pan to the oven.",
+          "Mix together the dry ingredients (all-purpose flour, baking powder, baking soda, salt) in a medium bowl",
       },
       {
+        heading: "Make wet ingredients",
         instruction:
-          "Bake for another 30-35 minutes, until a toothpick inserted into the center comes out clean.",
+          "In a large bowl using a handheld or stand mixer, cream the butter & lemon sugar on high speed until smooth and creamy, about 5-6 minutes",
+      },
+      {
+        heading: "Make wet ingredients",
+        instruction:
+          "Add the almond oil and beat until combined, roughly one minute",
+      },
+      {
+        heading: "Make wet ingredients",
+        instruction:
+          "Add the ricotta and beat on medium-high speed until the mixture is visibly lighter and fluffier; rougly 4-5 minutes",
+      },
+      {
+        heading: "Make wet ingredients",
+        instruction:
+          "Add the vanilla and almond extracts and beat until just combined",
+      },
+      {
+        heading: "Make wet ingredients",
+        instruction: "Add the eggs one at a time",
+      },
+      { heading: "Make wet ingredients", instruction: "Add the lemon juice" },
+      {
+        heading: "Combine wet & dry ingredients",
+        instruction:
+          "Beat the wet & dry ingredients together on low speed until just combined",
+      },
+      {
+        heading: "Combine wet & dry ingredients",
+        instruction: "Beat in the heavy cream / almond milk",
+      },
+      {
+        heading: "Layer",
+        instruction:
+          "Put half of the batter into the pan, and spread it evenly",
+      },
+      {
+        heading: "Layer",
+        instruction:
+          "Carefully spread the jam, making sure not to disturb the batter",
+      },
+      {
+        heading: "Layer",
+        instruction:
+          "Slowly pour the remaining batter overtop the jam layer",
+      },
+      {
+        heading: "Bake",
+        instruction:
+          "Put in oven, and bake for 10 minutes; in the meantime, take the cinnamon crumb mixture out of the fridge",
+      },
+      {
+        heading: "Bake",
+        instruction:
+          "After 10 minutes, cover the top with the cinnamon crumb topping, and put it back in the oven",
+      },
+      {
+        heading: "Bake",
+        instruction:
+          "Bake for another 30-35 minutes, until a toothpick inserted into the center comes out clean",
       },
     ],
   },
@@ -237,7 +295,7 @@ export const RECIPES: Record<string, FullRecipe> = {
     title: "Cucumber Mint Syrup",
     description: "A simple 1:2 mint syrup with cucumber juice added in.",
     lede:
-      "A 1:1 simple syrup with mint steeped in and cucumber juice added after. It's useful anywhere you'd use a flavored simple syrup, especially drinks that could use something fresh and green.",
+      "A 1:1 simple syrup with mint steeped in and cucumber juice added after. Mostly I make this for the Cucumber Mint Martini, but it's useful anywhere you'd use a flavored simple.",
     yield: "about 3 cups",
     prepTime: "15 min",
     cookTime: "10 min",
@@ -284,40 +342,21 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "earl-gray-honey-syrup",
     category: "Syrups & Shrubs & Ferments",
     title: "Earl Gray Honey Syrup",
-    description: "A rich honey syrup infused with Earl Grey tea.",
-    lede:
-      "A floral honey syrup with the citrusy edge of Earl Grey. Useful in cocktails, tea, or anywhere plain honey syrup needs a little more character.",
-    yield: "about 1 cup",
-    prepTime: "10 min",
     ingredients: [
       { amount: "130ml", name: "water" },
       { amount: "200g", name: "honey" },
       {
-        amount: "4 bags",
-        name: "Earl Grey tea",
-        note: "or about 10g loose-leaf Earl Grey",
+        amount: "4",
+        name: "Earl Grey tea bags",
+        note: "or roughly 10g loose-leaf Earl Grey",
       },
     ],
     steps: [
-      {
-        instruction: "Heat the water until just off boiling.",
-      },
-      {
-        instruction:
-          "Add the Earl Grey tea and let it steep for 5-6 minutes.",
-      },
-      {
-        instruction:
-          "Remove the tea bags or strain out the loose tea leaves.",
-      },
-      {
-        instruction:
-          "Add the honey and stir until it is completely combined with the tea.",
-      },
-      {
-        instruction:
-          "Let cool, then transfer to a clean bottle and refrigerate.",
-      },
+      { instruction: "Heat the water to just off boiling" },
+      { instruction: "Add the 4 Earl Grey tea bags" },
+      { instruction: "Wait 5-6 minutes for the tea to steep" },
+      { instruction: "Remove the tea bags" },
+      { instruction: "Add the honey, and stir until combined" },
     ],
   },
 
@@ -325,12 +364,6 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "lemon-super-juice",
     category: "Syrups & Shrubs & Ferments",
     title: "Lemon Super Juice",
-    description:
-      "An extended lemon juice made from fresh peel, citric acid, and water.",
-    lede:
-      "A concentrated way to stretch the bright oils in lemon peel into a larger batch of juice for cocktails and other drinks.",
-    yield: "about 400ml",
-    prepTime: "45 min",
     ingredients: [
       { amount: "24g", name: "lemon peel" },
       { amount: "24g", name: "citric acid" },
@@ -341,23 +374,23 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Cut the lemon peel into roughly fingernail-sized pieces.",
+          "Peel the lemons, keeping the peels in roughly fingernail-sized pieces.",
       },
       {
         instruction:
-          "Combine the peel, citric acid, salt, and sugar in a bowl or jar, stirring until the peel is evenly coated.",
+          "Combine the peels, citric acid, salt, and sugar in a bowl or jar. Stir to combine.",
       },
       {
         instruction:
-          "Let the peel mixture rest at room temperature for about 30 minutes so the acid can draw out the citrus oils.",
+          "Let the mixture sit at room temperature for about 30 minutes.",
       },
       {
         instruction:
-          "Add the water and blend lightly, just enough to incorporate. Avoid over-blending, which can make the juice bitter.",
+          "Add the water and blend lightly, just enough to incorporate. The peels should still be roughly fingernail-sized when you're done; over-blending will make it bitter.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a clean bottle and refrigerate.",
+          "Strain through a fine mesh strainer into a sanitized bottle.",
       },
     ],
   },
@@ -366,12 +399,6 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "lime-super-juice",
     category: "Syrups & Shrubs & Ferments",
     title: "Lime Super Juice",
-    description:
-      "An extended lime juice made from fresh peel, citric and malic acids, and water.",
-    lede:
-      "A concentrated way to stretch the aromatic oils in lime peel into a larger batch of juice for cocktails and other drinks.",
-    yield: "about 400ml",
-    prepTime: "45 min",
     ingredients: [
       { amount: "24g", name: "lime peel" },
       { amount: "16g", name: "citric acid" },
@@ -383,23 +410,23 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Cut the lime peel into roughly fingernail-sized pieces.",
+          "Peel the limes, keeping the peels in roughly fingernail-sized pieces.",
       },
       {
         instruction:
-          "Combine the peel, citric acid, malic acid, salt, and sugar in a bowl or jar, stirring until the peel is evenly coated.",
+          "Combine the peels, citric acid, malic acid, salt, and sugar in a bowl or jar. Stir to combine.",
       },
       {
         instruction:
-          "Let the peel mixture rest at room temperature for about 30 minutes so the acids can draw out the citrus oils.",
+          "Let the mixture sit at room temperature for about 30 minutes.",
       },
       {
         instruction:
-          "Add the water and blend lightly, just enough to incorporate. Avoid over-blending, which can make the juice bitter.",
+          "Add the water and blend lightly, just enough to incorporate. The peels should still be roughly fingernail-sized when you're done; over-blending will make it bitter.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a clean bottle and refrigerate.",
+          "Strain through a fine mesh strainer into a sanitized bottle.",
       },
     ],
   },
