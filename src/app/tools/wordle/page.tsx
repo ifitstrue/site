@@ -28,7 +28,7 @@ const TILE_STYLES: Record<
     border: "#878A8C",
     text: "var(--color-on-surface)",
   },
-  green: { bg: "#6AAA64", border: "#6AAA64", text: "#ffffff" },
+  green: { bg: "#3E713B", border: "#3E713B", text: "#ffffff" },
   yellow: { bg: "#C9B458", border: "#C9B458", text: "#1c1c19" },
 };
 
@@ -189,7 +189,10 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
     if (!answer) return;
     const previous = tilesRef.current;
     const next = addGreenHint(previous, answer);
-    const index = next.findIndex((tile, i) => tile.color === "green" && previous[i].color !== "green");
+    const index = next.findIndex((tile, i) =>
+      tile.color === "green" &&
+      (previous[i].color !== "green" || previous[i].letter !== tile.letter),
+    );
     setTiles(next);
     if (index >= 0) setAnnouncement(`Green hint: ${next[index].letter.toUpperCase()} is correct at position ${index + 1}.`);
   };
@@ -281,28 +284,28 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
           <div className="flex gap-3 justify-center pt-2">
             <button
               type="button"
-              onClick={giveYellowHint}
-              disabled={allLettersKnown}
+              onClick={() => { if (!allLettersKnown) giveYellowHint(); }}
+              aria-disabled={allLettersKnown}
               aria-describedby={allLettersKnown ? "yellow-hint-unavailable" : undefined}
-              className="font-label text-sm tracking-widest uppercase px-5 py-2.5 rounded-sm transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="font-label text-sm tracking-widest uppercase px-5 py-2.5 rounded-sm transition-colors duration-200 aria-disabled:opacity-50 aria-disabled:cursor-not-allowed"
               style={{ backgroundColor: "#C9B458", color: "#1c1c19" }}
             >
               Yellow hint
             </button>
             <button
               type="button"
-              onClick={giveGreenHint}
-              disabled={allGreenFilled}
+              onClick={() => { if (!allGreenFilled) giveGreenHint(); }}
+              aria-disabled={allGreenFilled}
               aria-describedby={allGreenFilled ? "green-hint-unavailable" : undefined}
-              className="font-label text-sm tracking-widest uppercase px-5 py-2.5 rounded-sm transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "#6AAA64", color: "#ffffff" }}
+              className="font-label text-sm tracking-widest uppercase px-5 py-2.5 rounded-sm transition-colors duration-200 aria-disabled:opacity-50 aria-disabled:cursor-not-allowed"
+              style={{ backgroundColor: "#3E713B", color: "#ffffff" }}
             >
               Green hint
             </button>
           </div>
           <p id="yellow-hint-unavailable" className="sr-only">All letters in the answer are already known.</p>
           <p id="green-hint-unavailable" className="sr-only">Every letter is already in its correct position.</p>
-          <p className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</p>
+          <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
         </>
       )}
     </>

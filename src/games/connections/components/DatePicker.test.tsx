@@ -39,4 +39,53 @@ describe("DatePicker keyboard navigation", () => {
     fireEvent.click(screen.getByRole("button", { name: "Show year picker" }));
     await waitFor(() => expect(document.activeElement).toBe(screen.getByRole("button", { name: "2026" })));
   });
+
+  it("wraps Tab from the roving date to the first dialog control", () => {
+    render(
+      <DatePicker
+        value="2026-09-15"
+        today="2026-10-12"
+        isOpen
+        onClose={vi.fn()}
+        onSelect={vi.fn()}
+      />,
+    );
+    const selected = screen.getByRole("button", { name: "September 15, 2026" });
+    selected.focus();
+    fireEvent.keyDown(selected, { key: "Tab" });
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "Previous month" }));
+  });
+
+  it("retains a tabbable, focused date when changing months", async () => {
+    render(
+      <DatePicker
+        value="2026-09-15"
+        today="2026-10-12"
+        isOpen
+        onClose={vi.fn()}
+        onSelect={vi.fn()}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Previous month" }));
+    const augustDate = screen.getByRole("button", { name: "August 15, 2026" });
+    await waitFor(() => expect(document.activeElement).toBe(augustDate));
+    expect(augustDate.getAttribute("tabindex")).toBe("0");
+  });
+
+  it("retains a tabbable, focused date after choosing a year", async () => {
+    render(
+      <DatePicker
+        value="2026-09-15"
+        today="2026-10-12"
+        isOpen
+        onClose={vi.fn()}
+        onSelect={vi.fn()}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Show year picker" }));
+    fireEvent.click(screen.getByRole("button", { name: "2025" }));
+    const priorYearDate = screen.getByRole("button", { name: "September 15, 2025" });
+    await waitFor(() => expect(document.activeElement).toBe(priorYearDate));
+    expect(priorYearDate.getAttribute("tabindex")).toBe("0");
+  });
 });

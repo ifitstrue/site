@@ -63,8 +63,6 @@ type PickerState = {
 
 type PickerAction =
   | { type: "RESET"; year: number; month: number }
-  | { type: "PREV_MONTH" }
-  | { type: "NEXT_MONTH" }
   | { type: "SET_MODE"; mode: "month" | "year" }
   | { type: "SET_YEAR"; year: number }
   | { type: "SHIFT_DECADE"; delta: number };
@@ -78,14 +76,6 @@ const pickerReducer = (state: PickerState, action: PickerAction): PickerState =>
         mode: "month",
         decadeStart: Math.floor(action.year / 10) * 10,
       };
-    case "PREV_MONTH":
-      return state.viewMonth === 0
-        ? { ...state, viewMonth: 11, viewYear: state.viewYear - 1 }
-        : { ...state, viewMonth: state.viewMonth - 1 };
-    case "NEXT_MONTH":
-      return state.viewMonth === 11
-        ? { ...state, viewMonth: 0, viewYear: state.viewYear + 1 }
-        : { ...state, viewMonth: state.viewMonth + 1 };
     case "SET_MODE":
       return { ...state, mode: action.mode };
     case "SET_YEAR":
@@ -132,7 +122,7 @@ export const DatePicker = ({
       }
       if (e.key !== "Tab") return;
       const buttons = ref.current?.querySelectorAll<HTMLButtonElement>(
-        "button:not([disabled])",
+        'button:not([disabled]):not([tabindex="-1"])',
       );
       if (!buttons?.length) return;
       const first = buttons[0];
@@ -183,6 +173,21 @@ export const DatePicker = ({
     return `${target.getFullYear()}-${String(target.getMonth() + 1).padStart(2, "0")}-${String(Math.min(day, lastDay)).padStart(2, "0")}`;
   };
 
+  const showAdjacentMonth = (amount: number) => {
+    const target = shiftMonth(focusedDate, amount);
+    if (target > today) return;
+    const [year, month] = target.split("-").map(Number);
+    setFocusedDate(target);
+    dispatch({ type: "RESET", year, month: month - 1 });
+  };
+
+  const chooseYear = (year: number) => {
+    const [, month, day] = focusedDate.split("-").map(Number);
+    const lastDay = new Date(year, month, 0).getDate();
+    setFocusedDate(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, lastDay)).padStart(2, "0")}`);
+    dispatch({ type: "SET_YEAR", year });
+  };
+
   const handleDateKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, date: string) => {
     const day = new Date(`${date}T00:00:00`).getDay();
     const target = {
@@ -213,7 +218,7 @@ export const DatePicker = ({
           <div className="flex items-center justify-between mb-2">
             <button
               type="button"
-              onClick={() => dispatch({ type: "PREV_MONTH" })}
+              onClick={() => showAdjacentMonth(-1)}
               aria-label="Previous month"
               className="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors text-lg leading-none"
             >
@@ -230,7 +235,7 @@ export const DatePicker = ({
             <button
               type="button"
               disabled={showingCurrentMonth}
-              onClick={() => dispatch({ type: "NEXT_MONTH" })}
+              onClick={() => showAdjacentMonth(1)}
               aria-label="Next month"
               className="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors text-lg leading-none disabled:opacity-25 disabled:cursor-not-allowed"
             >
@@ -310,7 +315,7 @@ export const DatePicker = ({
                 }}
                 type="button"
                 disabled={y > todayYear}
-                onClick={() => dispatch({ type: "SET_YEAR", year: y })}
+                onClick={() => chooseYear(y)}
                 className={`py-2 rounded text-sm font-body transition-colors disabled:opacity-25 disabled:cursor-not-allowed ${
                   y === viewYear
                     ? "bg-primary text-on-primary"
