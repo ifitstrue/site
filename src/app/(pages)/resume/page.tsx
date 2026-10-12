@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   title: "Resume",
   description: "Andrew Hachten's experience as a technical lead and full-stack engineer.",
   alternates: { canonical: "/resume" },
-  openGraph: { title: "Andrew Hachten's Resume", url: "/resume" },
-  twitter: { card: "summary", title: "Andrew Hachten's Resume" },
+  openGraph: { title: "Andrew Hachten's Resume", description: "Andrew Hachten's experience as a technical lead and full-stack engineer.", url: "/resume", type: "website", siteName: "Andrew Hachten" },
+  twitter: { card: "summary", title: "Andrew Hachten's Resume", description: "Andrew Hachten's experience as a technical lead and full-stack engineer." },
 };
 
 function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {

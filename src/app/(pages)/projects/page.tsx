@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "Projects",
   description: "Games, puzzle helpers, and software projects by Andrew Hachten.",
   alternates: { canonical: "/projects" },
-  openGraph: { title: "Projects by Andrew Hachten", url: "/projects" },
-  twitter: { card: "summary", title: "Projects by Andrew Hachten" },
+  openGraph: { title: "Projects by Andrew Hachten", description: "Games, puzzle helpers, and software projects by Andrew Hachten.", url: "/projects", type: "website", siteName: "Andrew Hachten" },
+  twitter: { card: "summary", title: "Projects by Andrew Hachten", description: "Games, puzzle helpers, and software projects by Andrew Hachten." },
 };
 import Link from "next/link";
 

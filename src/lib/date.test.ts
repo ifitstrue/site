@@ -1,9 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { formatLocalDate, isDateInRange } from "./date";
+import { formatDateInTimeZone, formatLocalDate, isDateInRange } from "./date";
 
 describe("formatLocalDate", () => {
   it("uses the visitor's calendar date instead of UTC", () => {
     expect(formatLocalDate(new Date(2026, 9, 12, 23, 30))).toBe("2026-10-12");
+  });
+});
+
+describe("formatDateInTimeZone", () => {
+  it("uses the calendar date in the specified timezone", () => {
+    const instant = new Date("2026-10-13T02:00:00.000Z");
+    expect(formatDateInTimeZone(instant, "America/New_York")).toBe("2026-10-12");
+    expect(formatDateInTimeZone(instant, "Asia/Tokyo")).toBe("2026-10-13");
   });
 });
 

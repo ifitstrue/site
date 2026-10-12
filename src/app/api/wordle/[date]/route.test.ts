@@ -3,7 +3,25 @@ import { NextRequest } from "next/server";
 import { GET } from "./route";
 
 describe("Wordle API", () => {
-  afterEach(() => vi.unstubAllGlobals());
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
+  it("uses the New York calendar date as the availability cutoff", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-10-13T02:00:00.000Z"));
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+
+    const response = await GET(
+      new NextRequest("https://example.com/api/wordle/2026-10-13"),
+      { params: Promise.resolve({ date: "2026-10-13" }) },
+    );
+
+    expect(response.status).toBe(400);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
 
   it("rejects impossible and future dates without contacting the upstream API", async () => {
     const fetchSpy = vi.fn();

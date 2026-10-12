@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { formatLocalDate, isDateInRange } from "@/lib/date";
+import { formatDateInTimeZone, isDateInRange } from "@/lib/date";
 
 const FIRST_WORDLE_DATE = "2021-06-19";
 
@@ -11,7 +11,7 @@ export async function GET(
 ) {
   const { date } = await params;
 
-  if (!isDateInRange(date, FIRST_WORDLE_DATE, formatLocalDate())) {
+  if (!isDateInRange(date, FIRST_WORDLE_DATE, formatDateInTimeZone())) {
     return NextResponse.json({ error: "Date is outside the available range" }, { status: 400 });
   }
 

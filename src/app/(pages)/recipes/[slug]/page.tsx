@@ -23,6 +23,7 @@ export async function generateMetadata({
       title: recipe.title,
       description: recipe.description ?? recipe.lede,
       type: "article",
+      siteName: "Andrew Hachten",
       url: `/recipes/${recipe.slug}`,
     },
     twitter: {

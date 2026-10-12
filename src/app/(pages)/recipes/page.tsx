@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "Recipes",
   description: "Baking, syrup, and citrus recipes by Andrew Hachten.",
   alternates: { canonical: "/recipes" },
-  openGraph: { title: "Recipes by Andrew Hachten", url: "/recipes" },
-  twitter: { card: "summary", title: "Recipes by Andrew Hachten" },
+  openGraph: { title: "Recipes by Andrew Hachten", description: "Baking, syrup, and citrus recipes by Andrew Hachten.", url: "/recipes", type: "website", siteName: "Andrew Hachten" },
+  twitter: { card: "summary", title: "Recipes by Andrew Hachten", description: "Baking, syrup, and citrus recipes by Andrew Hachten." },
 };
 import Link from "next/link";
 import { ReactNode } from "react";
