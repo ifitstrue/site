@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { CATEGORIES, RECIPES, RecipeSummary as Recipe } from "@/data/recipes";
 
-export const metadata: Metadata = { title: "Recipes" };
+export const metadata: Metadata = {
+  title: "Recipes",
+  description: "Baking, syrup, and citrus recipes by Andrew Hachten.",
+  alternates: { canonical: "/recipes" },
+  openGraph: { title: "Recipes by Andrew Hachten", url: "/recipes" },
+  twitter: { card: "summary", title: "Recipes by Andrew Hachten" },
+};
 import Link from "next/link";
 import { ReactNode } from "react";
 

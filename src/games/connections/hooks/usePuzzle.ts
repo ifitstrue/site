@@ -26,11 +26,13 @@ export const usePuzzle = (date: string): UsePuzzleResult => {
 
   useEffect(() => {
     dispatch({ type: "FETCH_START" });
-    let cancelled = false;
+    const controller = new AbortController();
 
     const fetchPuzzle = async () => {
       try {
-        const res = await fetch(`/api/connections/${date}`);
+        const res = await fetch(`/api/connections/${date}`, {
+          signal: controller.signal,
+        });
         if (!res.ok) {
           throw new Error(
             res.status === 404
@@ -39,21 +41,21 @@ export const usePuzzle = (date: string): UsePuzzleResult => {
           );
         }
         const data = await res.json();
-        if (!cancelled) dispatch({ type: "FETCH_SUCCESS", puzzle: data });
+        dispatch({ type: "FETCH_SUCCESS", puzzle: data });
       } catch (e) {
-        if (!cancelled)
-          dispatch({
-            type: "FETCH_ERROR",
-            error:
-              e instanceof Error
-                ? e.message
-                : "I couldn't load the puzzle. Try again in a minute.",
-          });
+        if (e instanceof DOMException && e.name === "AbortError") return;
+        dispatch({
+          type: "FETCH_ERROR",
+          error:
+            e instanceof Error
+              ? e.message
+              : "I couldn't load the puzzle. Try again in a minute.",
+        });
       }
     };
 
     fetchPuzzle();
-    return () => { cancelled = true; };
+    return () => controller.abort();
   }, [date]);
 
   return state;

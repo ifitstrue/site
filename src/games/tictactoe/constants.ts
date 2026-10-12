@@ -35,15 +35,6 @@ export const AVAILABLE_ICONS: { id: number; name: string; icon: IconType }[] = [
   { id: 8, name: "Frown", icon: FiFrown },
 ];
 
-export const AVAILABLE_COLORS = [
-  "#C62828",
-  "#1565C0",
-  "#6A1B9A",
-  "#00695C",
-  "#2E7D32",
-  "#37474F",
-] as const;
-
 export const DEFAULT_PLAYERS: Player[] = [
   { id: 0, name: "Player 1", icon: FiX, color: "#C62828" },
   { id: 1, name: "Player 2", icon: FiCircle, color: "#1565C0" },

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { usePuzzle } from "@/games/connections/hooks/usePuzzle";
 import { LEVEL_COLORS } from "@/games/connections/levelColors";
 import { DateNav } from "@/components/DateNav";
+import { formatLocalDate } from "@/lib/date";
 
 const LEVEL_META: Record<number, { label: string; bg: string; text: string }> = {
   0: { label: "Yellow", ...LEVEL_COLORS[0] },
@@ -13,8 +14,9 @@ const LEVEL_META: Record<number, { label: string; bg: string; text: string }> = 
 };
 
 export default function ConnectionsHintPage() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = formatLocalDate();
   const [selectedDate, setSelectedDate] = useState(today);
+  const [retryKey, setRetryKey] = useState(0);
 
   return (
     <main id="main-content" className="min-h-screen bg-surface pt-24 pb-20 px-6 max-w-105 w-full mx-auto flex flex-col gap-6">
@@ -27,12 +29,16 @@ export default function ConnectionsHintPage() {
         </p>
       </div>
       <DateNav date={selectedDate} today={today} onDateChange={setSelectedDate} />
-      <ConnectionsHints key={selectedDate} date={selectedDate} />
+      <ConnectionsHints
+        key={`${selectedDate}-${retryKey}`}
+        date={selectedDate}
+        onRetry={() => setRetryKey((key) => key + 1)}
+      />
     </main>
   );
 }
 
-function ConnectionsHints({ date }: { date: string }) {
+function ConnectionsHints({ date, onRetry }: { date: string; onRetry: () => void }) {
   const { puzzle, loading, error } = usePuzzle(date);
 
   const [hintCounts, setHintCounts] = useState<Record<number, number>>({});
@@ -85,7 +91,7 @@ function ConnectionsHints({ date }: { date: string }) {
   return (
     <>
       {loading && (
-        <div className="animate-pulse flex flex-col gap-3 pt-4">
+        <div className="animate-pulse flex flex-col gap-3 pt-4" role="status" aria-label="Loading puzzle">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="h-20 rounded-sm bg-surface-container-high" />
           ))}
@@ -93,12 +99,17 @@ function ConnectionsHints({ date }: { date: string }) {
       )}
 
       {error && (
-        <p className="font-body text-on-surface-variant text-center pt-12">{error}</p>
+        <div className="text-center pt-12">
+          <p role="alert" className="font-body text-on-surface-variant">{error}</p>
+          <button type="button" onClick={onRetry} className="mt-4 font-label text-xs tracking-widest uppercase text-primary underline underline-offset-4">
+            Try again
+          </button>
+        </div>
       )}
 
       {!loading && !error && puzzle && (
         <>
-          <div className="flex flex-col gap-2" role="list" aria-label="Connections categories">
+          <div className="flex flex-col gap-2" role="list" aria-label="Connections categories" aria-live="polite">
             {categories.map((cat) => {
               const meta = LEVEL_META[cat.level] ?? LEVEL_META[0];
               const revealedCount = hintCounts[cat.level] ?? 0;

@@ -18,6 +18,9 @@ export default function PlayerEditor({
     updatePlayer({ ...player, ...patch });
 
   const displayIndex = String(index + 1).padStart(2, "0");
+  const nameId = `player-${playerId}-name`;
+  const colorId = `player-${playerId}-color`;
+  const iconId = `player-${playerId}-icon`;
 
   return (
     <div className="group flex items-center gap-6 py-6 border-b border-outline-variant/30 last:border-b-0">
@@ -26,10 +29,11 @@ export default function PlayerEditor({
       </span>
 
       <div className="flex-1 flex flex-col gap-1 min-w-0">
-        <label className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/40 group-hover:text-tertiary/60 transition-colors">
+        <label htmlFor={nameId} className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60 group-hover:text-tertiary transition-colors">
           Player Name
         </label>
         <input
+          id={nameId}
           value={player.name}
           onChange={(e) => update({ name: e.target.value })}
           className="bg-transparent text-on-surface font-headline italic text-2xl border-none focus:ring-0 p-0 w-full transition-colors group-hover:text-tertiary focus:text-tertiary placeholder:opacity-20"
@@ -39,11 +43,12 @@ export default function PlayerEditor({
 
       <div className="flex items-center gap-4 shrink-0">
         <div className="flex flex-col gap-2 items-center">
-          <label className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/40">
+          <label htmlFor={colorId} className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
             Color
           </label>
           <div className="relative w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30 group-hover:border-tertiary-fixed-dim/50 transition-colors">
             <input
+              id={colorId}
               type="color"
               value={player.color}
               onChange={(e) => update({ color: e.target.value })}
@@ -54,11 +59,11 @@ export default function PlayerEditor({
         </div>
 
         <div className="flex flex-col gap-2 items-center">
-          <label className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/40">
+          <label htmlFor={iconId} className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
             Icon
           </label>
           <div className="group/icon">
-            <IconPicker value={player.icon} onChange={(icon) => update({ icon })} />
+            <IconPicker id={iconId} value={player.icon} onChange={(icon) => update({ icon })} />
           </div>
         </div>
       </div>

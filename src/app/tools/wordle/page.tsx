@@ -1,10 +1,16 @@
 "use client";
 
 import { DateNav } from "@/components/DateNav";
+import { formatLocalDate } from "@/lib/date";
+import {
+  addGreenHint,
+  addYellowHint,
+  areAllLettersKnown,
+  isSolved,
+  type TileColor,
+  type TileState,
+} from "@/games/wordle/hints";
 import { useEffect, useRef, useState } from "react";
-
-type TileColor = "unset" | "green" | "yellow";
-type TileState = { letter: string; color: TileColor };
 
 const EMPTY_TILE: TileState = { letter: "", color: "unset" };
 
@@ -73,8 +79,9 @@ function HintTile({
 }
 
 export default function WordleHintPage() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = formatLocalDate();
   const [selectedDate, setSelectedDate] = useState(today);
+  const [retryKey, setRetryKey] = useState(0);
 
   return (
     <main
@@ -94,12 +101,16 @@ export default function WordleHintPage() {
         today={today}
         onDateChange={setSelectedDate}
       />
-      <WordleHints key={selectedDate} date={selectedDate} />
+      <WordleHints
+        key={`${selectedDate}-${retryKey}`}
+        date={selectedDate}
+        onRetry={() => setRetryKey((key) => key + 1)}
+      />
     </main>
   );
 }
 
-function WordleHints({ date }: { date: string }) {
+function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [answer, setAnswer] = useState("");
@@ -116,8 +127,8 @@ function WordleHints({ date }: { date: string }) {
   }, [tiles]);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch(`/api/wordle/${date}`)
+    const controller = new AbortController();
+    fetch(`/api/wordle/${date}`, { signal: controller.signal })
       .then((r) => {
         if (!r.ok)
           throw new Error(
@@ -128,24 +139,21 @@ function WordleHints({ date }: { date: string }) {
         return r.json();
       })
       .then((data) => {
-        if (!cancelled) {
-          setAnswer((data.solution ?? "").toLowerCase());
-          setLoading(false);
-        }
+        setAnswer((data.solution ?? "").toLowerCase());
+        setLoading(false);
       })
       .catch((e) => {
-        if (!cancelled) {
-          setError(
-            e instanceof Error
-              ? e.message
-              : "I couldn't load the puzzle. Try again in a minute.",
-          );
-          setLoading(false);
-        }
+        if (e instanceof DOMException && e.name === "AbortError") return;
+        setError(
+          e instanceof Error
+            ? e.message
+            : "I couldn't load the puzzle. Try again in a minute.",
+        );
+        setLoading(false);
       });
 
     return () => {
-      cancelled = true;
+      controller.abort();
     };
   }, [date]);
 
@@ -214,50 +222,23 @@ function WordleHints({ date }: { date: string }) {
 
   const giveGreenHint = () => {
     if (!answer) return;
-    setTiles((prev) => {
-      const candidates = prev.map((_, i) => i).filter((i) => prev[i].color !== "green");
-      if (!candidates.length) return prev;
-      const pos = candidates[Math.floor(Math.random() * candidates.length)];
-      const next = [...prev];
-      next[pos] = { letter: answer[pos], color: "green" };
-      return next;
-    });
+    setTiles((prev) => addGreenHint(prev, answer));
   };
 
   const giveYellowHint = () => {
     if (!answer) return;
-    setYellowPool((prev) => {
-      const knownLetters = new Set([
-        ...tilesRef.current
-          .filter((t) => t.color === "green" && t.letter)
-          .map((t) => t.letter),
-        ...prev,
-      ]);
-      const unknown = [...new Set(answer.split(""))].filter(
-        (l) => !knownLetters.has(l),
-      );
-      if (!unknown.length) return prev;
-      const letter = unknown[Math.floor(Math.random() * unknown.length)];
-      return [...prev, letter];
-    });
+    setYellowPool((prev) => addYellowHint(answer, tilesRef.current, prev));
   };
 
-  const allGreenFilled = answer
-    ? tiles.every((t, i) => t.color === "green" && t.letter === answer[i])
-    : false;
-
+  const allGreenFilled = answer ? isSolved(tiles, answer) : false;
   const allLettersKnown = answer
-    ? [...new Set(answer.split(""))].every(
-        (l) =>
-          tiles.some((t) => t.color === "green" && t.letter === l) ||
-          yellowPool.includes(l),
-      )
+    ? areAllLettersKnown(tiles, answer, yellowPool)
     : false;
 
   return (
     <>
       {loading && (
-        <div className="animate-pulse pt-4 flex flex-col gap-6">
+        <div className="animate-pulse pt-4 flex flex-col gap-6" role="status" aria-label="Loading puzzle">
           <div className="grid grid-cols-5 gap-2 max-w-xs mx-auto w-full">
             {Array.from({ length: 5 }).map((_, i) => (
               <div
@@ -271,9 +252,12 @@ function WordleHints({ date }: { date: string }) {
       )}
 
       {error && (
-        <p className="font-body text-on-surface-variant text-center pt-12">
-          {error}
-        </p>
+        <div className="text-center pt-12">
+          <p role="alert" className="font-body text-on-surface-variant">{error}</p>
+          <button type="button" onClick={onRetry} className="mt-4 font-label text-xs tracking-widest uppercase text-primary underline underline-offset-4">
+            Try again
+          </button>
+        </div>
       )}
 
       {!loading && !error && (
@@ -309,7 +293,7 @@ function WordleHints({ date }: { date: string }) {
               <p className="font-label text-xs tracking-widest uppercase text-on-surface-variant/60">
                 Letters in the word
               </p>
-              <div role="list" className="flex flex-wrap gap-2 justify-center">
+              <div role="list" aria-live="polite" className="flex flex-wrap gap-2 justify-center">
                 {yellowPool.map((letter, i) => (
                   <span
                     key={i}

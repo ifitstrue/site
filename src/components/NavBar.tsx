@@ -3,7 +3,7 @@
 import { useNavHover } from "@/context/NavHoverContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -16,6 +16,8 @@ const NAV_LINKS = [
 export function NavBar() {
   const pathname = usePathname();
   const { setHoveredLink } = useNavHover();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, dispatch] = useReducer(
     (_: boolean, next: boolean) => next,
     false
@@ -24,6 +26,39 @@ export function NavBar() {
   useEffect(() => {
     dispatch(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        dispatch(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (event.key === "Tab") {
+        const links = mobileMenuRef.current?.querySelectorAll<HTMLAnchorElement>("a");
+        if (!links?.length) return;
+        const first = links[0];
+        const last = links[links.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -73,8 +108,9 @@ export function NavBar() {
 
       <nav className="md:hidden flex items-center justify-end w-full">
         <button
+          ref={menuButtonRef}
           onClick={() => dispatch(!mobileOpen)}
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav-menu"
           className="p-2 -mr-2 text-on-surface/60"
@@ -100,7 +136,14 @@ export function NavBar() {
       </nav>
 
       {mobileOpen && (
-        <div id="mobile-nav-menu" className="md:hidden fixed inset-x-0 top-17 bottom-0 bg-surface z-40 px-8 py-6">
+        <div
+          ref={mobileMenuRef}
+          id="mobile-nav-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+          className="md:hidden fixed inset-x-0 top-17 bottom-0 bg-surface z-40 px-8 py-6"
+        >
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map(({ href, label }, i) => {
               const isActive =

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { DatePicker } from "@/games/connections/components/DatePicker";
 import { formatDisplayDate, addDays } from "@/games/connections/utils/calendarUtils";
 
@@ -12,9 +12,15 @@ interface DateNavProps {
 
 export function DateNav({ date, today, onDateChange }: DateNavProps) {
   const [pickerOpen, setPickerOpen] = useState(false);
+  const pickerButtonRef = useRef<HTMLButtonElement>(null);
+
+  const closePicker = () => {
+    setPickerOpen(false);
+    requestAnimationFrame(() => pickerButtonRef.current?.focus());
+  };
 
   const select = (d: string) => {
-    setPickerOpen(false);
+    closePicker();
     onDateChange(d);
   };
 
@@ -32,6 +38,7 @@ export function DateNav({ date, today, onDateChange }: DateNavProps) {
 
         <div className="flex-1 flex items-center justify-center gap-2">
           <button
+            ref={pickerButtonRef}
             type="button"
             onClick={() => setPickerOpen((o) => !o)}
             aria-label="Open date picker"
@@ -65,9 +72,8 @@ export function DateNav({ date, today, onDateChange }: DateNavProps) {
         <DatePicker
           value={date}
           today={today}
-          statuses={{}}
           isOpen={pickerOpen}
-          onClose={() => setPickerOpen(false)}
+          onClose={closePicker}
           onSelect={select}
         />
       </div>

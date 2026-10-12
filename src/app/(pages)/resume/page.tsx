@@ -7,7 +7,13 @@ import {
   SKILLS,
 } from "@/data/resume";
 
-export const metadata: Metadata = { title: "Resume" };
+export const metadata: Metadata = {
+  title: "Resume",
+  description: "Andrew Hachten's experience as a technical lead and full-stack engineer.",
+  alternates: { canonical: "/resume" },
+  openGraph: { title: "Andrew Hachten's Resume", url: "/resume" },
+  twitter: { card: "summary", title: "Andrew Hachten's Resume" },
+};
 
 function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
   const displayIndex = String(RESUME.length - index).padStart(2, "0");
@@ -38,7 +44,7 @@ function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
           {item.points.map((point, i) => (
             <li key={i} className="flex gap-3 md:gap-4">
               <span className="h-px w-3 bg-tertiary-fixed-dim/40 mt-4 shrink-0" />
-              <p className="font-body text-on-surface-variant text-sm leading-relaxed">
+              <p className="font-body text-on-surface-variant text-base leading-relaxed">
                 {point}
               </p>
             </li>
@@ -126,7 +132,7 @@ export default function Resume() {
               <dt className="font-label text-[10px] tracking-[0.2em] uppercase text-secondary/80">
                 {skill.label}
               </dt>
-              <dd className="font-body text-sm leading-relaxed text-on-surface-variant">
+              <dd className="font-body text-base leading-relaxed text-on-surface-variant">
                 {skill.value}
               </dd>
             </div>

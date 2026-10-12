@@ -14,6 +14,8 @@ export default function SubBoard({ boardIndex }: { boardIndex: number }) {
 
   return (
     <div
+      role="group"
+      aria-label={`Board ${boardIndex + 1}${winner ? `, won by ${winner.name}` : isEligible ? ", available" : ", unavailable"}`}
       className={[
         "relative grid grid-cols-3 p-1 rounded-sm transition-all shadow-sm border",
         winner
@@ -40,7 +42,7 @@ export default function SubBoard({ boardIndex }: { boardIndex: number }) {
           }}
         >
           <IconContext.Provider value={{ color: winner.color, size: "4rem" }}>
-            <winner.icon />
+          <winner.icon aria-hidden="true" />
           </IconContext.Provider>
         </div>
       )}

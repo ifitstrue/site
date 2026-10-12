@@ -1,17 +1,15 @@
 "use client";
 
 import { useReducer, useEffect, useRef } from "react";
-import { getCalendarCells, formatMonthYear } from "../utils/calendarUtils";
-
-interface DayStatus {
-  status: "won" | "lost" | "playing";
-  mistakes: number;
-}
+import {
+  formatDisplayDate,
+  getCalendarCells,
+  formatMonthYear,
+} from "../utils/calendarUtils";
 
 interface DatePickerProps {
   value: string;
   today: string;
-  statuses: Record<string, DayStatus>;
   isOpen: boolean;
   onClose: () => void;
   onSelect: (date: string) => void;
@@ -31,7 +29,6 @@ const getCellStyle = (
   date: string,
   today: string,
   isCurrentMonth: boolean,
-  status: DayStatus | undefined,
   selected: string
 ): CellStyle => {
   const isFuture = date > today;
@@ -48,19 +45,8 @@ const getCellStyle = (
     };
   }
 
-  let bg = "bg-transparent hover:bg-surface-container";
-  let text = isCurrentMonth ? "text-on-surface" : "text-on-surface-variant/40";
-
-  if (status?.status === "won") {
-    bg = "bg-[#A0C35A] hover:bg-[#8fad4e]";
-    text = "text-[#1c1c19]";
-  } else if (status?.status === "lost") {
-    bg = "bg-error/70 hover:bg-error/80";
-    text = "text-on-error";
-  } else if (status?.status === "playing") {
-    bg = "bg-[#F9DF6D] hover:bg-[#e8cc5a]";
-    text = "text-[#1c1c19]";
-  }
+  const bg = "bg-transparent hover:bg-surface-container";
+  const text = isCurrentMonth ? "text-on-surface" : "text-on-surface-variant/40";
 
   const ring = isToday || isSelected ? "ring-2 ring-primary ring-inset" : "";
 
@@ -117,7 +103,6 @@ const initState = (value: string): PickerState => {
 export const DatePicker = ({
   value,
   today,
-  statuses,
   isOpen,
   onClose,
   onSelect,
@@ -132,13 +117,35 @@ export const DatePicker = ({
         year: Number(value.split("-")[0]),
         month: Number(value.split("-")[1]) - 1,
       });
+      requestAnimationFrame(() => {
+        ref.current
+          ?.querySelector<HTMLElement>('[aria-current="date"]')
+          ?.focus();
+      });
     }
   }, [isOpen, value]);
 
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const buttons = ref.current?.querySelectorAll<HTMLButtonElement>(
+        "button:not([disabled])",
+      );
+      if (!buttons?.length) return;
+      const first = buttons[0];
+      const last = buttons[buttons.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     const onMouseDown = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
@@ -156,10 +163,16 @@ export const DatePicker = ({
   const { viewYear, viewMonth, mode, decadeStart } = picker;
   const cells = getCalendarCells(viewYear, viewMonth);
   const years = Array.from({ length: 12 }, (_, i) => decadeStart + i);
+  const [todayYear, todayMonth] = today.split("-").map(Number);
+  const showingCurrentMonth =
+    viewYear === todayYear && viewMonth === todayMonth - 1;
 
   return (
     <div
       ref={ref}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Choose a puzzle date"
       className="absolute z-50 top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-md shadow-lg p-3 w-72 select-none"
     >
       {mode === "month" ? (
@@ -183,9 +196,10 @@ export const DatePicker = ({
             </button>
             <button
               type="button"
+              disabled={showingCurrentMonth}
               onClick={() => dispatch({ type: "NEXT_MONTH" })}
               aria-label="Next month"
-              className="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors text-lg leading-none"
+              className="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors text-lg leading-none disabled:opacity-25 disabled:cursor-not-allowed"
             >
               ›
             </button>
@@ -204,23 +218,19 @@ export const DatePicker = ({
 
           <div className="grid grid-cols-7 gap-y-0.5">
             {cells.map(({ date, dayNum, isCurrentMonth }) => {
-              const status = statuses[date];
-              const style = getCellStyle(date, today, isCurrentMonth, status, value);
+              const style = getCellStyle(date, today, isCurrentMonth, value);
 
               return (
                 <button
                   key={date}
                   type="button"
+                  aria-label={formatDisplayDate(date)}
+                  aria-current={date === value ? "date" : undefined}
                   disabled={style.isFuture}
-                  onClick={() => { onSelect(date); onClose(); }}
-                  className={`flex flex-col items-center justify-center h-9 w-full rounded text-xs font-body transition-colors ${style.bg} ${style.text} ${style.ring} ${style.cursor}`}
+                  onClick={() => onSelect(date)}
+                  className={`flex flex-col items-center justify-center h-11 w-full rounded text-sm font-body transition-colors ${style.bg} ${style.text} ${style.ring} ${style.cursor}`}
                 >
                   <span className="leading-none">{dayNum}</span>
-                  {status && !style.isFuture && (
-                    <span className="text-[9px] leading-none mt-0.5 opacity-75">
-                      {status.mistakes}
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -255,8 +265,9 @@ export const DatePicker = ({
               <button
                 key={y}
                 type="button"
+                disabled={y > todayYear}
                 onClick={() => dispatch({ type: "SET_YEAR", year: y })}
-                className={`py-2 rounded text-sm font-body transition-colors ${
+                className={`py-2 rounded text-sm font-body transition-colors disabled:opacity-25 disabled:cursor-not-allowed ${
                   y === viewYear
                     ? "bg-primary text-on-primary"
                     : "hover:bg-surface-container text-on-surface"

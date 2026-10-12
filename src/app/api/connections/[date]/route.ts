@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { formatLocalDate, isDateInRange } from "@/lib/date";
+
+const FIRST_CONNECTIONS_DATE = "2023-06-12";
+
+export const revalidate = 86400;
 
 export async function GET(
   _request: NextRequest,
@@ -6,8 +11,8 @@ export async function GET(
 ) {
   const { date } = await params;
 
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-    return NextResponse.json({ error: "Invalid date format" }, { status: 400 });
+  if (!isDateInRange(date, FIRST_CONNECTIONS_DATE, formatLocalDate())) {
+    return NextResponse.json({ error: "Date is outside the available range" }, { status: 400 });
   }
 
   const url = `https://www.nytimes.com/svc/connections/v2/${date}.json`;

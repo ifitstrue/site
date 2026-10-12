@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { PROJECTS } from "@/data/projects";
 
-export const metadata: Metadata = { title: "Projects" };
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Games, puzzle helpers, and software projects by Andrew Hachten.",
+  alternates: { canonical: "/projects" },
+  openGraph: { title: "Projects by Andrew Hachten", url: "/projects" },
+  twitter: { card: "summary", title: "Projects by Andrew Hachten" },
+};
 import Link from "next/link";
 
 export default function Projects() {
@@ -51,7 +57,7 @@ export default function Projects() {
                     )}
                   </div>
 
-                  <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-6 max-w-prose">
+                  <p className="font-body text-on-surface-variant text-base leading-relaxed mb-6 max-w-prose">
                     {project.description}
                   </p>
                 </div>

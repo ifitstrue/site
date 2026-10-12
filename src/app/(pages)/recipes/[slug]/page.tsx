@@ -3,6 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RECIPES } from "@/data/recipes";
 
+export function generateStaticParams() {
+  return Object.keys(RECIPES).map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -11,7 +15,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const recipe = RECIPES[slug];
   if (!recipe) return {};
-  return { title: recipe.title };
+  return {
+    title: recipe.title,
+    description: recipe.description ?? recipe.lede ?? `${recipe.title}, by Andrew Hachten.`,
+    alternates: { canonical: `/recipes/${recipe.slug}` },
+    openGraph: {
+      title: recipe.title,
+      description: recipe.description ?? recipe.lede,
+      type: "article",
+      url: `/recipes/${recipe.slug}`,
+    },
+    twitter: {
+      card: "summary",
+      title: recipe.title,
+      description: recipe.description ?? recipe.lede,
+    },
+  };
 }
 
 function formatAmount(amount: string): string {
@@ -32,9 +51,34 @@ export default async function RecipePage({
     ...(recipe.prepTime ? [`${recipe.prepTime} prep`] : []),
     ...(recipe.cookTime ? [`${recipe.cookTime} ${recipe.cookTimeLabel ?? "cook"}`] : []),
   ];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    name: recipe.title,
+    description: recipe.description ?? recipe.lede ?? recipe.title,
+    author: { "@type": "Person", name: "Andrew Hachten" },
+    recipeCategory: recipe.category,
+    recipeYield: recipe.yield,
+    recipeIngredient: recipe.ingredients.map(
+      ({ amount, name, note }) => `${amount} ${name}${note ? ` (${note})` : ""}`,
+    ),
+    recipeInstructions: recipe.steps.map((step) => ({
+      "@type": "HowToStep",
+      text: [step.title, step.instruction, ...(step.substeps ?? []), step.aside]
+        .filter(Boolean)
+        .join(" "),
+    })),
+    ...(recipe.source ? { isBasedOn: recipe.source.url } : {}),
+  };
 
   return (
     <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
       <Link
         href="/recipes"
         className="font-label text-[0.65rem] tracking-[0.25em] uppercase text-on-surface-variant/50 hover:text-tertiary transition-colors mb-10 block"
@@ -79,17 +123,17 @@ export default async function RecipePage({
 
       <section className="mb-14">
         <div className="flex items-center justify-between mb-1">
-          <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
+          <h2 className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
             Ingredients
-          </p>
+          </h2>
           <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase">
             {recipe.ingredients.length} items
           </span>
         </div>
         <div className="h-px bg-outline-variant" />
-        <div>
+        <ul>
           {recipe.ingredients.map((ingredient, i) => (
-            <div key={`${ingredient.group ?? "ingredient"}-${ingredient.name}-${i}`}>
+            <li key={`${ingredient.group ?? "ingredient"}-${ingredient.name}-${i}`}>
               {ingredient.group && (
                 <p className="font-label text-[10px] tracking-[0.25em] uppercase text-tertiary pt-6 pb-1">
                   {ingredient.group}
@@ -99,7 +143,7 @@ export default async function RecipePage({
                 <span className="font-label text-xs tracking-widest text-tertiary uppercase w-20 shrink-0 text-right leading-relaxed">
                   {formatAmount(ingredient.amount)}
                 </span>
-                <span className="font-body text-on-surface text-sm">
+                <span className="font-body text-on-surface text-base">
                   {ingredient.name}
                   {ingredient.note && (
                     <span className="text-on-surface/60 text-[0.8rem] ml-2 font-medium">
@@ -108,24 +152,24 @@ export default async function RecipePage({
                   )}
                 </span>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section className="mb-14">
         <div className="flex items-center justify-between mb-1">
-          <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
+          <h2 className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
             Method
-          </p>
+          </h2>
           <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase">
             {recipe.steps.length} steps
           </span>
         </div>
         <div className="h-px bg-outline-variant" />
-        <div>
+        <ol>
           {recipe.steps.map((step, i) => (
-            <div
+            <li
               key={i}
               className="flex gap-8 py-7 border-b border-outline-variant/40 last:border-0"
             >
@@ -138,7 +182,7 @@ export default async function RecipePage({
                   {step.title}
                 </h3>
                 {step.instruction && (
-                  <p className="font-body text-on-surface text-sm leading-relaxed mt-2">
+                  <p className="font-body text-on-surface text-base leading-relaxed mt-2">
                     {step.instruction}
                   </p>
                 )}
@@ -147,7 +191,7 @@ export default async function RecipePage({
                     {step.substeps.map((substep) => (
                       <li
                         key={substep}
-                        className="font-body text-on-surface text-sm leading-relaxed pl-2"
+                        className="font-body text-on-surface text-base leading-relaxed pl-2"
                       >
                         {substep}
                       </li>
@@ -160,17 +204,17 @@ export default async function RecipePage({
                   </blockquote>
                 )}
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       {recipe.notes && (
         <section>
           <div className="flex items-center justify-between mb-1">
-            <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
+            <h2 className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
               Notes
-            </p>
+            </h2>
           </div>
           <div className="h-px bg-outline-variant mb-5" />
           <div className="space-y-4">

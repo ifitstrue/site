@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description: "About Andrew Hachten, a software engineer, baker, cocktail maker, and candlemaker in Philadelphia.",
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About Andrew Hachten", url: "/about" },
+  twitter: { card: "summary", title: "About Andrew Hachten" },
+};
 
 export default function About() {
   return (

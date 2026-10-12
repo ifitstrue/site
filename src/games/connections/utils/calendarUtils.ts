@@ -1,3 +1,5 @@
+import { formatLocalDate } from "@/lib/date";
+
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
@@ -68,5 +70,5 @@ export function formatDisplayDate(dateStr: string): string {
 export function addDays(dateStr: string, days: number): string {
   const d = new Date(dateStr + "T00:00:00");
   d.setDate(d.getDate() + days);
-  return d.toISOString().split("T")[0];
+  return formatLocalDate(d);
 }

@@ -6,30 +6,44 @@ const newsreader = Newsreader({
   variable: "--font-headline",
   subsets: ["latin"],
   style: ["normal", "italic"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: "variable",
 });
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-label",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "variable",
 });
 
 import { NavBar } from "@/components/NavBar";
 import { NavHoverProvider } from "@/context/NavHoverContext";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.andrewhachten.com"),
   title: {
     template: "%s • Andrew Hachten",
     default: "Andrew Hachten • Personal Site",
   },
   description: "Software engineer, baker, and candlemaker living in Philadelphia.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Andrew Hachten",
+    title: "Andrew Hachten",
+    description: "Software engineer, baker, and candlemaker living in Philadelphia.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Andrew Hachten",
+    description: "Software engineer, baker, and candlemaker living in Philadelphia.",
+  },
 };
 
 export default function RootLayout({
@@ -50,7 +64,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <NavHoverProvider>
-          <header className="fixed top-0 left-0 right-0 z-50 w-full px-8 md:px-16 py-5">
+          <header className="fixed top-0 left-0 right-0 z-50 w-full px-8 md:px-16 py-5 bg-surface/95 backdrop-blur-sm">
             <NavBar />
           </header>
 
