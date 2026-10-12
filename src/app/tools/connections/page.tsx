@@ -18,6 +18,14 @@ export default function ConnectionsHintPage() {
 
   return (
     <main id="main-content" className="min-h-screen bg-surface pt-24 pb-20 px-6 max-w-105 w-full mx-auto flex flex-col gap-6">
+      <div>
+        <h1 className="font-headline text-5xl italic text-on-surface">
+          Connections Hints
+        </h1>
+        <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
+          Reveal one word at a time, starting with the easiest unsolved category.
+        </p>
+      </div>
       <DateNav date={selectedDate} today={today} onDateChange={setSelectedDate} />
       <ConnectionsHints key={selectedDate} date={selectedDate} />
     </main>

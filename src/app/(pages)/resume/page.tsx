@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { RESUME, ResumeItem } from "@/data/resume";
+import {
+  EDUCATION,
+  RESUME,
+  RESUME_CONTACT,
+  ResumeItem,
+  SKILLS,
+} from "@/data/resume";
 
 export const metadata: Metadata = { title: "Resume" };
 
@@ -28,10 +34,6 @@ function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
           </span>
         </div>
 
-        <p className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60 mb-4 md:mb-6">
-          {item.tech.join(" • ")}
-        </p>
-
         <ul className="space-y-3 md:space-y-4">
           {item.points.map((point, i) => (
             <li key={i} className="flex gap-3 md:gap-4">
@@ -50,6 +52,9 @@ function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
 }
 
 export default function Resume() {
+  const contactLinkClass =
+    "font-label text-[10px] tracking-[0.14em] uppercase text-secondary/80 hover:text-tertiary transition-colors duration-300";
+
   return (
     <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
       <div className="mb-16">
@@ -65,27 +70,42 @@ export default function Resume() {
           </span>
         </div>
         <div className="mt-6 h-0.5 bg-tertiary-fixed-dim" />
-        <div className="flex gap-4 mt-4">
+        <p className="mt-4 font-headline italic text-xl text-on-surface">
+          {RESUME_CONTACT.title}
+        </p>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
+          <span className="font-label text-[10px] tracking-[0.14em] uppercase text-on-surface/60">
+            {RESUME_CONTACT.location}
+          </span>
           <a
-            href="https://github.com/ifitstrue"
+            href={RESUME_CONTACT.site}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-label text-[10px] tracking-[0.2em] uppercase text-secondary/80 hover:text-tertiary transition-colors duration-300"
+            className={contactLinkClass}
+          >
+            Personal Site
+          </a>
+          <a
+            href={RESUME_CONTACT.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={contactLinkClass}
           >
             GitHub
           </a>
           <a
-            href="https://www.linkedin.com/in/andrewhachten/"
+            href={RESUME_CONTACT.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-label text-[10px] tracking-[0.2em] uppercase text-secondary/80 hover:text-tertiary transition-colors duration-300"
+            className={contactLinkClass}
           >
             LinkedIn
           </a>
         </div>
       </div>
 
-      <div className="space-y-0">
+      <section aria-labelledby="experience-heading">
+        <h2 id="experience-heading" className="sr-only">Experience</h2>
         {RESUME.map((item, index) => (
           <ResumeRow
             key={`${item.company}-${item.role}`}
@@ -93,7 +113,46 @@ export default function Resume() {
             index={index}
           />
         ))}
-      </div>
+      </section>
+
+      <section className="mt-20" aria-labelledby="skills-heading">
+        <h2 id="skills-heading" className="font-headline text-4xl italic text-on-surface">
+          Skills
+        </h2>
+        <div className="mt-6 h-px bg-outline-variant/40" />
+        <dl className="mt-8 space-y-5">
+          {SKILLS.map((skill) => (
+            <div key={skill.label} className="grid gap-1 md:grid-cols-[9rem_1fr] md:gap-6">
+              <dt className="font-label text-[10px] tracking-[0.2em] uppercase text-secondary/80">
+                {skill.label}
+              </dt>
+              <dd className="font-body text-sm leading-relaxed text-on-surface-variant">
+                {skill.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="mt-20" aria-labelledby="education-heading">
+        <h2 id="education-heading" className="font-headline text-4xl italic text-on-surface">
+          Education
+        </h2>
+        <div className="mt-6 h-px bg-outline-variant/40" />
+        <div className="mt-8 flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+          <div>
+            <h3 className="font-headline text-2xl italic text-on-surface">
+              {EDUCATION.degree}
+            </h3>
+            <p className="mt-1 font-body text-sm text-on-surface-variant">
+              {EDUCATION.school}
+            </p>
+          </div>
+          <p className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/80">
+            {EDUCATION.period}
+          </p>
+        </div>
+      </section>
     </main>
   );
 }

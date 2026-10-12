@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s • Andrew Hachten",
     default: "Andrew Hachten • Personal Site",
   },
-  description: "Software Engineer, Baker, and Candlemaker",
+  description: "Software engineer, baker, and candlemaker living in Philadelphia.",
 };
 
 export default function RootLayout({

@@ -24,12 +24,14 @@ export default function About() {
         <div className="space-y-6">
           <p className="font-body text-on-surface-variant text-lg leading-relaxed">
             Hi! My name is Andrew Hachten. I&apos;m a professional software engineer
-            and a semi-professional baker and candlemaker. I currently live in
-            Philadelphia with my wife and our dog!
+            and a semi-professional baker, cocktail maker, and candlemaker. I live
+            in Philadelphia with my wife, Hannah, and our dog, Duke.
           </p>
           <p className="font-body text-on-surface-variant text-lg leading-relaxed">
-            I created this site to showcase my recipes and projects, and to play
-            around with silly ideas that I have.
+            I made this site as a home for the things I make and the occasional
+            silly idea I wanted to turn into a real thing. Right now, that mostly
+            means recipes, puzzle hints, and an unnecessarily complicated version
+            of tic tac toe.
           </p>
           <p className="font-body text-on-surface-variant text-lg leading-relaxed">
             Feel free to reach out if you&apos;re looking for a software engineer,

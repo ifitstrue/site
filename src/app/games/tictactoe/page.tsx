@@ -25,7 +25,9 @@ export default function TicTacToePage() {
         </div>
         <div className="mt-6 h-0.5 bg-tertiary-fixed-dim" />
         <p className="mt-4 font-body text-on-surface-variant text-sm leading-relaxed">
-          A nested 3×3 strategy game where each move determines the next board.
+          Win three small boards in a row to win the game. The square you choose
+          determines which small board the next player has to use. If that board
+          is already finished, they can play anywhere.
         </p>
       </div>
 

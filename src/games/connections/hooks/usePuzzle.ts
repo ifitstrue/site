@@ -32,12 +32,23 @@ export const usePuzzle = (date: string): UsePuzzleResult => {
       try {
         const res = await fetch(`/api/connections/${date}`);
         if (!res.ok) {
-          throw new Error(res.status === 404 ? "Puzzle not found for this date" : "Failed to load puzzle");
+          throw new Error(
+            res.status === 404
+              ? "No puzzle found for this date."
+              : "I couldn't load the puzzle. Try again in a minute.",
+          );
         }
         const data = await res.json();
         if (!cancelled) dispatch({ type: "FETCH_SUCCESS", puzzle: data });
       } catch (e) {
-        if (!cancelled) dispatch({ type: "FETCH_ERROR", error: e instanceof Error ? e.message : "Failed to load puzzle" });
+        if (!cancelled)
+          dispatch({
+            type: "FETCH_ERROR",
+            error:
+              e instanceof Error
+                ? e.message
+                : "I couldn't load the puzzle. Try again in a minute.",
+          });
       }
     };
 

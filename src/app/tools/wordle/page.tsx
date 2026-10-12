@@ -81,6 +81,14 @@ export default function WordleHintPage() {
       id="main-content"
       className="min-h-screen bg-surface pt-24 pb-20 px-8 md:px-16 max-w-xl mx-auto flex flex-col gap-6"
     >
+      <div>
+        <h1 className="font-headline text-5xl italic text-on-surface">
+          Wordle Hints
+        </h1>
+        <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
+          Enter any letters you already know, then ask for a yellow or green hint.
+        </p>
+      </div>
       <DateNav
         date={selectedDate}
         today={today}
@@ -114,8 +122,8 @@ function WordleHints({ date }: { date: string }) {
         if (!r.ok)
           throw new Error(
             r.status === 404
-              ? "No puzzle found for this date"
-              : "Failed to load puzzle",
+              ? "No puzzle found for this date."
+              : "I couldn't load the puzzle. Try again in a minute.",
           );
         return r.json();
       })
@@ -127,7 +135,11 @@ function WordleHints({ date }: { date: string }) {
       })
       .catch((e) => {
         if (!cancelled) {
-          setError(e instanceof Error ? e.message : "Failed to load puzzle");
+          setError(
+            e instanceof Error
+              ? e.message
+              : "I couldn't load the puzzle. Try again in a minute.",
+          );
           setLoading(false);
         }
       });
@@ -268,7 +280,7 @@ function WordleHints({ date }: { date: string }) {
         <>
           <div className="flex flex-col gap-3 items-center">
             <p className="font-label text-xs tracking-widest uppercase text-on-surface-variant/60">
-              Type to fill · click to cycle color
+              Type a letter, then click its tile to change the color.
             </p>
             <div
               className="grid grid-cols-5 gap-2 w-full max-w-xs"

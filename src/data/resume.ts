@@ -2,97 +2,94 @@ export type ResumeItem = {
   role: string;
   company: string;
   period: string;
-  tech: string[];
   points: string[];
+};
+
+export const RESUME_CONTACT = {
+  title: "Technical Lead | Full-Stack Engineer",
+  location: "Philadelphia, PA",
+  site: "https://www.andrewhachten.com/",
+  github: "https://github.com/ifitstrue",
+  linkedin: "https://www.linkedin.com/in/andrewhachten/",
+};
+
+export const SKILLS = [
+  {
+    label: "Technical",
+    value:
+      "JavaScript, TypeScript, React, Next.js, Vue, Node.js, Fastify, Express, Django, C#, VB.NET, Prisma, MySQL, MongoDB, Tailwind",
+  },
+  {
+    label: "Infrastructure",
+    value: "Firebase, Vercel, DigitalOcean, CI/CD",
+  },
+  {
+    label: "Leadership",
+    value:
+      "Technical leadership, mentoring, code review, architecture, stakeholder collaboration, agile, scrum, kanban",
+  },
+];
+
+export const EDUCATION = {
+  degree: "BS in Computer Engineering",
+  school: "Drexel University",
+  period: "Sep 2011 – Jun 2016",
 };
 
 export const RESUME: ResumeItem[] = [
   {
     role: "Head of Engineering",
     company: "Prometheus",
-    period: "2025 - now",
-    tech: [
-      "Next.js",
-      "React",
-      "Fastify",
-      "Node.js",
-      "TypeScript",
-      "Stakeholder Management",
-      "Mentorship",
-    ],
+    period: "Feb 2025 – Present",
     points: [
-      "Own and prioritize the engineering roadmap in partnership with leadership, turning organizational goals into a concrete, executable plan",
-      "Lead weekly standups and milestone reviews for non-profit partners, identifying blockers and keeping clients and developers on the same page",
-      "Direct recurring capstone programs in partnership with coding bootcamps, managing 4-6 cross-functional teams of junior developers through full delivery cycles",
-      "Architect and maintain the core platform using Next.js and Fastify, recently implementing SSO authentication and an automated email scheduling system",
+      "Sole engineer for a Next.js/TypeScript frontend and Fastify/Node.js backend using Prisma and MySQL; manage architecture and deployments with GitHub Actions, Vercel, and DigitalOcean",
+      "Use Gemini daily for TDD, implementation, debugging, refactors, and testing; applied those workflows while overhauling the platform UI/UX and building an NLP-powered chatbot",
+      "Own the engineering roadmap, turning organizational priorities into scoped projects and technical decisions",
+      "Mentored 70+ bootcamp graduates across 3 capstone programs; scoped work, ran weekly standups, reviewed code, and coached teams through production delivery",
     ],
   },
   {
-    role: "Full-Stack Web3 Engineer",
+    role: "Full-Stack Engineer",
     company: "Self-Employed",
-    period: "2021 - 2025",
-    tech: [
-      "Next.js",
-      "React",
-      "Node.js",
-      "TypeScript",
-      "Solidity",
-      "Tailwind",
-      "git",
-    ],
+    period: "Mar 2021 – Jan 2025",
     points: [
-      "Partnered with digital artists to design and build React/Next.js applications and Solidity smart contracts, supporting $3M+ in transaction volume with zero security incidents",
-      "Built custom Node.js automation for metadata refreshes and analytics tracking, eliminating what had been a significant source of manual, recurring work",
-      "Implemented unit and integration testing strategies to mitigate risk in immutable blockchain deployments",
+      "Sole engineer across 13 projects for 3 digital-artist clients, turning concepts and Figma mockups into React/Next.js applications styled with Tailwind; scoped the work, chose the tools, and managed delivery",
+      "Built Solidity smart contracts and Node.js/Express tooling for metadata updates and analytics; supported $3M+ in transaction volume across client projects",
     ],
   },
   {
     role: "Full-Stack Engineer",
     company: "EdSights",
-    period: "2020 - '21",
-    tech: ["Vue", "Python", "Django", "AWS", "git"],
+    period: "Jun 2020 – Mar 2021",
     points: [
-      "As the first internal engineering hire, established development best practices and led the transition from an outsourced codebase to an in-house team",
-      "Refactored the Vue.js portal and Django backend to reduce technical debt and keep the platform stable as the user base grew",
+      "First internal engineering hire, leading product and engineering in-house from an external contractor; partnered with founders, sales, and contractor leads to transition code, workflows, and technical ownership",
+      "Stabilized a Vue/Django platform through targeted refactoring, better error handling, logging, and testability; chose incremental modernization over a full rewrite to reduce delivery risk",
     ],
   },
   {
     role: "Full-Stack Engineer",
     company: "Medumo",
-    period: "2019 - '20",
-    tech: ["C#", "SQL", "Terraform", "Azure", "git"],
+    period: "Mar 2019 – Jan 2020",
     points: [
-      "Optimized C# services and SQL queries through restructuring and indexing, preparing the platform for a 5× increase in users ahead of a major hospital partnership",
-      "Deployed Infrastructure as Code using Terraform, enabling rapid environment replication and improving system stability",
+      "Optimized C# services and LINQ queries against Microsoft SQL Server, reducing unnecessary data fetching and load ahead of a hospital partnership expected to increase usage 5×",
     ],
   },
   {
     role: "Full-Stack Engineer",
     company: "Spectra Media Group",
-    period: "2017 - '19",
-    tech: [
-      "Ember",
-      "Feathers",
-      "Express",
-      "PHP",
-      "C#",
-      "VB.NET",
-      "SQL",
-      "MySQL",
-      "Bootstrap",
-      "git",
-    ],
+    period: "Jun 2017 – Feb 2019",
     points: [
-      "Modernized legacy Telnet/Mainframe workflows and internal dashboards, delivering full-stack rewrites in C# and Node.js",
+      "Led modernization of legacy tooling, replacing Microsoft Access and VB.NET apps with Ember/Feathers and MongoDB applications",
+      "Built centralized monitoring and remote service tooling, reducing reliance on VPN and Remote Desktop",
     ],
   },
   {
     role: "Software Engineer",
     company: "eMoney Advisor",
-    period: "2014 - '17",
-    tech: ["C#", "SQL", "Web Scraping", "git"],
+    period: "Sep 2014 – May 2017",
     points: [
-      "Promoted from Co-op to Full-Time Engineer; mentored junior developers as the team scaled from 4 to 15+, while maintaining complex C# financial data pipelines",
+      "Promoted from co-op to full-time engineer on a C# team retrieving financial data using customer credentials and PII",
+      "Mentored co-ops as the team grew from 4 to 15+ engineers through pairing, code reviews, and technical guidance",
     ],
   },
 ];
