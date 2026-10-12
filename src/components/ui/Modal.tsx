@@ -94,6 +94,7 @@ export const Modal = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
+        aria-label={title ? undefined : "Dialog"}
         className="relative bg-surface-container rounded-lg shadow-modal max-w-lg w-full mx-auto max-h-[90vh] overflow-y-auto border border-outline-variant/20"
       >
         {title && (
@@ -102,7 +103,7 @@ export const Modal = ({
             <button
               type="button"
               onClick={onClose}
-              className="text-on-surface-variant/40 hover:text-tertiary transition-colors p-2 active:scale-95 flex items-center justify-center h-10 w-10"
+              className="text-on-surface-variant hover:text-tertiary transition-colors p-2 active:scale-95 flex items-center justify-center h-11 w-11"
               aria-label="Close modal"
             >
               <span className="text-4xl leading-none pt-1" aria-hidden="true">×</span>

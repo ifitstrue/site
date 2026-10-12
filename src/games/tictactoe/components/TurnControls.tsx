@@ -26,9 +26,9 @@ function IconButton({
       className="inline-flex flex-col items-center justify-center gap-1 rounded-full border border-transparent hover:border-tertiary-fixed-dim/50 bg-surface-container-lowest px-3 py-2 text-on-surface-variant hover:text-tertiary disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 active:scale-95 shadow-sm"
     >
       <IconContext.Provider value={{ size: "1.25rem" }}>
-        <Icon />
+        <Icon aria-hidden="true" />
       </IconContext.Provider>
-      <span className="font-label text-[10px] tracking-[0.2em] uppercase leading-none mt-1">
+      <span className="font-label text-xs tracking-[0.15em] uppercase leading-none mt-1">
         {label}
       </span>
     </button>

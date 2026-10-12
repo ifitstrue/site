@@ -85,7 +85,7 @@ export default function Recipes() {
           <h1 className="font-headline text-7xl md:text-8xl italic leading-none text-on-surface">
             Recipes
           </h1>
-          <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/60 uppercase pb-1.5">
+          <span className="font-label text-xs tracking-[0.2em] text-on-surface/60 uppercase pb-1.5">
             {totalRecipes} recipes
           </span>
         </div>
@@ -99,7 +99,7 @@ export default function Recipes() {
               <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
                 {category.label}
               </p>
-              <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/60 uppercase">
+              <span className="font-label text-xs tracking-[0.2em] text-on-surface/60 uppercase">
                 {category.recipes.length}{" "}
                 {category.recipes.length === 1 ? "recipe" : "recipes"}
               </span>

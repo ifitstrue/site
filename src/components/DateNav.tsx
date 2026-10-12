@@ -70,6 +70,7 @@ export function DateNav({ date, today, onDateChange }: DateNavProps) {
         </button>
 
         <DatePicker
+          key={`${date}-${pickerOpen ? "open" : "closed"}`}
           value={date}
           today={today}
           isOpen={pickerOpen}

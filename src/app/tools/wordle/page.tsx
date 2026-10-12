@@ -34,47 +34,50 @@ const TILE_STYLES: Record<
 
 function HintTile({
   tile,
-  isFocused,
   tileRef,
-  onFocus,
-  onClick,
-  onKeyDown,
+  onLetterChange,
+  onCycleColor,
   index,
 }: {
   tile: TileState;
-  isFocused: boolean;
-  tileRef: (el: HTMLButtonElement | null) => void;
-  onFocus: () => void;
-  onClick: () => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  tileRef: (el: HTMLInputElement | null) => void;
+  onLetterChange: (letter: string) => void;
+  onCycleColor: () => void;
   index: number;
 }) {
   const styleKey = tile.letter ? tile.color : "empty";
   const style = TILE_STYLES[styleKey];
 
   return (
-    <button
-      type="button"
-      ref={tileRef}
-      onFocus={onFocus}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
-      aria-label={
-        tile.letter
-          ? `Position ${index + 1}: ${tile.letter.toUpperCase()}, ${tile.color === "unset" ? "no color" : tile.color}`
-          : `Position ${index + 1}: empty`
-      }
-      className="aspect-square rounded-sm font-body font-bold transition-all duration-150 outline-none"
-      style={{
-        backgroundColor: style.bg,
-        border: `2px solid ${isFocused ? "var(--color-primary)" : style.border}`,
-        color: style.text,
-        fontSize: "clamp(1.25rem, 5vw, 1.75rem)",
-        width: "100%",
-      }}
-    >
-      {tile.letter.toUpperCase()}
-    </button>
+    <div className="flex min-w-0 flex-col gap-1">
+      <input
+        ref={tileRef}
+        type="text"
+        inputMode="text"
+        autoComplete="off"
+        autoCapitalize="characters"
+        maxLength={1}
+        value={tile.letter.toUpperCase()}
+        onChange={(event) => onLetterChange(event.target.value)}
+        aria-label={`Letter at position ${index + 1}`}
+        className="aspect-square w-full rounded-sm text-center font-body font-bold uppercase transition-colors"
+        style={{
+          backgroundColor: style.bg,
+          border: `2px solid ${style.border}`,
+          color: style.text,
+          fontSize: "clamp(1.25rem, 5vw, 1.75rem)",
+        }}
+      />
+      <button
+        type="button"
+        disabled={!tile.letter}
+        onClick={onCycleColor}
+        aria-label={`Position ${index + 1} color: ${tile.color === "unset" ? "no color" : tile.color}. Change color`}
+        className="min-h-6 rounded-sm border border-outline bg-surface-container text-[0.7rem] font-label uppercase tracking-wide text-on-surface disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {tile.color === "unset" ? "Color" : tile.color}
+      </button>
+    </div>
   );
 }
 
@@ -118,9 +121,9 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
     Array.from({ length: 5 }, () => ({ ...EMPTY_TILE })),
   );
   const [yellowPool, setYellowPool] = useState<string[]>([]);
-  const [focusedTile, setFocusedTile] = useState<number | null>(null);
+  const [announcement, setAnnouncement] = useState("");
 
-  const tileRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tileRefs = useRef<(HTMLInputElement | null)[]>([]);
   const tilesRef = useRef(tiles);
   useEffect(() => {
     tilesRef.current = tiles;
@@ -157,77 +160,46 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
     };
   }, [date]);
 
-  const handleTileKeyDown = (
-    e: React.KeyboardEvent<HTMLButtonElement>,
-    index: number,
-  ) => {
-    if (/^[a-zA-Z]$/.test(e.key)) {
-      e.preventDefault();
-      const letter = e.key.toLowerCase();
-      setTiles((prev) => {
-        const next = [...prev];
-        next[index] = { letter, color: "unset" };
-        return next;
-      });
-      if (index < 4) tileRefs.current[index + 1]?.focus();
-    } else if (e.key === "Backspace") {
-      e.preventDefault();
-      const current = tilesRef.current[index];
-      if (current.letter) {
-        setTiles((prev) => {
-          const next = [...prev];
-          next[index] = { ...EMPTY_TILE };
-          return next;
-        });
-      } else if (index > 0) {
-        setTiles((prev) => {
-          const next = [...prev];
-          next[index - 1] = { ...EMPTY_TILE };
-          return next;
-        });
-        tileRefs.current[index - 1]?.focus();
-      }
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
-      if (index < 4) tileRefs.current[index + 1]?.focus();
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      if (index > 0) tileRefs.current[index - 1]?.focus();
-    } else if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      const current = tilesRef.current[index];
-      if (current.letter) cycleTileColor(index);
-    }
+  const setTileLetter = (index: number, rawValue: string) => {
+    const letter = rawValue.replace(/[^a-z]/gi, "").slice(-1).toLowerCase();
+    setTiles((prev) => {
+      const next = [...prev];
+      next[index] = letter ? { ...prev[index], letter } : { ...EMPTY_TILE };
+      return next;
+    });
+    if (letter && index < 4) tileRefs.current[index + 1]?.focus();
   };
 
   const cycleTileColor = (index: number) => {
-    setTiles((prev) => {
-      const next = [...prev];
-      const curr = next[index];
-      if (!curr.letter) return prev;
-      const newColor: TileColor =
-        curr.color === "unset"
-          ? "green"
-          : curr.color === "green"
-            ? "yellow"
-            : "unset";
-      next[index] = { ...curr, color: newColor };
-      return next;
-    });
-  };
-
-  const handleTileClick = (index: number) => {
-    if (tilesRef.current[index].letter) cycleTileColor(index);
+    const current = tilesRef.current[index];
+    if (!current.letter) return;
+    const newColor: TileColor =
+      current.color === "unset"
+        ? "green"
+        : current.color === "green"
+          ? "yellow"
+          : "unset";
+    setTiles((previous) => previous.map((tile, tileIndex) =>
+      tileIndex === index ? { ...tile, color: newColor } : tile,
+    ));
+    setAnnouncement(`Position ${index + 1} is now ${newColor === "unset" ? "unmarked" : newColor}.`);
   };
 
   const giveGreenHint = () => {
     if (!answer) return;
-    setTiles((prev) => addGreenHint(prev, answer));
+    const previous = tilesRef.current;
+    const next = addGreenHint(previous, answer);
+    const index = next.findIndex((tile, i) => tile.color === "green" && previous[i].color !== "green");
+    setTiles(next);
+    if (index >= 0) setAnnouncement(`Green hint: ${next[index].letter.toUpperCase()} is correct at position ${index + 1}.`);
   };
 
   const giveYellowHint = () => {
     if (!answer) return;
-    setYellowPool((prev) => addYellowHint(answer, tilesRef.current, prev));
+    const next = addYellowHint(answer, tilesRef.current, yellowPool);
+    const letter = next.find((item) => !yellowPool.includes(item));
+    setYellowPool(next);
+    if (letter) setAnnouncement(`Yellow hint: the word contains ${letter.toUpperCase()}.`);
   };
 
   const allGreenFilled = answer ? isSolved(tiles, answer) : false;
@@ -264,7 +236,7 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
         <>
           <div className="flex flex-col gap-3 items-center">
             <p className="font-label text-xs tracking-widest uppercase text-on-surface-variant/60">
-              Type a letter, then click its tile to change the color.
+              Enter a letter, then use its color control to mark what you know.
             </p>
             <div
               className="grid grid-cols-5 gap-2 w-full max-w-xs"
@@ -276,13 +248,11 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
                   key={i}
                   index={i}
                   tile={tile}
-                  isFocused={focusedTile === i}
                   tileRef={(el) => {
                     tileRefs.current[i] = el;
                   }}
-                  onFocus={() => setFocusedTile(i)}
-                  onClick={() => handleTileClick(i)}
-                  onKeyDown={(e) => handleTileKeyDown(e, i)}
+                  onLetterChange={(letter) => setTileLetter(i, letter)}
+                  onCycleColor={() => cycleTileColor(i)}
                 />
               ))}
             </div>
@@ -313,6 +283,7 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
               type="button"
               onClick={giveYellowHint}
               disabled={allLettersKnown}
+              aria-describedby={allLettersKnown ? "yellow-hint-unavailable" : undefined}
               className="font-label text-sm tracking-widest uppercase px-5 py-2.5 rounded-sm transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{ backgroundColor: "#C9B458", color: "#1c1c19" }}
             >
@@ -322,12 +293,16 @@ function WordleHints({ date, onRetry }: { date: string; onRetry: () => void }) {
               type="button"
               onClick={giveGreenHint}
               disabled={allGreenFilled}
+              aria-describedby={allGreenFilled ? "green-hint-unavailable" : undefined}
               className="font-label text-sm tracking-widest uppercase px-5 py-2.5 rounded-sm transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{ backgroundColor: "#6AAA64", color: "#ffffff" }}
             >
               Green hint
             </button>
           </div>
+          <p id="yellow-hint-unavailable" className="sr-only">All letters in the answer are already known.</p>
+          <p id="green-hint-unavailable" className="sr-only">Every letter is already in its correct position.</p>
+          <p className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</p>
         </>
       )}
     </>

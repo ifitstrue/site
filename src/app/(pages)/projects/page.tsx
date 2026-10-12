@@ -21,7 +21,7 @@ export default function Projects() {
           <h1 className="font-headline text-7xl md:text-8xl italic leading-none text-on-surface">
             Projects
           </h1>
-          <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase pb-1.5">
+          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase pb-1.5">
             {PROJECTS.length} {PROJECTS.length === 1 ? "item" : "items"}
           </span>
         </div>

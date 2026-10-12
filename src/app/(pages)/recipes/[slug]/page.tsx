@@ -82,7 +82,7 @@ export default async function RecipePage({
       />
       <Link
         href="/recipes"
-        className="font-label text-[0.65rem] tracking-[0.25em] uppercase text-on-surface-variant/50 hover:text-tertiary transition-colors mb-10 block"
+        className="font-label text-xs tracking-[0.2em] uppercase text-on-surface-variant hover:text-tertiary transition-colors mb-10 block"
       >
         ← All Recipes
       </Link>
@@ -96,7 +96,7 @@ export default async function RecipePage({
         </h1>
         <div className="mt-6 h-0.5 bg-tertiary-fixed-dim" />
         {metaTags.length > 0 && (
-          <p className="mt-5 font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
+          <p className="mt-5 font-label text-xs tracking-[0.2em] uppercase text-on-surface/60">
             {metaTags.join(" • ")}
           </p>
         )}
@@ -127,7 +127,7 @@ export default async function RecipePage({
           <h2 className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
             Ingredients
           </h2>
-          <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase">
+          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase">
             {recipe.ingredients.length} items
           </span>
         </div>
@@ -136,7 +136,7 @@ export default async function RecipePage({
           {recipe.ingredients.map((ingredient, i) => (
             <li key={`${ingredient.group ?? "ingredient"}-${ingredient.name}-${i}`}>
               {ingredient.group && (
-                <p className="font-label text-[10px] tracking-[0.25em] uppercase text-tertiary pt-6 pb-1">
+                <p className="font-label text-xs tracking-[0.25em] uppercase text-tertiary pt-6 pb-1">
                   {ingredient.group}
                 </p>
               )}
@@ -163,7 +163,7 @@ export default async function RecipePage({
           <h2 className="font-label text-xs tracking-[0.3em] uppercase text-tertiary">
             Method
           </h2>
-          <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase">
+          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase">
             {recipe.steps.length} steps
           </span>
         </div>

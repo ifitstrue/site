@@ -7,10 +7,18 @@ export default function Cell({
   boardIndex,
   cellIndex,
   isEligible,
+  tabIndex = 0,
+  cellRef,
+  onFocus,
+  onKeyDown,
 }: {
   boardIndex: number;
   cellIndex: number;
   isEligible: boolean;
+  tabIndex?: number;
+  cellRef?: (element: HTMLButtonElement | null) => void;
+  onFocus?: () => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
 }) {
   const cell = useGameStore((s) => s.boards[boardIndex].cells[cellIndex]);
   const players = useGameStore((s) => s.players);
@@ -22,6 +30,8 @@ export default function Cell({
   return (
     <button
       type="button"
+      ref={cellRef}
+      tabIndex={isDisabled ? -1 : tabIndex}
       disabled={isDisabled}
       aria-label={`Board ${boardIndex + 1}, square ${cellIndex + 1}: ${player ? `claimed by ${player.name}` : "empty"}`}
       className={[
@@ -34,6 +44,8 @@ export default function Cell({
         margin: "1px",
       }}
       onClick={() => claimCell(boardIndex, cellIndex)}
+      onFocus={onFocus}
+      onKeyDown={onKeyDown}
     >
       {player && (
         <IconContext.Provider value={{ color: player.color, size: "3rem" }}>

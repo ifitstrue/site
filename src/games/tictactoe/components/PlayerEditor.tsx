@@ -3,6 +3,7 @@
 import { useGameStore } from "../store";
 import { Player } from "../types";
 import IconPicker from "./IconPicker";
+import { AVAILABLE_PLAYER_COLORS } from "../constants";
 
 export default function PlayerEditor({ 
   playerId, 
@@ -29,7 +30,7 @@ export default function PlayerEditor({
       </span>
 
       <div className="flex-1 flex flex-col gap-1 min-w-0">
-        <label htmlFor={nameId} className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60 group-hover:text-tertiary transition-colors">
+        <label htmlFor={nameId} className="font-label text-xs tracking-[0.15em] uppercase text-on-surface-variant group-hover:text-tertiary transition-colors">
           Player Name
         </label>
         <input
@@ -43,23 +44,26 @@ export default function PlayerEditor({
 
       <div className="flex items-center gap-4 shrink-0">
         <div className="flex flex-col gap-2 items-center">
-          <label htmlFor={colorId} className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
+          <label htmlFor={colorId} className="font-label text-xs tracking-[0.15em] uppercase text-on-surface-variant">
             Color
           </label>
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30 group-hover:border-tertiary-fixed-dim/50 transition-colors">
-            <input
+          <div className="flex items-center gap-2">
+            <span className="h-5 w-5 rounded-full border border-outline" style={{ backgroundColor: player.color }} aria-hidden="true" />
+            <select
               id={colorId}
-              type="color"
               value={player.color}
               onChange={(e) => update({ color: e.target.value })}
-              className="absolute inset-[-50%] w-[200%] h-[200%] cursor-pointer p-0 border-none"
-              title="Player color"
-            />
+              className="rounded-full border border-outline bg-surface-container-lowest px-3 py-2 font-label text-xs uppercase tracking-wide text-on-surface"
+            >
+              {AVAILABLE_PLAYER_COLORS.map((color) => (
+                <option key={color.value} value={color.value}>{color.name}</option>
+              ))}
+            </select>
           </div>
         </div>
 
         <div className="flex flex-col gap-2 items-center">
-          <label htmlFor={iconId} className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/60">
+          <label htmlFor={iconId} className="font-label text-xs tracking-[0.15em] uppercase text-on-surface-variant">
             Icon
           </label>
           <div className="group/icon">

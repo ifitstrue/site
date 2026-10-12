@@ -4,7 +4,19 @@ import { IconContext } from "react-icons";
 import { useGameStore } from "../store";
 import Cell from "./Cell";
 
-export default function SubBoard({ boardIndex }: { boardIndex: number }) {
+export default function SubBoard({
+  boardIndex,
+  focusedCell,
+  registerCell,
+  onCellFocus,
+  onCellKeyDown,
+}: {
+  boardIndex: number;
+  focusedCell?: string;
+  registerCell?: (key: string, element: HTMLButtonElement | null) => void;
+  onCellFocus?: (key: string) => void;
+  onCellKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement>, boardIndex: number, cellIndex: number) => void;
+}) {
   const board = useGameStore((s) => s.boards[boardIndex]);
   const players = useGameStore((s) => s.players);
   const eligibleBoards = useGameStore((s) => s.eligibleBoards);
@@ -31,6 +43,10 @@ export default function SubBoard({ boardIndex }: { boardIndex: number }) {
           boardIndex={boardIndex}
           cellIndex={cellIndex}
           isEligible={isEligible}
+          tabIndex={focusedCell === `${boardIndex}-${cellIndex}` ? 0 : -1}
+          cellRef={(element) => registerCell?.(`${boardIndex}-${cellIndex}`, element)}
+          onFocus={() => onCellFocus?.(`${boardIndex}-${cellIndex}`)}
+          onKeyDown={(event) => onCellKeyDown?.(event, boardIndex, cellIndex)}
         />
       ))}
       {winner && (

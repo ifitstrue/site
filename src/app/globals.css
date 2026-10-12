@@ -88,6 +88,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+:focus-visible {
+  outline: 3px solid var(--color-tertiary) !important;
+  outline-offset: 3px !important;
+}
+
 /* No-Line Rule */
 * {
   border-color: transparent;

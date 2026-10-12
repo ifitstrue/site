@@ -35,7 +35,7 @@ function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
               {item.company}
             </span>
           </h2>
-          <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase whitespace-nowrap md:pt-1">
+          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase whitespace-nowrap md:pt-1">
             {item.period}
           </span>
         </div>
@@ -59,7 +59,7 @@ function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
 
 export default function Resume() {
   const contactLinkClass =
-    "font-label text-[10px] tracking-[0.14em] uppercase text-secondary/80 hover:text-tertiary transition-colors duration-300";
+    "font-label text-xs tracking-[0.14em] uppercase text-secondary/80 hover:text-tertiary transition-colors duration-300";
 
   return (
     <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
@@ -71,7 +71,7 @@ export default function Resume() {
           <h1 className="font-headline text-6xl md:text-7xl lg:text-8xl italic leading-none text-on-surface">
             Resume
           </h1>
-          <span className="font-label text-[10px] tracking-[0.2em] text-on-surface/80 uppercase pb-1.5">
+          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase pb-1.5">
             {RESUME.length} entries
           </span>
         </div>
@@ -80,7 +80,7 @@ export default function Resume() {
           {RESUME_CONTACT.title}
         </p>
         <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
-          <span className="font-label text-[10px] tracking-[0.14em] uppercase text-on-surface/60">
+          <span className="font-label text-xs tracking-[0.14em] uppercase text-on-surface/60">
             {RESUME_CONTACT.location}
           </span>
           <a
@@ -129,7 +129,7 @@ export default function Resume() {
         <dl className="mt-8 space-y-5">
           {SKILLS.map((skill) => (
             <div key={skill.label} className="grid gap-1 md:grid-cols-[9rem_1fr] md:gap-6">
-              <dt className="font-label text-[10px] tracking-[0.2em] uppercase text-secondary/80">
+              <dt className="font-label text-xs tracking-[0.2em] uppercase text-secondary/80">
                 {skill.label}
               </dt>
               <dd className="font-body text-base leading-relaxed text-on-surface-variant">
@@ -154,7 +154,7 @@ export default function Resume() {
               {EDUCATION.school}
             </p>
           </div>
-          <p className="font-label text-[10px] tracking-[0.2em] uppercase text-on-surface/80">
+          <p className="font-label text-xs tracking-[0.2em] uppercase text-on-surface/80">
             {EDUCATION.period}
           </p>
         </div>

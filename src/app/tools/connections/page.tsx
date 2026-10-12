@@ -43,6 +43,7 @@ function ConnectionsHints({ date, onRetry }: { date: string; onRetry: () => void
 
   const [hintCounts, setHintCounts] = useState<Record<number, number>>({});
   const [solved, setSolved] = useState<Set<number>>(new Set());
+  const [announcement, setAnnouncement] = useState("");
 
   const categories = useMemo(
     () =>
@@ -65,19 +66,21 @@ function ConnectionsHints({ date, onRetry }: { date: string; onRetry: () => void
         (hintCounts[cat.level] ?? 0) < cat.words.length
     );
     if (!target) return;
+    const nextWord = target.words[hintCounts[target.level] ?? 0];
     setHintCounts((prev) => ({
       ...prev,
       [target.level]: (prev[target.level] ?? 0) + 1,
     }));
+    setAnnouncement(`Hint revealed: ${nextWord}.`);
   };
 
   const toggleSolved = (level: number) => {
-    setSolved((prev) => {
-      const next = new Set(prev);
-      if (next.has(level)) next.delete(level);
-      else next.add(level);
-      return next;
-    });
+    const next = new Set(solved);
+    if (next.has(level)) next.delete(level);
+    else next.add(level);
+    setSolved(next);
+    const category = categories.find((item) => item.level === level);
+    setAnnouncement(`${category?.title ?? "Category"} marked ${next.has(level) ? "solved" : "unsolved"}.`);
   };
 
   const hintDisabled =
@@ -120,7 +123,7 @@ function ConnectionsHints({ date, onRetry }: { date: string; onRetry: () => void
                 <div
                   key={cat.level}
                   role="listitem"
-                  className={`rounded-sm overflow-hidden transition-opacity duration-200 ${isSolved ? "opacity-40" : ""}`}
+                  className="rounded-sm overflow-hidden"
                 >
                   <div
                     className="px-4 py-2 flex items-center justify-between"
@@ -147,7 +150,7 @@ function ConnectionsHints({ date, onRetry }: { date: string; onRetry: () => void
                         {revealed.join(", ")}
                       </p>
                     ) : (
-                      <p className="font-body text-sm text-on-surface-variant/40 italic select-none">
+                      <p className="font-body text-sm text-on-surface-variant italic select-none">
                         No hints yet
                       </p>
                     )}
@@ -167,6 +170,7 @@ function ConnectionsHints({ date, onRetry }: { date: string; onRetry: () => void
               Hint
             </button>
           </div>
+          <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
         </>
       )}
     </>

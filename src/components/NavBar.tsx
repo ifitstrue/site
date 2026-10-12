@@ -79,11 +79,12 @@ export function NavBar() {
                   className={`flex items-baseline transition-all duration-300 font-headline italic text-xl py-2 ${
                     isActive
                       ? "text-tertiary scale-105"
-                      : "text-on-surface/50 hover:text-primary"
+                      : "text-on-surface/70 hover:text-primary"
                   }`}
                 >
                   <span
-                    className={`font-label text-[10px] tracking-[0.3em] transition-colors duration-300 mr-3 ${
+                    aria-hidden="true"
+                    className={`font-label text-xs tracking-[0.3em] transition-colors duration-300 mr-3 ${
                       isActive
                         ? "text-tertiary-fixed-dim"
                         : "text-tertiary-fixed-dim/30 group-hover:text-primary/60"
@@ -156,11 +157,12 @@ export function NavBar() {
                     className={`flex items-baseline py-3 transition-colors duration-300 font-headline italic text-2xl ${
                       isActive
                         ? "text-tertiary"
-                        : "text-on-surface/50"
+                        : "text-on-surface/70"
                     }`}
                   >
                     <span
-                      className={`font-label text-[10px] tracking-[0.3em] mr-4 ${
+                      aria-hidden="true"
+                      className={`font-label text-xs tracking-[0.3em] mr-4 ${
                         isActive
                           ? "text-tertiary-fixed-dim"
                           : "text-tertiary-fixed-dim/30"

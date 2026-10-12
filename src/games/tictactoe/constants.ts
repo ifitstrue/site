@@ -39,3 +39,11 @@ export const DEFAULT_PLAYERS: Player[] = [
   { id: 0, name: "Player 1", icon: FiX, color: "#C62828" },
   { id: 1, name: "Player 2", icon: FiCircle, color: "#1565C0" },
 ];
+
+export const AVAILABLE_PLAYER_COLORS = [
+  { name: "Red", value: "#C62828" },
+  { name: "Blue", value: "#1565C0" },
+  { name: "Green", value: "#1B6E45" },
+  { name: "Purple", value: "#6A3D9A" },
+  { name: "Brown", value: "#795548" },
+] as const;

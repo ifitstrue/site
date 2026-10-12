@@ -1,7 +1,8 @@
 "use client";
 
-import { useReducer, useEffect, useRef } from "react";
+import { useReducer, useEffect, useRef, useState } from "react";
 import {
+  addDays,
   formatDisplayDate,
   getCalendarCells,
   formatMonthYear,
@@ -46,7 +47,7 @@ const getCellStyle = (
   }
 
   const bg = "bg-transparent hover:bg-surface-container";
-  const text = isCurrentMonth ? "text-on-surface" : "text-on-surface-variant/40";
+  const text = isCurrentMonth ? "text-on-surface" : "text-on-surface-variant/70";
 
   const ring = isToday || isSelected ? "ring-2 ring-primary ring-inset" : "";
 
@@ -108,22 +109,19 @@ export const DatePicker = ({
   onSelect,
 }: DatePickerProps) => {
   const [picker, dispatch] = useReducer(pickerReducer, value, initState);
+  const [focusedDate, setFocusedDate] = useState(value);
   const ref = useRef<HTMLDivElement>(null);
+  const dateRefs = useRef(new Map<string, HTMLButtonElement>());
+  const yearRefs = useRef(new Map<number, HTMLButtonElement>());
 
   useEffect(() => {
-    if (isOpen) {
-      dispatch({
-        type: "RESET",
-        year: Number(value.split("-")[0]),
-        month: Number(value.split("-")[1]) - 1,
-      });
-      requestAnimationFrame(() => {
-        ref.current
-          ?.querySelector<HTMLElement>('[aria-current="date"]')
-          ?.focus();
-      });
-    }
-  }, [isOpen, value]);
+    if (!isOpen) return;
+    const rafId = requestAnimationFrame(() => {
+      if (picker.mode === "year") yearRefs.current.get(picker.viewYear)?.focus();
+      else dateRefs.current.get(focusedDate)?.focus();
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [focusedDate, isOpen, picker.mode, picker.viewMonth, picker.viewYear]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -167,6 +165,41 @@ export const DatePicker = ({
   const showingCurrentMonth =
     viewYear === todayYear && viewMonth === todayMonth - 1;
 
+  const moveFocus = (date: string) => {
+    if (date > today) return;
+    const [year, month] = date.split("-").map(Number);
+    setFocusedDate(date);
+    if (year !== viewYear || month - 1 !== viewMonth) {
+      dispatch({ type: "RESET", year, month: month - 1 });
+    } else {
+      dateRefs.current.get(date)?.focus();
+    }
+  };
+
+  const shiftMonth = (date: string, amount: number) => {
+    const [year, month, day] = date.split("-").map(Number);
+    const target = new Date(year, month - 1 + amount, 1);
+    const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+    return `${target.getFullYear()}-${String(target.getMonth() + 1).padStart(2, "0")}-${String(Math.min(day, lastDay)).padStart(2, "0")}`;
+  };
+
+  const handleDateKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, date: string) => {
+    const day = new Date(`${date}T00:00:00`).getDay();
+    const target = {
+      ArrowLeft: addDays(date, -1),
+      ArrowRight: addDays(date, 1),
+      ArrowUp: addDays(date, -7),
+      ArrowDown: addDays(date, 7),
+      Home: addDays(date, -day),
+      End: addDays(date, 6 - day),
+      PageUp: shiftMonth(date, -1),
+      PageDown: shiftMonth(date, 1),
+    }[event.key];
+    if (!target) return;
+    event.preventDefault();
+    moveFocus(target > today ? today : target);
+  };
+
   return (
     <div
       ref={ref}
@@ -209,7 +242,7 @@ export const DatePicker = ({
             {DAY_LABELS.map((d) => (
               <div
                 key={d}
-                className="text-center font-label text-[10px] tracking-widest text-on-surface-variant/50 py-1"
+                className="text-center font-label text-xs tracking-wide text-on-surface-variant py-1"
               >
                 {d}
               </div>
@@ -223,10 +256,17 @@ export const DatePicker = ({
               return (
                 <button
                   key={date}
+                  ref={(element) => {
+                    if (element) dateRefs.current.set(date, element);
+                    else dateRefs.current.delete(date);
+                  }}
                   type="button"
+                  tabIndex={!style.isFuture && date === focusedDate ? 0 : -1}
                   aria-label={formatDisplayDate(date)}
                   aria-current={date === value ? "date" : undefined}
                   disabled={style.isFuture}
+                  onFocus={() => setFocusedDate(date)}
+                  onKeyDown={(event) => handleDateKeyDown(event, date)}
                   onClick={() => onSelect(date)}
                   className={`flex flex-col items-center justify-center h-11 w-full rounded text-sm font-body transition-colors ${style.bg} ${style.text} ${style.ring} ${style.cursor}`}
                 >
@@ -264,6 +304,10 @@ export const DatePicker = ({
             {years.map((y) => (
               <button
                 key={y}
+                ref={(element) => {
+                  if (element) yearRefs.current.set(y, element);
+                  else yearRefs.current.delete(y);
+                }}
                 type="button"
                 disabled={y > todayYear}
                 onClick={() => dispatch({ type: "SET_YEAR", year: y })}
