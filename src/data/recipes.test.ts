@@ -92,12 +92,20 @@ describe("recipe catalogue", () => {
       note: "divided however you like; I stick with 5-7 oz of each",
     });
     expect(authoredText).toContain(
-      "Line a baking sheet with parchment paper.",
+      "Preheat the oven to 360°F and line the baking sheets with parchment paper.",
     );
     expect(authoredText).toContain(
-      "Arrange no more than 6 frozen dough balls per sheet, with about 3 inches between them.",
+      "Arrange no more than 6 frozen dough balls on each sheet, leaving about 3 inches between them.",
     );
-    expect(authoredText).toContain("Leave them on the tray for 5-10 minutes, then move them to a cooling rack.");
+    expect(authoredText).toContain(
+      "If you're baking two trays, bake them for 16 minutes total.",
+    );
+    expect(authoredText).toContain("Leave the cookies on the trays for 5-10 minutes, then move them to a cooling rack.");
+    expect(
+      recipe.steps.find((step) => step.instruction === "Combine everything.")?.aside,
+    ).toBe("When making cookies, it's important to mix until just combined!");
+    expect(recipe.steps[0].substeps).toBeUndefined();
+    expect(recipe.steps[1].substeps).toBeUndefined();
   });
 
   it("does not publish contradictory or text-message-only copy", () => {

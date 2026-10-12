@@ -9,6 +9,7 @@ export type Step = {
   instruction: string;
   heading?: string;
   substeps?: string[];
+  aside?: string;
 };
 
 export type FullRecipe = {
@@ -70,45 +71,51 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Bring the eggs to room temperature before mixing. I like putting them in a water bath that's roughly room temp for like 5-10 minutes.",
+          "Bring the eggs to room temperature. I like putting them in a room-temperature water bath for 5-10 minutes.",
       },
       {
         instruction:
-          "Mix the flour, baking soda, baking powder, and salt together in a medium bowl.",
+          "Mix the dry ingredients. In a medium bowl, mix together the flour, baking soda, baking powder, and salt.",
       },
       {
         instruction:
-          "Cream together the butter and sugars until combined. I use a hand mixer because it works just as well as my stand mixer for this.",
+          "Cream the butter and sugars. Cream together the butter, granulated sugar, and brown sugar until the mixture is noticeably lighter and fluffier but still holds its shape. I use a hand mixer because it works just as well as my stand mixer for this.",
+      },
+      {
+        instruction: "Add the extracts and eggs.",
+        substeps: [
+          "Add the vanilla and almond extracts, and mix for 10-15 seconds.",
+          "Add the eggs one at a time, mixing until just combined after each one.",
+        ],
+      },
+      {
+        instruction: "Combine everything.",
+        substeps: [
+          "Add the dry ingredients to the wet ingredients and use the hand mixer on low for 10-15 seconds, until they're almost combined. There should still be a lot of dry streaks remaining.",
+          "Add the chocolate chips and finish mixing with a wooden spoon or something similar. You can also mix this part entirely by hand if you want to play it safe, but it takes a while.",
+        ],
+        aside: "When making cookies, it's important to mix until just combined!",
       },
       {
         instruction:
-          "Add the vanilla and almond extracts. Combine them with the butter before the eggs, so that they can bind to the butter better.",
+          "Form the cookies. Form the dough into 60g balls. This should make around 20-22 cookies. If you don't have a scale, each ball should be roughly 1/4 cup, or 4 tablespoons, of dough.",
       },
       {
-        instruction: "Add the eggs one at a time and mix until just combined.",
-      },
-      {
-        instruction:
-          "When making cookies, it's important to mix until just combined. Mix the dry ingredients into the wet ingredients until they're almost combined; there should still be some dry streaks, but the hard part should be done. This usually takes just a few seconds with the hand mixer. Add the chocolate chips and finish mixing with a wooden spoon or something similar. You can also mix entirely by hand if you want to play it safe, but it takes a while.",
-      },
-      {
-        instruction:
-          "Form the dough into 60g balls. I make around 22. If you don't have a scale, that's probably like 3-4 tablespoons (4 tbsp is 1/4 cup).",
-      },
-      {
-        instruction:
-          "Freeze the dough balls to bake on demand. If you don't do that, chill the dough—formed as balls or still in the bowl—in the fridge for 1-2 hours or in the freezer for 15-30 minutes.",
+        instruction: "Freeze the dough.",
+        substeps: [
+          "Arrange the dough balls on a tray so that they aren't touching.",
+          "Freeze them on the tray for at least 30 minutes.",
+          "Once they're firm, move them into a freezer Ziploc bag until you're ready to bake them.",
+        ],
       },
       {
         instruction: "Bake the cookies.",
         substeps: [
-          "Preheat the oven to 375°F.",
-          "Line a baking sheet with parchment paper.",
-          "Arrange no more than 6 frozen dough balls per sheet, with about 3 inches between them.",
-          "Right after putting the cookies in the oven, lower the oven temp to 360°F. I start high and lower it because I prefer 360°F, and opening the oven loses about 5-10 degrees.",
-          "Bake for 12-16 minutes. I look to see when the tops are starting to brown, then wait another 1-3 minutes.",
-          "I've never baked more than one tray at a time, but if you do, you should probably swap and rotate the trays halfway through.",
-          "Leave them on the tray for 5-10 minutes, then move them to a cooling rack.",
+          "Preheat the oven to 360°F and line the baking sheets with parchment paper.",
+          "Arrange no more than 6 frozen dough balls on each sheet, leaving about 3 inches between them.",
+          "If you're baking two trays, bake them for 16 minutes total. After roughly 8 minutes, rotate each tray 180 degrees and swap their positions between the oven racks.",
+          "I look for the tops to start browning, then give them another 1-3 minutes if they need it.",
+          "Leave the cookies on the trays for 5-10 minutes, then move them to a cooling rack.",
         ],
       },
     ],

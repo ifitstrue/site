@@ -30,4 +30,17 @@ describe("recipe page", () => {
         .getAttribute("href"),
     ).toBe("https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/");
   });
+
+  it("renders method asides separately from the numbered actions", async () => {
+    render(
+      await RecipePage({
+        params: Promise.resolve({ slug: "chocolate-chip-cookies" }),
+      }),
+    );
+
+    const aside = screen.getByText(
+      "When making cookies, it's important to mix until just combined!",
+    );
+    expect(aside.tagName).toBe("BLOCKQUOTE");
+  });
 });

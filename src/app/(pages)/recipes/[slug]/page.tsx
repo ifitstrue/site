@@ -155,6 +155,11 @@ export default async function RecipePage({
                     ))}
                   </ol>
                 )}
+                {step.aside && (
+                  <blockquote className="mt-5 border-l-2 border-tertiary-fixed-dim pl-4 font-headline italic text-on-surface-variant text-base leading-relaxed">
+                    {step.aside}
+                  </blockquote>
+                )}
               </div>
             </div>
           ))}
