@@ -174,8 +174,8 @@ export const DatePicker = ({
   };
 
   const showAdjacentMonth = (amount: number) => {
-    const target = shiftMonth(focusedDate, amount);
-    if (target > today) return;
+    const proposed = shiftMonth(focusedDate, amount);
+    const target = proposed > today ? today : proposed;
     const [year, month] = target.split("-").map(Number);
     setFocusedDate(target);
     dispatch({ type: "RESET", year, month: month - 1 });

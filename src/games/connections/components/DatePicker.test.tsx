@@ -72,6 +72,22 @@ describe("DatePicker keyboard navigation", () => {
     expect(augustDate.getAttribute("tabindex")).toBe("0");
   });
 
+  it("clamps next-month focus to today when the preserved day is in the future", async () => {
+    render(
+      <DatePicker
+        value="2026-09-15"
+        today="2026-10-12"
+        isOpen
+        onClose={vi.fn()}
+        onSelect={vi.fn()}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Next month" }));
+    const today = screen.getByRole("button", { name: "October 12, 2026" });
+    await waitFor(() => expect(document.activeElement).toBe(today));
+    expect(today.getAttribute("tabindex")).toBe("0");
+  });
+
   it("retains a tabbable, focused date after choosing a year", async () => {
     render(
       <DatePicker
