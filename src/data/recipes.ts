@@ -6,8 +6,8 @@ export type Ingredient = {
 };
 
 export type Step = {
-  instruction: string;
-  heading?: string;
+  title: string;
+  instruction?: string;
   substeps?: string[];
   aside?: string;
 };
@@ -70,26 +70,29 @@ export const RECIPES: Record<string, FullRecipe> = {
     ],
     steps: [
       {
+        title: "Bring the eggs to room temperature.",
         instruction:
-          "Bring the eggs to room temperature. I like putting them in a room-temperature water bath for 5-10 minutes.",
+          "I like putting them in a bowl of room-temperature water for 5-10 minutes.",
       },
       {
+        title: "Mix the dry ingredients.",
         instruction:
-          "Mix the dry ingredients. In a medium bowl, mix together the flour, baking soda, baking powder, and salt.",
+          "In a medium bowl, mix together the dry ingredients (flour, baking soda, baking powder, and salt).",
       },
       {
+        title: "Cream the butter and sugars.",
         instruction:
-          "Cream the butter and sugars. Cream together the butter, granulated sugar, and brown sugar until the mixture is noticeably lighter and fluffier but still holds its shape. I use a hand mixer because it works just as well as my stand mixer for this.",
+          "Cream together the butter and sugars (granulated sugar and brown sugar) until the mixture is noticeably lighter and fluffier but still holds its shape. I use a hand mixer because it works just as well as my stand mixer for this.",
       },
       {
-        instruction: "Add the extracts and eggs.",
+        title: "Add the extracts and eggs.",
         substeps: [
           "Add the vanilla and almond extracts, and mix for 10-15 seconds.",
           "Add the eggs one at a time, mixing until just combined after each one.",
         ],
       },
       {
-        instruction: "Combine everything.",
+        title: "Combine everything.",
         substeps: [
           "Add the dry ingredients to the wet ingredients and use the hand mixer on low for 10-15 seconds, until they're almost combined. There should still be a lot of dry streaks remaining.",
           "Add the chocolate chips and finish mixing with a wooden spoon or something similar. You can also mix this part entirely by hand if you want to play it safe, but it takes a while.",
@@ -97,11 +100,12 @@ export const RECIPES: Record<string, FullRecipe> = {
         aside: "When making cookies, it's important to mix until just combined!",
       },
       {
+        title: "Form the cookies.",
         instruction:
-          "Form the cookies. Form the dough into 60g balls. This should make around 20-22 cookies. If you don't have a scale, each ball should be roughly 1/4 cup, or 4 tablespoons, of dough.",
+          "Form the dough into 60g balls. This should make around 20-22 cookies. If you don't have a scale, each ball should be roughly 1/4 cup (4 tablespoons) of dough.",
       },
       {
-        instruction: "Freeze the dough.",
+        title: "Freeze the dough.",
         substeps: [
           "Arrange the dough balls on a tray so that they aren't touching.",
           "Freeze them on the tray for at least 30 minutes.",
@@ -109,11 +113,11 @@ export const RECIPES: Record<string, FullRecipe> = {
         ],
       },
       {
-        instruction: "Bake the cookies.",
+        title: "Bake the cookies.",
         substeps: [
           "Preheat the oven to 360°F and line the baking sheets with parchment paper.",
           "Arrange no more than 6 frozen dough balls on each sheet, leaving about 3 inches between them.",
-          "If you're baking two trays, bake them for 16 minutes total. After roughly 8 minutes, rotate each tray 180 degrees and swap their positions between the oven racks.",
+          "Bake for 12-16 minutes. If you're baking two trays, bake them for the full 16 minutes; after roughly 8 minutes, rotate each tray 180 degrees and swap their positions between the oven racks.",
           "I look for the tops to start browning, then give them another 1-3 minutes if they need it.",
           "Leave the cookies on the trays for 5-10 minutes, then move them to a cooling rack.",
         ],
@@ -177,7 +181,8 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         amount: "120g",
         name: "ricotta",
-        note: "whole-milk, drained, and at room temperature; 1/2 cup",
+        note:
+          "whole-milk and at room temperature; drain it first if it's especially wet; 1/2 cup",
       },
       {
         amount: "2 large",
@@ -194,14 +199,15 @@ export const RECIPES: Record<string, FullRecipe> = {
     ],
     steps: [
       {
+        title: "Prepare the pan.",
         instruction:
           "Lightly butter an 8-inch square pan and line it with parchment paper.",
       },
       {
-        instruction: "Preheat the oven to 350°F.",
+        title: "Preheat the oven to 350°F.",
       },
       {
-        instruction: "Make the lemon sugar.",
+        title: "Make the lemon sugar.",
         substeps: [
           "Combine the lemon zest with the sugar in a small bowl.",
           "Rub the sugar and zest together with your fingers until fully combined.",
@@ -209,20 +215,21 @@ export const RECIPES: Record<string, FullRecipe> = {
         ],
       },
       {
-        instruction: "Make the cinnamon crumb topping.",
+        title: "Make the cinnamon crumb topping.",
         substeps: [
-          "Combine the brown sugar, all-purpose flour, and ground cinnamon.",
+          "Combine the dry ingredients (brown sugar, all-purpose flour, and ground cinnamon).",
           "Cut in the butter with a fork, pastry cutter, or food processor.",
           "Mix until the mixture is in pea-sized crumbs.",
           "Refrigerate.",
         ],
       },
       {
+        title: "Mix the dry ingredients.",
         instruction:
-          "Mix together the dry ingredients—all-purpose flour, baking powder, baking soda, and salt—in a medium bowl.",
+          "Mix together the dry ingredients (all-purpose flour, baking powder, baking soda, and salt) in a medium bowl.",
       },
       {
-        instruction: "Make the wet ingredients.",
+        title: "Make the wet ingredients.",
         substeps: [
           "In a large bowl using a handheld or stand mixer, cream the butter and lemon sugar on high speed until smooth and creamy, about 5-6 minutes.",
           "Add the almond oil and beat until combined, roughly 1 minute.",
@@ -233,14 +240,15 @@ export const RECIPES: Record<string, FullRecipe> = {
         ],
       },
       {
-        instruction: "Combine the wet and dry ingredients.",
+        title: "Combine the wet and dry ingredients.",
         substeps: [
           "Beat the wet and dry ingredients together on low speed until just combined.",
           "Beat in the heavy cream or almond milk.",
         ],
+        aside: "Don't overmix this; stop as soon as everything is combined.",
       },
       {
-        instruction: "Layer the cake.",
+        title: "Layer the cake.",
         substeps: [
           "Put half of the batter into the pan and spread it evenly.",
           "Carefully spread the jam, making sure not to disturb the batter.",
@@ -248,14 +256,17 @@ export const RECIPES: Record<string, FullRecipe> = {
         ],
       },
       {
-        instruction: "Bake the cake.",
+        title: "Bake the cake.",
         substeps: [
           "Bake for 10 minutes. In the meantime, take the cinnamon crumb mixture out of the fridge.",
           "After 10 minutes, cover the top with the cinnamon crumb topping and put it back in the oven.",
-          "Bake for another 30-35 minutes. Some jam on the toothpick is fine; look for moist cake crumbs rather than wet batter.",
+          "Bake for another 30-35 minutes, until a toothpick inserted into the center comes out without any wet batter.",
         ],
+        aside:
+          "Some jam on the toothpick is fine; look for moist cake crumbs rather than wet batter.",
       },
       {
+        title: "Let the cake cool.",
         instruction:
           "Let the cake cool in the pan for at least 30 minutes before cutting.",
       },
@@ -283,32 +294,33 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         amount: "1 cup",
         name: "fresh cucumber juice",
-        note: "from washed English cucumbers",
+        note: "from washed cucumbers",
       },
     ],
     steps: [
       {
-        instruction: "Bring the water to a boil in a small saucepan.",
+        title: "Make the mint syrup.",
+        substeps: [
+          "Bring the water to a boil in a small saucepan.",
+          "Add the sugar and stir until fully dissolved, then remove it from the heat.",
+          "Add the mint and stir gently. Let it steep as the syrup cools to room temperature, about 30-45 minutes.",
+        ],
       },
       {
-        instruction:
-          "Add the sugar and stir until fully dissolved. Remove from heat.",
+        title: "Make the cucumber juice.",
+        substeps: [
+          "Wash the cucumbers, then run them through a zester or grater; they should start releasing juice as you work.",
+          "Squeeze the cucumber pulp to get as much juice out of it as possible.",
+          "Strain everything through a fine-mesh strainer until you have 1 cup of cucumber juice. You don't need to worry much about the seeds; the strainer will catch them.",
+        ],
       },
       {
-        instruction:
-          "Add the mint to the hot syrup. Stir gently and let steep as it cools to room temperature, about 30-45 minutes.",
-      },
-      {
-        instruction:
-          "While the syrup cools, wash the English cucumbers. Juice them until you have 1 cup of cucumber juice. A fine mesh strainer or cheesecloth helps remove pulp.",
-      },
-      {
-        instruction:
-          "Once the syrup is fully cool, strain it through a fine mesh strainer to remove the mint leaves.",
-      },
-      {
-        instruction:
-          "Add the cucumber juice to the strained syrup and stir to combine. Bottle and refrigerate; keeps for up to 2 weeks.",
+        title: "Combine everything.",
+        substeps: [
+          "Once the mint syrup is fully cool, strain out the mint leaves.",
+          "Add the cucumber juice and stir until combined.",
+          "Bottle and refrigerate; it keeps for up to 2 weeks.",
+        ],
       },
     ],
   },
@@ -328,12 +340,12 @@ export const RECIPES: Record<string, FullRecipe> = {
       },
     ],
     steps: [
-      { instruction: "Heat the water to just off boiling." },
-      { instruction: "Add the Earl Grey tea bags." },
-      { instruction: "Wait 5-6 minutes for the tea to steep." },
-      { instruction: "Remove the tea bags, or strain out the loose tea." },
-      { instruction: "Add the honey and stir until combined." },
-      { instruction: "Let cool, bottle, and refrigerate." },
+      { title: "Heat the water to just off boiling." },
+      { title: "Add the Earl Grey tea bags." },
+      { title: "Let the tea steep for 5-6 minutes." },
+      { title: "Remove the tea bags, or strain out the loose tea." },
+      { title: "Add the honey and stir until combined." },
+      { title: "Let cool, bottle, and refrigerate." },
     ],
   },
 
@@ -342,7 +354,7 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Syrups & Shrubs & Ferments",
     title: "Lemon Super Juice",
     lede:
-      "This is a no-fresh-juice version, so it does not use the juice from the peeled fruit.",
+      "This version skips the fresh juice; it only uses the peels.",
     yield: "about 400 ml",
     ingredients: [
       { amount: "24g", name: "lemon peel" },
@@ -353,24 +365,29 @@ export const RECIPES: Record<string, FullRecipe> = {
     ],
     steps: [
       {
+        title: "Peel the lemons.",
         instruction:
-          "Peel the lemons, taking as little white pith as possible. Save the peeled fruit for another use.",
+          "Use a vegetable peeler, taking as little white pith as possible. Save the peeled fruit for another use.",
       },
       {
+        title: "Combine the peel mixture.",
         instruction:
-          "Combine the peels, citric acid, salt, and sugar in a bowl or jar. Stir to combine.",
+          "Combine the peels and dry ingredients (citric acid, salt, and sugar) in a bowl or jar. Stir to combine.",
       },
       {
-        instruction:
-          "Let the mixture sit at room temperature for about 30 minutes.",
+        title: "Let the mixture sit at room temperature for about 30 minutes.",
       },
       {
+        title: "Add the water and blend.",
         instruction:
-          "Add the water and blend lightly, until the peels are roughly fingernail-sized. Over-blending will make it bitter.",
+          "Blend lightly until the peels are roughly fingernail-sized.",
+        aside:
+          "Don't overblend this. Smaller pieces of peel, especially pieces with white pith, can make it bitter.",
       },
       {
+        title: "Strain and bottle.",
         instruction:
-          "Strain through a fine mesh strainer into a sanitized bottle and refrigerate. It's best within 1 week and still usable for up to 2 weeks, but it won't be as good during the second week.",
+          "Strain through a fine-mesh strainer into a sanitized bottle and refrigerate. It's best within 1 week, but it's still usable for another week (it just won't be as good).",
       },
     ],
   },
@@ -380,7 +397,7 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Syrups & Shrubs & Ferments",
     title: "Lime Super Juice",
     lede:
-      "This is a no-fresh-juice version, so it does not use the juice from the peeled fruit.",
+      "This version skips the fresh juice; it only uses the peels.",
     yield: "about 400 ml",
     ingredients: [
       { amount: "24g", name: "lime peel" },
@@ -392,24 +409,29 @@ export const RECIPES: Record<string, FullRecipe> = {
     ],
     steps: [
       {
+        title: "Peel the limes.",
         instruction:
-          "Peel the limes, taking as little white pith as possible. Save the peeled fruit for another use.",
+          "Use a vegetable peeler, taking as little white pith as possible. Save the peeled fruit for another use.",
       },
       {
+        title: "Combine the peel mixture.",
         instruction:
-          "Combine the peels, citric acid, malic acid, salt, and sugar in a bowl or jar. Stir to combine.",
+          "Combine the peels and dry ingredients (citric acid, malic acid, salt, and sugar) in a bowl or jar. Stir to combine.",
       },
       {
-        instruction:
-          "Let the mixture sit at room temperature for about 30 minutes.",
+        title: "Let the mixture sit at room temperature for about 30 minutes.",
       },
       {
+        title: "Add the water and blend.",
         instruction:
-          "Add the water and blend lightly, until the peels are roughly fingernail-sized. Over-blending will make it bitter.",
+          "Blend lightly until the peels are roughly fingernail-sized.",
+        aside:
+          "Don't overblend this. Smaller pieces of peel, especially pieces with white pith, can make it bitter.",
       },
       {
+        title: "Strain and bottle.",
         instruction:
-          "Strain through a fine mesh strainer into a sanitized bottle and refrigerate. It's best within 1 week and still usable for up to 2 weeks, but it won't be as good during the second week.",
+          "Strain through a fine-mesh strainer into a sanitized bottle and refrigerate. It's best within 1 week, but it's still usable for another week (it just won't be as good).",
       },
     ],
   },

@@ -134,15 +134,14 @@ export default async function RecipePage({
               </span>
 
               <div>
-                {step.heading &&
-                  (i === 0 || recipe.steps[i - 1].heading !== step.heading) && (
-                    <p className="font-label text-[10px] tracking-[0.2em] uppercase text-tertiary mb-2">
-                      {step.heading}
-                    </p>
-                  )}
-                <p className="font-body text-on-surface text-sm leading-relaxed">
-                  {step.instruction}
-                </p>
+                <h3 className="font-body font-semibold text-on-surface text-base leading-relaxed">
+                  {step.title}
+                </h3>
+                {step.instruction && (
+                  <p className="font-body text-on-surface text-sm leading-relaxed mt-2">
+                    {step.instruction}
+                  </p>
+                )}
                 {step.substeps && (
                   <ol className="list-[lower-alpha] pl-6 mt-4 space-y-3 marker:text-tertiary marker:font-label">
                     {step.substeps.map((substep) => (

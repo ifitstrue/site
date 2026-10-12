@@ -10,7 +10,10 @@ describe("recipe page", () => {
       }),
     );
 
-    const stage = screen.getByText("Make the cinnamon crumb topping.").parentElement;
+    const title = screen.getByRole("heading", {
+      name: "Make the cinnamon crumb topping.",
+    });
+    const stage = title.parentElement;
     expect(stage).not.toBeNull();
     const list = within(stage!).getByRole("list");
     expect(list.classList.contains("list-[lower-alpha]")).toBe(true);

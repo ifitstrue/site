@@ -4,7 +4,13 @@ import { CATEGORIES, RECIPES } from "./recipes";
 describe("recipe catalogue", () => {
   const methodText = (slug: string) =>
     RECIPES[slug].steps
-      .flatMap((step) => [step.instruction, ...(step.substeps ?? [])])
+      .flatMap((step) => [
+        step.title,
+        step.instruction,
+        ...(step.substeps ?? []),
+        step.aside,
+      ])
+      .filter(Boolean)
       .join("\n");
 
   it("publishes the approved replacement lineup", () => {
@@ -34,7 +40,9 @@ describe("recipe catalogue", () => {
   it.each(["lemon-super-juice", "lime-super-juice"])(
     "%s rests the peel mixture for about 30 minutes before blending",
     (slug) => {
-      const instructions = RECIPES[slug].steps.map((step) => step.instruction);
+      const instructions = RECIPES[slug].steps.map((step) =>
+        [step.title, step.instruction].filter(Boolean).join(" "),
+      );
       const restStep = instructions.findIndex((instruction) =>
         instruction.includes("30 minutes"),
       );
@@ -68,8 +76,10 @@ describe("recipe catalogue", () => {
     expect(recipe.yield).toBe("9 servings");
     expect(recipe.prepTime).toBe("30 min");
     expect(recipe.steps.length).toBeLessThan(12);
-    expect(recipe.steps.find((step) => step.instruction === "Make the cinnamon crumb topping.")?.substeps).toHaveLength(4);
-    expect(methodText("lemon-ricotta-coffee-cake")).toContain(
+    expect(recipe.steps.find((step) => step.title === "Make the cinnamon crumb topping.")?.substeps).toHaveLength(4);
+    expect(
+      recipe.steps.find((step) => step.title === "Bake the cake.")?.aside,
+    ).toBe(
       "Some jam on the toothpick is fine; look for moist cake crumbs rather than wet batter.",
     );
     expect(methodText("lemon-ricotta-coffee-cake")).toContain(
@@ -98,11 +108,11 @@ describe("recipe catalogue", () => {
       "Arrange no more than 6 frozen dough balls on each sheet, leaving about 3 inches between them.",
     );
     expect(authoredText).toContain(
-      "If you're baking two trays, bake them for 16 minutes total.",
+      "If you're baking two trays, bake them for the full 16 minutes; after roughly 8 minutes",
     );
     expect(authoredText).toContain("Leave the cookies on the trays for 5-10 minutes, then move them to a cooling rack.");
     expect(
-      recipe.steps.find((step) => step.instruction === "Combine everything.")?.aside,
+      recipe.steps.find((step) => step.title === "Combine everything.")?.aside,
     ).toBe("When making cookies, it's important to mix until just combined!");
     expect(recipe.steps[0].substeps).toBeUndefined();
     expect(recipe.steps[1].substeps).toBeUndefined();
@@ -128,7 +138,15 @@ describe("recipe catalogue", () => {
       name: "fresh mint leaves",
       note: "about 50g",
     });
-    expect(methodText("cucumber-mint-syrup")).toContain("wash the English cucumbers");
+    expect(methodText("cucumber-mint-syrup")).toContain(
+      "run them through a zester or grater; they should start releasing juice as you work.",
+    );
+    expect(methodText("cucumber-mint-syrup")).toContain(
+      "Squeeze the cucumber pulp to get as much juice out of it as possible.",
+    );
+    expect(methodText("cucumber-mint-syrup")).toContain(
+      "You don't need to worry much about the seeds; the strainer will catch them.",
+    );
   });
 
   it.each(["lemon-super-juice", "lime-super-juice"])(
@@ -137,13 +155,15 @@ describe("recipe catalogue", () => {
       const recipe = RECIPES[slug];
       const text = methodText(slug);
 
-      expect(recipe.lede).toContain("does not use the juice from the peeled fruit");
+      expect(recipe.lede).toBe(
+        "This version skips the fresh juice; it only uses the peels.",
+      );
       expect(recipe.yield).toBe("about 400 ml");
       expect(JSON.stringify(recipe.ingredients)).toContain("food-grade");
       expect(text).toContain("as little white pith as possible");
       expect(text).toContain("Save the peeled fruit for another use.");
-      expect(text).toContain("best within 1 week");
-      expect(text).toContain("usable for up to 2 weeks");
+      expect(text).toContain("It's best within 1 week");
+      expect(text).toContain("still usable for another week");
     },
   );
 
@@ -152,5 +172,12 @@ describe("recipe catalogue", () => {
       label: "Laura Sandford's recipe here",
       url: "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/",
     });
+  });
+
+  it("uses titled steps and avoids em dashes", () => {
+    for (const recipe of Object.values(RECIPES)) {
+      expect(recipe.steps.every((step) => step.title.length > 0)).toBe(true);
+    }
+    expect(JSON.stringify(RECIPES)).not.toContain("—");
   });
 });
