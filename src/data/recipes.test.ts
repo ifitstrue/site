@@ -2,6 +2,11 @@ import { describe, expect, it } from "vitest";
 import { CATEGORIES, RECIPES } from "./recipes";
 
 describe("recipe catalogue", () => {
+  const methodText = (slug: string) =>
+    RECIPES[slug].steps
+      .flatMap((step) => [step.instruction, ...(step.substeps ?? [])])
+      .join("\n");
+
   it("publishes the approved replacement lineup", () => {
     expect(CATEGORIES.map((category) => ({
       label: category.label,
@@ -47,53 +52,52 @@ describe("recipe catalogue", () => {
 
     expect(recipe).not.toHaveProperty("description");
     expect(recipe).not.toHaveProperty("lede");
-    expect(recipe).not.toHaveProperty("yield");
+    expect(recipe.yield).toBe("about 1 cup");
     expect(recipe).not.toHaveProperty("prepTime");
-    expect(recipe.steps).toEqual([
-      { instruction: "Heat the water to just off boiling." },
-      { instruction: "Add the Earl Grey tea bags." },
-      { instruction: "Wait 5-6 minutes for the tea to steep." },
-      { instruction: "Remove the tea bags." },
-      { instruction: "Add the honey and stir until combined." },
-    ]);
+    expect(methodText("earl-gray-honey-syrup")).toContain(
+      "Remove the tea bags, or strain out the loose tea.",
+    );
+    expect(methodText("earl-gray-honey-syrup")).toContain(
+      "Let cool, bottle, and refrigerate.",
+    );
   });
 
-  it("preserves the coffee cake's authored section headings and instructions", () => {
+  it("groups the coffee cake method into readable stages", () => {
     const recipe = RECIPES["lemon-ricotta-coffee-cake"];
 
-    expect(recipe.steps[2]).toEqual({
-      heading: "Make Lemon Sugar",
-      instruction: "Combine the lemon zest with the sugar in a small bowl",
-    });
-    expect(recipe.steps.at(-1)).toEqual({
-      heading: "Bake",
-      instruction:
-        "Bake for another 30-35 minutes, until a toothpick inserted into the center comes out clean",
-    });
+    expect(recipe.yield).toBe("9 servings");
+    expect(recipe.prepTime).toBe("30 min");
+    expect(recipe.steps.length).toBeLessThan(12);
+    expect(recipe.steps.find((step) => step.instruction === "Make the cinnamon crumb topping.")?.substeps).toHaveLength(4);
+    expect(methodText("lemon-ricotta-coffee-cake")).toContain(
+      "Some jam on the toothpick is fine; look for moist cake crumbs rather than wet batter.",
+    );
+    expect(methodText("lemon-ricotta-coffee-cake")).toContain(
+      "Let the cake cool in the pan for at least 30 minutes before cutting.",
+    );
   });
 
   it("presents the cookie recipe as a standalone web recipe", () => {
     const recipe = RECIPES["chocolate-chip-cookies"];
-    const authoredText = [
-      recipe.lede,
-      ...recipe.steps.map((step) => step.instruction),
-    ].join("\n");
+    const authoredText = [recipe.lede, methodText("chocolate-chip-cookies")].join("\n");
 
+    expect(recipe.lede).toBe(
+      "I adapted this from Laura Sandford's recipe here. This version makes larger cookies, and it's written with the goal of freezing the formed cookie dough balls to bake them on-demand!",
+    );
+    expect(recipe.yield).toBe("20-22 cookies");
+    expect(recipe.cookTime).toBe("12-16 min");
+    expect(recipe.ingredients.at(-1)).toEqual({
+      amount: "12 oz",
+      name: "semisweet and dark chocolate chips",
+      note: "divided however you like; I stick with 5-7 oz of each",
+    });
     expect(authoredText).toContain(
-      "I form the cookie dough balls, then freeze them to bake on demand.",
+      "Line a baking sheet with parchment paper.",
     );
     expect(authoredText).toContain(
-      "Chilled dough is super important for cookies!!",
+      "Arrange no more than 6 frozen dough balls per sheet, with about 3 inches between them.",
     );
-    expect(authoredText).toContain(
-      "I use a hand mixer because it works just as well as my stand mixer for this",
-    );
-    expect(authoredText).not.toContain("Hi!");
-    expect(authoredText).not.toContain("the recipe says");
-    expect(authoredText).not.toContain("2tsp vanilla extract:");
-    expect(authoredText).not.toContain("12oz chocolate chips:");
-    expect(recipe.steps[0].instruction).toContain("room temperature");
-    expect(recipe.steps.at(-1)?.instruction).toContain("Bake for 13-15 minutes");
+    expect(authoredText).toContain("Leave them on the tray for 5-10 minutes, then move them to a cooling rack.");
   });
 
   it("does not publish contradictory or text-message-only copy", () => {
@@ -102,12 +106,43 @@ describe("recipe catalogue", () => {
       (ingredient) => ingredient.amount === "42g" && ingredient.name === "butter",
     );
 
-    expect(streuselButter?.note).toBe("cold and cubed");
+    expect(streuselButter?.note).toBe("cold and cubed; 3 tbsp");
     expect(allText).not.toContain("rougly");
     expect(allText).not.toContain("1.33 cups");
-    expect(RECIPES["cucumber-mint-syrup"].description).toBe(
-      "A mint syrup with cucumber juice added in.",
+    expect(RECIPES["cucumber-mint-syrup"].lede).toBe(
+      "Makes a very rich cucumber mint syrup. Great for martinis or Eastsides. If it's too cucumber-y you can replace some of the cucumber juice with water.",
     );
-    expect(RECIPES["cucumber-mint-syrup"].lede).not.toContain("1:1");
+    expect(RECIPES["cucumber-mint-syrup"].notes).toBeUndefined();
+    expect(RECIPES["cucumber-mint-syrup"].cookTime).toBe("30-45 min");
+    expect(RECIPES["cucumber-mint-syrup"].cookTimeLabel).toBe("steep");
+    expect(RECIPES["cucumber-mint-syrup"].ingredients).toContainEqual({
+      amount: "2 cups",
+      name: "fresh mint leaves",
+      note: "about 50g",
+    });
+    expect(methodText("cucumber-mint-syrup")).toContain("wash the English cucumbers");
+  });
+
+  it.each(["lemon-super-juice", "lime-super-juice"])(
+    "%s identifies the no-fresh-juice method and its storage",
+    (slug) => {
+      const recipe = RECIPES[slug];
+      const text = methodText(slug);
+
+      expect(recipe.lede).toContain("does not use the juice from the peeled fruit");
+      expect(recipe.yield).toBe("about 400 ml");
+      expect(JSON.stringify(recipe.ingredients)).toContain("food-grade");
+      expect(text).toContain("as little white pith as possible");
+      expect(text).toContain("Save the peeled fruit for another use.");
+      expect(text).toContain("best within 1 week");
+      expect(text).toContain("usable for up to 2 weeks");
+    },
+  );
+
+  it("marks the cookie adaptation with its source URL", () => {
+    expect(RECIPES["chocolate-chip-cookies"].source).toEqual({
+      label: "Laura Sandford's recipe here",
+      url: "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/",
+    });
   });
 });

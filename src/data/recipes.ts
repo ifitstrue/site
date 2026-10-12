@@ -8,6 +8,7 @@ export type Ingredient = {
 export type Step = {
   instruction: string;
   heading?: string;
+  substeps?: string[];
 };
 
 export type FullRecipe = {
@@ -23,6 +24,10 @@ export type FullRecipe = {
   ingredients: Ingredient[];
   steps: Step[];
   notes?: string;
+  source?: {
+    label: string;
+    url: string;
+  };
 };
 
 export type RecipeSummary = {
@@ -37,9 +42,9 @@ export const RECIPES: Record<string, FullRecipe> = {
     category: "Baking",
     title: "My Chocolate Chip Cookies",
     lede:
-      "I form the cookie dough balls, then freeze them to bake on demand. I highly recommend doing that haha, but if you don't do that then you should chill the dough in the fridge for 1-2 hours or in the freezer for 15-30 minutes. Chilled dough is super important for cookies!!",
-    yield: "around 22 cookies",
-    cookTime: "13-15 min",
+      "I adapted this from Laura Sandford's recipe here. This version makes larger cookies, and it's written with the goal of freezing the formed cookie dough balls to bake them on-demand!",
+    yield: "20-22 cookies",
+    cookTime: "12-16 min",
     cookTimeLabel: "bake",
     ingredients: [
       { amount: "227g", name: "salted butter", note: "softened" },
@@ -57,9 +62,9 @@ export const RECIPES: Record<string, FullRecipe> = {
       { amount: "0.5 tsp", name: "baking powder" },
       { amount: "1 tsp", name: "sea salt" },
       {
-        amount: "up to 12.2 oz total",
+        amount: "12 oz",
         name: "semisweet and dark chocolate chips",
-        note: "I use 5-7 oz of each, depending on mood",
+        note: "divided however you like; I stick with 5-7 oz of each",
       },
     ],
     steps: [
@@ -95,18 +100,30 @@ export const RECIPES: Record<string, FullRecipe> = {
           "Freeze the dough balls to bake on demand. If you don't do that, chill the dough—formed as balls or still in the bowl—in the fridge for 1-2 hours or in the freezer for 15-30 minutes.",
       },
       {
-        instruction:
-          "Preheat the oven to 375°F. Right after putting the cookies in the oven, lower the oven temp to 360°F. Bake for 13-15 minutes. I look to see when the tops are starting to brown, then wait another 1-3 minutes. I've never baked more than one tray at a time, but if you do, you should probably swap and rotate the trays after roughly 7-8 minutes. I start high and lower it because I prefer 360°F, and opening the oven loses about 5-10 degrees.",
+        instruction: "Bake the cookies.",
+        substeps: [
+          "Preheat the oven to 375°F.",
+          "Line a baking sheet with parchment paper.",
+          "Arrange no more than 6 frozen dough balls per sheet, with about 3 inches between them.",
+          "Right after putting the cookies in the oven, lower the oven temp to 360°F. I start high and lower it because I prefer 360°F, and opening the oven loses about 5-10 degrees.",
+          "Bake for 12-16 minutes. I look to see when the tops are starting to brown, then wait another 1-3 minutes.",
+          "I've never baked more than one tray at a time, but if you do, you should probably swap and rotate the trays halfway through.",
+          "Leave them on the tray for 5-10 minutes, then move them to a cooling rack.",
+        ],
       },
     ],
-    notes:
-      "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/#wprm-recipe-container-8678",
+    source: {
+      label: "Laura Sandford's recipe here",
+      url: "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/",
+    },
   },
 
   "lemon-ricotta-coffee-cake": {
     slug: "lemon-ricotta-coffee-cake",
     category: "Baking",
     title: "Lemon Ricotta Coffee Cake with Sour Cherry Jam",
+    yield: "9 servings",
+    prepTime: "30 min",
     cookTime: "40-45 min",
     cookTimeLabel: "bake",
     ingredients: [
@@ -125,7 +142,7 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         amount: "42g",
         name: "butter",
-        note: "cold and cubed",
+        note: "cold and cubed; 3 tbsp",
       },
       {
         amount: "166g",
@@ -153,7 +170,7 @@ export const RECIPES: Record<string, FullRecipe> = {
       {
         amount: "120g",
         name: "ricotta",
-        note: "at room temperature; 1/2 cup",
+        note: "whole-milk, drained, and at room temperature; 1/2 cup",
       },
       {
         amount: "2 large",
@@ -171,110 +188,69 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Lightly butter an 8-inch square pan and line it with parchment paper",
+          "Lightly butter an 8-inch square pan and line it with parchment paper.",
       },
       {
-        instruction: "Preheat the oven to 350°F",
+        instruction: "Preheat the oven to 350°F.",
       },
       {
-        heading: "Make Lemon Sugar",
-        instruction: "Combine the lemon zest with the sugar in a small bowl",
+        instruction: "Make the lemon sugar.",
+        substeps: [
+          "Combine the lemon zest with the sugar in a small bowl.",
+          "Rub the sugar and zest together with your fingers until fully combined.",
+          "Cover and set aside.",
+        ],
       },
       {
-        heading: "Make Lemon Sugar",
+        instruction: "Make the cinnamon crumb topping.",
+        substeps: [
+          "Combine the brown sugar, all-purpose flour, and ground cinnamon.",
+          "Cut in the butter with a fork, pastry cutter, or food processor.",
+          "Mix until the mixture is in pea-sized crumbs.",
+          "Refrigerate.",
+        ],
+      },
+      {
         instruction:
-          "Rub the sugar and zest together with your fingers, until fully combined",
+          "Mix together the dry ingredients—all-purpose flour, baking powder, baking soda, and salt—in a medium bowl.",
       },
       {
-        heading: "Make Lemon Sugar",
-        instruction: "Cover and set aside",
+        instruction: "Make the wet ingredients.",
+        substeps: [
+          "In a large bowl using a handheld or stand mixer, cream the butter and lemon sugar on high speed until smooth and creamy, about 5-6 minutes.",
+          "Add the almond oil and beat until combined, roughly 1 minute.",
+          "Add the ricotta and beat on medium-high speed until the mixture is visibly lighter and fluffier, roughly 4-5 minutes.",
+          "Add the vanilla and almond extracts and beat until just combined.",
+          "Add the eggs one at a time, mixing after each addition.",
+          "Add the lemon juice.",
+        ],
       },
       {
-        heading: "Make cinnamon crumb topping",
+        instruction: "Combine the wet and dry ingredients.",
+        substeps: [
+          "Beat the wet and dry ingredients together on low speed until just combined.",
+          "Beat in the heavy cream or almond milk.",
+        ],
+      },
+      {
+        instruction: "Layer the cake.",
+        substeps: [
+          "Put half of the batter into the pan and spread it evenly.",
+          "Carefully spread the jam, making sure not to disturb the batter.",
+          "Dollop the remaining batter over the jam and carefully spread it into an even layer.",
+        ],
+      },
+      {
+        instruction: "Bake the cake.",
+        substeps: [
+          "Bake for 10 minutes. In the meantime, take the cinnamon crumb mixture out of the fridge.",
+          "After 10 minutes, cover the top with the cinnamon crumb topping and put it back in the oven.",
+          "Bake for another 30-35 minutes. Some jam on the toothpick is fine; look for moist cake crumbs rather than wet batter.",
+        ],
+      },
+      {
         instruction:
-          "Combine the brown sugar, all-purpose flour, and ground cinnamon",
-      },
-      {
-        heading: "Make cinnamon crumb topping",
-        instruction:
-          "Cut in the butter with a fork, pastry cutter, or food processor",
-      },
-      {
-        heading: "Make cinnamon crumb topping",
-        instruction: "Mix until the mixture is in pea-sized crumbs",
-      },
-      {
-        heading: "Make cinnamon crumb topping",
-        instruction: "Refrigerate",
-      },
-      {
-        heading: "Mix together dry ingredients",
-        instruction:
-          "Mix together the dry ingredients (all-purpose flour, baking powder, baking soda, salt) in a medium bowl",
-      },
-      {
-        heading: "Make wet ingredients",
-        instruction:
-          "In a large bowl using a handheld or stand mixer, cream the butter & lemon sugar on high speed until smooth and creamy, about 5-6 minutes",
-      },
-      {
-        heading: "Make wet ingredients",
-        instruction:
-          "Add the almond oil and beat until combined, roughly one minute",
-      },
-      {
-        heading: "Make wet ingredients",
-        instruction:
-          "Add the ricotta and beat on medium-high speed until the mixture is visibly lighter and fluffier; roughly 4-5 minutes",
-      },
-      {
-        heading: "Make wet ingredients",
-        instruction:
-          "Add the vanilla and almond extracts and beat until just combined",
-      },
-      {
-        heading: "Make wet ingredients",
-        instruction: "Add the eggs one at a time",
-      },
-      { heading: "Make wet ingredients", instruction: "Add the lemon juice" },
-      {
-        heading: "Combine wet & dry ingredients",
-        instruction:
-          "Beat the wet & dry ingredients together on low speed until just combined",
-      },
-      {
-        heading: "Combine wet & dry ingredients",
-        instruction: "Beat in the heavy cream / almond milk",
-      },
-      {
-        heading: "Layer",
-        instruction:
-          "Put half of the batter into the pan, and spread it evenly",
-      },
-      {
-        heading: "Layer",
-        instruction:
-          "Carefully spread the jam, making sure not to disturb the batter",
-      },
-      {
-        heading: "Layer",
-        instruction:
-          "Slowly pour the remaining batter over the jam layer",
-      },
-      {
-        heading: "Bake",
-        instruction:
-          "Put in oven, and bake for 10 minutes; in the meantime, take the cinnamon crumb mixture out of the fridge",
-      },
-      {
-        heading: "Bake",
-        instruction:
-          "After 10 minutes, cover the top with the cinnamon crumb topping, and put it back in the oven",
-      },
-      {
-        heading: "Bake",
-        instruction:
-          "Bake for another 30-35 minutes, until a toothpick inserted into the center comes out clean",
+          "Let the cake cool in the pan for at least 30 minutes before cutting.",
       },
     ],
   },
@@ -283,20 +259,24 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "cucumber-mint-syrup",
     category: "Syrups & Shrubs & Ferments",
     title: "Cucumber Mint Syrup",
-    description: "A mint syrup with cucumber juice added in.",
     lede:
-      "A rich simple syrup with mint steeped in and cucumber juice added after. Mostly I make this for the Cucumber Mint Martini, but it's useful anywhere you'd use a flavored simple.",
+      "Makes a very rich cucumber mint syrup. Great for martinis or Eastsides. If it's too cucumber-y you can replace some of the cucumber juice with water.",
     yield: "about 3 cups",
     prepTime: "15 min",
-    cookTime: "10 min",
+    cookTime: "30-45 min",
+    cookTimeLabel: "steep",
     ingredients: [
       { amount: "1 cup", name: "water" },
       { amount: "2 cups", name: "granulated white sugar" },
-      { amount: "1 large bunch", name: "fresh mint" },
+      {
+        amount: "2 cups",
+        name: "fresh mint leaves",
+        note: "about 50g",
+      },
       {
         amount: "1 cup",
         name: "fresh cucumber juice",
-        note: "about 1-2 medium cucumbers",
+        note: "from washed English cucumbers",
       },
     ],
     steps: [
@@ -313,7 +293,7 @@ export const RECIPES: Record<string, FullRecipe> = {
       },
       {
         instruction:
-          "While the syrup cools, peel, halve, and deseed the cucumbers. Juice them until you have 1 cup of cucumber juice. A fine mesh strainer or cheesecloth helps remove pulp.",
+          "While the syrup cools, wash the English cucumbers. Juice them until you have 1 cup of cucumber juice. A fine mesh strainer or cheesecloth helps remove pulp.",
       },
       {
         instruction:
@@ -324,14 +304,13 @@ export const RECIPES: Record<string, FullRecipe> = {
           "Add the cucumber juice to the strained syrup and stir to combine. Bottle and refrigerate; keeps for up to 2 weeks.",
       },
     ],
-    notes:
-      "As written, very cucumber-forward. If it's too much, dial the juice back and replace with water. The mint is quieter than you'd expect; steep longer or add more leaves if you want it louder.",
   },
 
   "earl-gray-honey-syrup": {
     slug: "earl-gray-honey-syrup",
     category: "Syrups & Shrubs & Ferments",
     title: "Earl Grey Honey Syrup",
+    yield: "about 1 cup",
     ingredients: [
       { amount: "130ml", name: "water" },
       { amount: "200g", name: "honey" },
@@ -345,8 +324,9 @@ export const RECIPES: Record<string, FullRecipe> = {
       { instruction: "Heat the water to just off boiling." },
       { instruction: "Add the Earl Grey tea bags." },
       { instruction: "Wait 5-6 minutes for the tea to steep." },
-      { instruction: "Remove the tea bags." },
+      { instruction: "Remove the tea bags, or strain out the loose tea." },
       { instruction: "Add the honey and stir until combined." },
+      { instruction: "Let cool, bottle, and refrigerate." },
     ],
   },
 
@@ -354,9 +334,12 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "lemon-super-juice",
     category: "Syrups & Shrubs & Ferments",
     title: "Lemon Super Juice",
+    lede:
+      "This is a no-fresh-juice version, so it does not use the juice from the peeled fruit.",
+    yield: "about 400 ml",
     ingredients: [
       { amount: "24g", name: "lemon peel" },
-      { amount: "24g", name: "citric acid" },
+      { amount: "24g", name: "food-grade citric acid" },
       { amount: "400g", name: "water" },
       { amount: "1g", name: "salt" },
       { amount: "1g", name: "sugar" },
@@ -364,7 +347,7 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Peel the lemons, keeping the peels in roughly fingernail-sized pieces.",
+          "Peel the lemons, taking as little white pith as possible. Save the peeled fruit for another use.",
       },
       {
         instruction:
@@ -376,11 +359,11 @@ export const RECIPES: Record<string, FullRecipe> = {
       },
       {
         instruction:
-          "Add the water and blend lightly, just enough to incorporate. The peels should still be roughly fingernail-sized when you're done; over-blending will make it bitter.",
+          "Add the water and blend lightly, until the peels are roughly fingernail-sized. Over-blending will make it bitter.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a sanitized bottle.",
+          "Strain through a fine mesh strainer into a sanitized bottle and refrigerate. It's best within 1 week and still usable for up to 2 weeks, but it won't be as good during the second week.",
       },
     ],
   },
@@ -389,10 +372,13 @@ export const RECIPES: Record<string, FullRecipe> = {
     slug: "lime-super-juice",
     category: "Syrups & Shrubs & Ferments",
     title: "Lime Super Juice",
+    lede:
+      "This is a no-fresh-juice version, so it does not use the juice from the peeled fruit.",
+    yield: "about 400 ml",
     ingredients: [
       { amount: "24g", name: "lime peel" },
-      { amount: "16g", name: "citric acid" },
-      { amount: "8g", name: "malic acid" },
+      { amount: "16g", name: "food-grade citric acid" },
+      { amount: "8g", name: "food-grade malic acid" },
       { amount: "400g", name: "water" },
       { amount: "1g", name: "salt" },
       { amount: "1g", name: "sugar" },
@@ -400,7 +386,7 @@ export const RECIPES: Record<string, FullRecipe> = {
     steps: [
       {
         instruction:
-          "Peel the limes, keeping the peels in roughly fingernail-sized pieces.",
+          "Peel the limes, taking as little white pith as possible. Save the peeled fruit for another use.",
       },
       {
         instruction:
@@ -412,11 +398,11 @@ export const RECIPES: Record<string, FullRecipe> = {
       },
       {
         instruction:
-          "Add the water and blend lightly, just enough to incorporate. The peels should still be roughly fingernail-sized when you're done; over-blending will make it bitter.",
+          "Add the water and blend lightly, until the peels are roughly fingernail-sized. Over-blending will make it bitter.",
       },
       {
         instruction:
-          "Strain through a fine mesh strainer into a sanitized bottle.",
+          "Strain through a fine mesh strainer into a sanitized bottle and refrigerate. It's best within 1 week and still usable for up to 2 weeks, but it won't be as good during the second week.",
       },
     ],
   },

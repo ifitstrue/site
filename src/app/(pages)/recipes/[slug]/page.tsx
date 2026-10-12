@@ -57,7 +57,22 @@ export default async function RecipePage({
         )}
         {recipe.lede && (
           <p className="mt-5 font-headline italic text-on-surface-variant text-lg leading-relaxed whitespace-pre-line">
-            {recipe.lede}
+            {recipe.source && recipe.lede.includes(recipe.source.label) ? (
+              <>
+                {recipe.lede.split(recipe.source.label)[0]}
+                <a
+                  href={recipe.source.url}
+                  className="text-tertiary underline decoration-tertiary/40 underline-offset-4 hover:decoration-tertiary"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {recipe.source.label}
+                </a>
+                {recipe.lede.split(recipe.source.label)[1]}
+              </>
+            ) : (
+              recipe.lede
+            )}
           </p>
         )}
       </div>
@@ -128,6 +143,18 @@ export default async function RecipePage({
                 <p className="font-body text-on-surface text-sm leading-relaxed">
                   {step.instruction}
                 </p>
+                {step.substeps && (
+                  <ol className="list-[lower-alpha] pl-6 mt-4 space-y-3 marker:text-tertiary marker:font-label">
+                    {step.substeps.map((substep) => (
+                      <li
+                        key={substep}
+                        className="font-body text-on-surface text-sm leading-relaxed pl-2"
+                      >
+                        {substep}
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </div>
             </div>
           ))}
