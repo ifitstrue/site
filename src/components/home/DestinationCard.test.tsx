@@ -79,6 +79,15 @@ describe("DestinationCard", () => {
     expect(logo?.getAttribute("src")).toContain("sleeping-stone-primary-logo.svg");
   });
 
+  it("renders the If It’s True preview as the approved live-text wordmark", () => {
+    render(<DestinationCard destination={HOME_DESTINATIONS[0]} transformed={false} />);
+
+    const wordmark = screen.getByRole("link", { name: "If It's True" });
+    expect(wordmark.getAttribute("href")).toBe("https://ifitstrue.dev/");
+    expect(wordmark.classList.contains("ift-wordmark")).toBe(true);
+    expect(wordmark.innerHTML).toBe("if<br>it’s<br>true.");
+  });
+
   it("uses the transformed description after the identity change", () => {
     render(<DestinationCard destination={HOME_DESTINATIONS[0]} transformed />);
     expect(screen.getByText("Your games, tools, and other projects.")).toBeTruthy();

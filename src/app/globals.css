@@ -363,22 +363,18 @@ body {
 }
 
 .retro-destination-preview--projects {
-  flex-direction: column;
-  background: #1e3850;
-  color: #f1e5c7;
-  font-family: "Courier New", monospace;
+  background: #f4efdf;
 }
 
-.retro-destination-preview--projects strong {
-  font-size: 1.9375rem;
-  line-height: 1.05;
-}
-
-.retro-destination-preview--projects small {
-  position: absolute;
-  bottom: 1.375rem;
-  font-size: 0.6875rem;
-  letter-spacing: 0.125rem;
+.ift-wordmark {
+  display: inline-block;
+  padding: 5px 8px 10px 0;
+  color: #a52535;
+  font: 700 italic 58px/0.77 Georgia, serif;
+  letter-spacing: -2.5px;
+  text-align: left;
+  text-decoration: none;
+  text-shadow: 2px 2px 0 #e9ba3c;
 }
 
 .retro-destination-preview--recipes {
@@ -426,6 +422,12 @@ body {
   flex: 0 0 auto;
   padding: 0.4375rem 0.75rem;
   font-size: 0.8125rem;
+}
+
+@media (max-width: 500px) {
+  .ift-wordmark {
+    font-size: 42px;
+  }
 }
 
 .retro-destination-card > p {

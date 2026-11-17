@@ -16,13 +16,16 @@ export const DestinationCard = forwardRef<HTMLDivElement, DestinationCardProps>(
           ref={ref}
           className={`retro-destination-preview retro-destination-preview--${destination.preview}`}
           data-destination={destination.key}
-          aria-hidden="true"
+          aria-hidden={destination.preview === "projects" ? undefined : true}
         >
           {destination.preview === "projects" && (
-            <>
-              <strong>IF IT’S TRUE</strong>
-              <small>TOOLS · GAMES · PROJECTS</small>
-            </>
+            <a
+              className="ift-wordmark"
+              href="https://ifitstrue.dev/"
+              aria-label="If It's True"
+            >
+              if<br />it’s<br />true.
+            </a>
           )}
           {destination.preview === "recipes" && (
             <span>
