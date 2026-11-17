@@ -16,23 +16,26 @@ export default function About() {
     <RetroPageShell title="Andrew Hachten’s About Page" homeHref="/">
       <main id="main-content" className="retro-internal-main">
         <RetroDocument className="retro-about-document">
-          <section className="retro-about-essay" aria-labelledby="about-andrew">
-            <h1 id="about-andrew">About Andrew</h1>
+          <section
+            className="retro-about-essay retro-about-readable-copy"
+            aria-labelledby="about-andrew"
+          >
+            <h1 id="about-andrew" className="sr-only">About Andrew</h1>
             {/* Temporary copy: review before publication because it references removed site content. */}
             <p>
-            Hi! My name is Andrew Hachten. I&apos;m a professional software engineer
-            and a semi-professional baker, cocktail maker, and candlemaker. I live
-            in Philadelphia with my wife, Hannah, and our dog, Duke.
+              Hi! My name is Andrew Hachten. I&apos;m a professional software engineer
+              and a semi-professional baker, cocktail maker, and candlemaker. I live
+              in Philadelphia with my wife, Hannah, and our dog, Duke.
             </p>
             <p>
-            I made this site as a home for the things I make and the occasional
-            silly idea I wanted to turn into a real thing. Right now, that mostly
-            means recipes, puzzle hints, and an unnecessarily complicated version
-            of tic tac toe.
+              I made this site as a home for the things I make and the occasional
+              silly idea I wanted to turn into a real thing. Right now, that mostly
+              means recipes, puzzle hints, and an unnecessarily complicated version
+              of tic tac toe.
             </p>
             <p>
-            Feel free to reach out if you&apos;re looking for a software engineer,
-            baker, cocktail maker, candlemaker, or someone named Andrew.
+              Feel free to reach out if you&apos;re looking for a software engineer,
+              baker, cocktail maker, candlemaker, or someone named Andrew.
             </p>
             <RetroButtonLink href="/resume">View résumé →</RetroButtonLink>
           </section>

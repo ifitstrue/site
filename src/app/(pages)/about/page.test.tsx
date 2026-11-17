@@ -7,8 +7,9 @@ describe("About page", () => {
     const { container } = render(<About />);
 
     expect(screen.getByRole("link", { name: "Andrew Hachten’s About Page" }).getAttribute("href")).toBe("/");
-    expect(screen.getByRole("heading", { name: "About Andrew" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "About Andrew" }).classList.contains("sr-only")).toBe(true);
     expect(container.querySelector("section[aria-labelledby='about-andrew']")).not.toBeNull();
+    expect(container.querySelector(".retro-about-readable-copy")).not.toBeNull();
     expect(screen.getByText(/Hi! My name is Andrew Hachten/)).toBeTruthy();
     expect(screen.getByText(/unnecessarily complicated version of tic tac toe/)).toBeTruthy();
     expect(screen.getByText(/someone named Andrew/)).toBeTruthy();
