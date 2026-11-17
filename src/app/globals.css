@@ -220,6 +220,95 @@ body {
   box-shadow: inset 1px 1px #555;
 }
 
+.retro-destination-card {
+  min-width: 0;
+}
+
+.retro-destination-preview {
+  position: relative;
+  display: flex;
+  height: 11.5625rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1.125rem;
+  border: 3px solid;
+  border-color: #727272 #eee #eee #727272;
+  box-shadow: inset 2px 2px #555;
+  text-align: center;
+}
+
+.retro-destination-preview--projects {
+  flex-direction: column;
+  background: #1e3850;
+  color: #f1e5c7;
+  font-family: "Courier New", monospace;
+}
+
+.retro-destination-preview--projects strong {
+  font-size: 1.9375rem;
+  line-height: 1.05;
+}
+
+.retro-destination-preview--projects small {
+  position: absolute;
+  bottom: 1.375rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.125rem;
+}
+
+.retro-destination-preview--recipes {
+  background: #f3e8cf;
+  color: #9b2f25;
+  font: bold italic 2.1875rem/1 Georgia, serif;
+}
+
+.retro-destination-preview--recipes span {
+  padding: 1.125rem 0.9375rem;
+  border: 2px solid #9b2f25;
+  box-shadow: 6px 6px #e0ad35;
+}
+
+.retro-destination-preview--candles {
+  background: #f3efe5;
+}
+
+.retro-destination-preview--candles img {
+  width: auto;
+  height: auto;
+  max-width: 88%;
+  max-height: 9.0625rem;
+}
+
+.retro-destination-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 1.125rem 0 0.5rem;
+}
+
+.retro-destination-heading--wrapping {
+  flex-wrap: wrap;
+}
+
+.retro-destination-heading h2 {
+  margin: 0;
+  font: bold 1.4375rem/1.2 "Courier New", monospace;
+}
+
+.retro-destination-heading .retro-button {
+  min-height: 2.5rem;
+  flex: 0 0 auto;
+  padding: 0.4375rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.retro-destination-card > p {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
 @media (max-width: 740px) {
   .retro-titlebar-shell {
     padding: 0.75rem 0;
