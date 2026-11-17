@@ -15,7 +15,7 @@ export function RetroPageShell({
 }: RetroPageShellProps) {
   return (
     <div className={["retro-page-shell", className].filter(Boolean).join(" ")}>
-      <header className="retro-titlebar-shell">
+      <header className="retro-titlebar-shell" data-dialog-background>
         <div className="retro-titlebar">
           {homeHref ? <a href={homeHref}>{title}</a> : <span>{title}</span>}
         </div>

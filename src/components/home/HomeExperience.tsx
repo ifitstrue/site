@@ -32,6 +32,20 @@ export function HomeExperience() {
     }
   }, []);
 
+  const identityTargetsMatch = useCallback(() => {
+    const overlaps: Partial<Record<DestinationKey, number>> = {};
+    for (const destination of HOME_DESTINATIONS) {
+      const word = tokenRefs.current[destination.key];
+      const target = destinationRefs.current[destination.key];
+      if (!word || !target) return false;
+      overlaps[destination.key] = overlapRatio(
+        word.getBoundingClientRect(),
+        target.getBoundingClientRect(),
+      );
+    }
+    return allIdentityTargetsMatched(overlaps);
+  }, []);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia(DESKTOP_QUERY);
     desktopRef.current = mediaQuery.matches;
@@ -46,34 +60,26 @@ export function HomeExperience() {
   useEffect(() => cancelIdentityTimer, [cancelIdentityTimer]);
 
   useEffect(() => {
+    window.addEventListener("resize", cancelIdentityTimer);
+    return () => window.removeEventListener("resize", cancelIdentityTimer);
+  }, [cancelIdentityTimer]);
+
+  useEffect(() => {
     if (!desktopRef.current || transformed || triggeredRef.current) {
       cancelIdentityTimer();
       return;
     }
 
-    const overlaps: Partial<Record<DestinationKey, number>> = {};
-    for (const destination of HOME_DESTINATIONS) {
-      const word = tokenRefs.current[destination.key];
-      const target = destinationRefs.current[destination.key];
-      if (!word || !target) {
-        cancelIdentityTimer();
-        return;
-      }
-      overlaps[destination.key] = overlapRatio(
-        word.getBoundingClientRect(),
-        target.getBoundingClientRect(),
-      );
-    }
-
-    if (!allIdentityTargetsMatched(overlaps)) {
+    if (!identityTargetsMatch()) {
       cancelIdentityTimer();
       return;
     }
 
     if (!identityTimerRef.current) {
       identityTimerRef.current = setTimeout(() => {
-        triggeredRef.current = true;
         identityTimerRef.current = null;
+        if (!desktopRef.current || !identityTargetsMatch()) return;
+        triggeredRef.current = true;
         const targetIds = new Set(
           Object.values(tokenRefs.current)
             .map((element) => element?.dataset.tokenId)
@@ -89,11 +95,16 @@ export function HomeExperience() {
         setDialogOpen(true);
       }, IDENTITY_DWELL_MS);
     }
-  }, [cancelIdentityTimer, positions, transformed]);
+  }, [cancelIdentityTimer, identityTargetsMatch, positions, transformed]);
 
   return (
     <RetroPageShell title="Andrew Hachten’s Home Page">
-      <main id="main-content" className="retro-home-content" data-retro-page-content>
+      <main
+        id="main-content"
+        className="retro-home-content"
+        data-retro-page-content
+        data-dialog-background
+      >
         <div className="retro-home-welcome-frame">
           <section className="retro-home-welcome" aria-label="Introduction">
             <DraggableIntroduction

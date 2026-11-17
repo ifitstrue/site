@@ -76,4 +76,3 @@ describe("DraggableIntroduction", () => {
     expect(screen.getByText("I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.")).toBeTruthy();
   });
 });
-

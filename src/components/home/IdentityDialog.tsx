@@ -15,14 +15,18 @@ export function IdentityDialog({ open, onClose }: IdentityDialogProps) {
     if (!open) return;
 
     previousFocusRef.current = document.activeElement as HTMLElement | null;
-    const pageContent = document.querySelector<HTMLElement>("[data-retro-page-content]");
+    const backgroundElements = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-dialog-background]"),
+    ).map((element) => ({ element, wasInert: element.hasAttribute("inert") }));
     const previousOverflow = document.body.style.overflow;
-    pageContent?.setAttribute("inert", "");
+    backgroundElements.forEach(({ element }) => element.setAttribute("inert", ""));
     document.body.style.overflow = "hidden";
     confirmRef.current?.focus();
 
     return () => {
-      pageContent?.removeAttribute("inert");
+      backgroundElements.forEach(({ element, wasInert }) => {
+        if (!wasInert) element.removeAttribute("inert");
+      });
       document.body.style.overflow = previousOverflow;
       previousFocusRef.current?.focus();
     };

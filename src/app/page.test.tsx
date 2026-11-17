@@ -110,6 +110,8 @@ describe("identity Easter egg", () => {
     expect(screen.getByText("Your games, tools, and other projects.")).toBeTruthy();
 
     fireEvent.click(screen.getByRole("button", { name: "OK" }));
+    fireEvent.keyDown(screen.getByRole("group", { name: /Move words/i }), { key: "ArrowRight" });
+    fireEvent.keyDown(screen.getByRole("group", { name: /Move words/i }), { key: "Home" });
     act(() => vi.advanceTimersByTime(2000));
     expect(screen.queryByRole("alertdialog")).toBeNull();
   });
@@ -140,6 +142,15 @@ describe("identity Easter egg", () => {
     render(<Home />);
 
     act(() => setDesktop(false));
+    act(() => vi.advanceTimersByTime(2000));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+  });
+
+  it("requires overlap to remain uninterrupted through a desktop resize", () => {
+    installIdentityRects({ projects: 1, recipes: 1, candles: 1 });
+    render(<Home />);
+
+    fireEvent(window, new Event("resize"));
     act(() => vi.advanceTimersByTime(2000));
     expect(screen.queryByRole("alertdialog")).toBeNull();
   });
