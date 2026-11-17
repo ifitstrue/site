@@ -35,9 +35,16 @@ describe("automated accessibility checks", () => {
   it.each([
     ["homepage", Home],
     ["About page", About],
-    ["résumé page", Resume],
   ] satisfies [string, ComponentType][]) ("finds no structural violations on the %s", async (_name, Page) => {
     const { container } = render(createElement(Page));
+    const { violations } = await runAxe(container);
+    expect(violations.map(({ id }) => id)).toEqual([]);
+  });
+
+  it("finds no structural violations in the rendered résumé document", async () => {
+    const { container } = render(await Resume());
+
+    expect(container.querySelector("h1")?.textContent).toBe("Andrew Hachten");
     const { violations } = await runAxe(container);
     expect(violations.map(({ id }) => id)).toEqual([]);
   });
