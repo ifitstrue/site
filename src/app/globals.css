@@ -370,7 +370,7 @@ body {
   display: inline-block;
   padding: 5px 8px 10px 0;
   color: #a52535;
-  font: 700 italic 58px/0.77 Georgia, serif;
+  font: 700 italic 52px/0.77 Georgia, serif;
   letter-spacing: -2.5px;
   text-align: left;
   text-decoration: none;
@@ -398,6 +398,7 @@ body {
   height: auto;
   max-width: 88%;
   max-height: 9.0625rem;
+  transform: scale(2);
 }
 
 .retro-destination-heading {
@@ -426,7 +427,7 @@ body {
 
 @media (max-width: 500px) {
   .ift-wordmark {
-    font-size: 42px;
+    font-size: 38px;
   }
 }
 
