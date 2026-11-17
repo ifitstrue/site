@@ -21,9 +21,6 @@ const spaceGrotesk = Space_Grotesk({
   weight: "variable",
 });
 
-import { NavBar } from "@/components/NavBar";
-import { NavHoverProvider } from "@/context/NavHoverContext";
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.andrewhachten.com"),
   title: {
@@ -63,13 +60,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <NavHoverProvider>
-          <header className="fixed top-0 left-0 right-0 z-50 w-full px-8 md:px-16 py-5 bg-surface/95 backdrop-blur-sm">
-            <NavBar />
-          </header>
-
-          {children}
-        </NavHoverProvider>
+        {children}
       </body>
     </html>
   );
