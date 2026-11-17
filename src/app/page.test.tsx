@@ -1,6 +1,53 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { act, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Home from "./page";
+
+type MatchMediaListener = (event: MediaQueryListEvent) => void;
+
+function installMatchMedia(initialMatches = true) {
+  let matches = initialMatches;
+  const listeners = new Set<MatchMediaListener>();
+  vi.stubGlobal("matchMedia", vi.fn().mockImplementation((query: string) => ({
+    media: query,
+    get matches() { return matches; },
+    onchange: null,
+    addEventListener: (_type: string, listener: MatchMediaListener) => listeners.add(listener),
+    removeEventListener: (_type: string, listener: MatchMediaListener) => listeners.delete(listener),
+    addListener: () => undefined,
+    removeListener: () => undefined,
+    dispatchEvent: () => true,
+  })));
+  return (nextMatches: boolean) => {
+    matches = nextMatches;
+    listeners.forEach((listener) => listener({ matches } as MediaQueryListEvent));
+  };
+}
+
+function installIdentityRects(ratios: Record<"projects" | "recipes" | "candles", number>) {
+  return vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function () {
+    const identityWord = this.dataset.identityWord as keyof typeof ratios | undefined;
+    if (identityWord) {
+      return { left: 0, top: 0, right: 100, bottom: 20, width: 100, height: 20 } as DOMRect;
+    }
+    const destination = this.dataset.destination as keyof typeof ratios | undefined;
+    if (destination) {
+      const left = 100 - ratios[destination] * 100;
+      return { left, top: 0, right: left + 100, bottom: 20, width: 100, height: 20 } as DOMRect;
+    }
+    return { left: 0, top: 0, right: 0, bottom: 0, width: 0, height: 0 } as DOMRect;
+  });
+}
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  installMatchMedia();
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
 
 describe("personal homepage", () => {
   it("renders the approved introduction and About invitation", () => {
@@ -39,5 +86,88 @@ describe("personal homepage", () => {
     const grid = container.querySelector(".retro-destinations-grid");
     expect(grid?.classList.contains("retro-destinations-grid--responsive")).toBe(true);
     expect(container.querySelectorAll(".retro-destination-heading--wrapping")).toHaveLength(3);
+  });
+});
+
+describe("identity Easter egg", () => {
+  it("requires every word to reach sixty percent overlap for 1.5 seconds", () => {
+    installIdentityRects({ projects: 0.59, recipes: 1, candles: 1 });
+    render(<Home />);
+
+    act(() => vi.advanceTimersByTime(2000));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+  });
+
+  it("triggers once after the full dwell and applies the transformed copy", () => {
+    installIdentityRects({ projects: 0.6, recipes: 1, candles: 1 });
+    render(<Home />);
+
+    act(() => vi.advanceTimersByTime(1499));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+    act(() => vi.advanceTimersByTime(1));
+
+    expect(screen.getByRole("alertdialog")).toBeTruthy();
+    expect(
+      screen.getByText(
+        "Hi, you're Andrew! You're a software engineer, baker, and candlemaker living in Philadelphia. I can find links to your projects, recipes, and candles here! I can also move all of these words around, if I want.",
+      ),
+    ).toBeTruthy();
+    expect(screen.getByRole("link", { name: /Meet Yourself/i })).toBeTruthy();
+    expect(screen.getByText("Your games, tools, and other projects.")).toBeTruthy();
+
+    fireEvent.click(screen.getByRole("button", { name: "OK" }));
+    act(() => vi.advanceTimersByTime(2000));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+  });
+
+  it("cancels the timer when a word leaves its target", () => {
+    const ratios = { projects: 1, recipes: 1, candles: 1 };
+    installIdentityRects(ratios);
+    render(<Home />);
+
+    ratios.projects = 0.59;
+    fireEvent.keyDown(screen.getByRole("group", { name: /Move words/i }), { key: "ArrowRight" });
+    act(() => vi.advanceTimersByTime(2000));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+  });
+
+  it("cancels the timer when target dragging is cancelled", () => {
+    installIdentityRects({ projects: 1, recipes: 1, candles: 1 });
+    render(<Home />);
+
+    fireEvent.pointerCancel(screen.getByTestId("identity-word-projects"));
+    act(() => vi.advanceTimersByTime(2000));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+  });
+
+  it("cancels the timer when the viewport stops matching desktop", () => {
+    const setDesktop = installMatchMedia(true);
+    installIdentityRects({ projects: 1, recipes: 1, candles: 1 });
+    render(<Home />);
+
+    act(() => setDesktop(false));
+    act(() => vi.advanceTimersByTime(2000));
+    expect(screen.queryByRole("alertdialog")).toBeNull();
+  });
+
+  it("resets the three target words without resetting other words", () => {
+    installIdentityRects({ projects: 1, recipes: 1, candles: 1 });
+    render(<Home />);
+    const projects = screen.getByTestId("identity-word-projects");
+    const recipes = screen.getByTestId("identity-word-recipes");
+    const candles = screen.getByTestId("identity-word-candles");
+    const hi = screen.getByTestId("token-heading-0");
+
+    for (const [index, element] of [projects, recipes, candles, hi].entries()) {
+      fireEvent.pointerDown(element, { pointerId: index + 1, clientX: 0, clientY: 0 });
+      fireEvent.pointerMove(element, { pointerId: index + 1, clientX: 20, clientY: 10 });
+      fireEvent.pointerUp(element, { pointerId: index + 1 });
+    }
+    act(() => vi.advanceTimersByTime(1500));
+
+    expect(projects.style.transform).toBe("translate3d(0px, 0px, 0)");
+    expect(recipes.style.transform).toBe("translate3d(0px, 0px, 0)");
+    expect(candles.style.transform).toBe("translate3d(0px, 0px, 0)");
+    expect(hi.style.transform).toBe("translate3d(20px, 10px, 0)");
   });
 });

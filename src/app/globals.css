@@ -465,6 +465,52 @@ body {
   }
 }
 
+.retro-identity-overlay {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgb(0 0 0 / 28%);
+}
+
+.retro-identity-dialog {
+  width: min(26.875rem, 100%);
+  padding: 0.25rem;
+  border: 2px solid;
+  border-color: #fff #343434 #343434 #fff;
+  background: #c3c3c3;
+  box-shadow: 5px 5px #202020;
+}
+
+.retro-identity-titlebar {
+  background: repeating-linear-gradient(to bottom, #777 0 1px, #d9d9d9 1px 4px);
+  text-align: center;
+}
+
+.retro-identity-titlebar h2 {
+  display: inline-block;
+  margin: 0;
+  padding: 0 0.625rem;
+  background: #c3c3c3;
+  font: bold 0.875rem/1.5 "Courier New", monospace;
+}
+
+.retro-identity-body {
+  padding: 1.75rem 1.5rem 1.375rem;
+  text-align: center;
+}
+
+.retro-identity-body p {
+  margin: 0 0 1.5rem;
+  font: bold 1.125rem/1.45 "Courier New", monospace;
+}
+
+.retro-identity-body .retro-button {
+  min-width: 5.75rem;
+}
+
 @media (max-width: 740px) {
   .retro-titlebar-shell {
     padding: 0.75rem 0;

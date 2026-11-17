@@ -21,6 +21,7 @@ type DraggableIntroductionProps = {
   positions: DraggablePositions;
   onPositionsChange: Dispatch<SetStateAction<DraggablePositions>>;
   tokenRefs: TargetTokenRefs;
+  onInteractionCancel?: () => void;
 };
 
 const ZERO_POSITION: Position = { x: 0, y: 0 };
@@ -42,6 +43,7 @@ export function DraggableIntroduction({
   positions,
   onPositionsChange,
   tokenRefs,
+  onInteractionCancel,
 }: DraggableIntroductionProps) {
   const copy = transformed ? TRANSFORMED_COPY : INITIAL_COPY;
   const headingTokens = useMemo(
@@ -97,8 +99,10 @@ export function DraggableIntroduction({
         key={token.id}
         ref={isTarget ? (element) => { tokenRefs.current[targetKey] = element; } : undefined}
         aria-hidden="true"
-        data-testid={`token-${token.id}`}
+        data-testid={isTarget ? `identity-word-${targetKey}` : `token-${token.id}`}
+        data-token-id={token.id}
         data-token-kind={token.kind}
+        data-identity-word={isTarget ? targetKey : undefined}
         data-dragging={draggingId === token.id}
         className={`retro-draggable-token retro-draggable-token--${token.kind}${
           nextIsPunctuation ? " retro-draggable-token--attached" : ""
@@ -121,7 +125,10 @@ export function DraggableIntroduction({
           });
         }}
         onPointerUp={() => setDraggingId(null)}
-        onPointerCancel={() => setDraggingId(null)}
+        onPointerCancel={() => {
+          setDraggingId(null);
+          onInteractionCancel?.();
+        }}
       >
         {token.text}
       </span>
