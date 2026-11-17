@@ -245,6 +245,105 @@ body {
   margin-top: 0.75rem;
 }
 
+.retro-resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  max-width: 52rem;
+  margin: 0 auto 1rem;
+}
+
+.retro-resume-document {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.retro-resume-content {
+  padding: clamp(1.5rem, 5vw, 4rem);
+  color: #181818;
+  font: 1rem/1.6 Georgia, "Times New Roman", serif;
+}
+
+.retro-resume-name {
+  margin: 0;
+  font: bold clamp(2.25rem, 7vw, 4rem)/1 "Arial Black", Arial, sans-serif;
+  letter-spacing: -0.045em;
+}
+
+.retro-resume-name + .retro-resume-paragraph {
+  margin-top: 0.75rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.retro-resume-section-heading {
+  margin: 2.75rem 0 1.25rem;
+  padding: 0.4rem 0;
+  border-top: 3px double #181818;
+  border-bottom: 1px solid #181818;
+  font: bold 1rem/1.2 "Courier New", monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.retro-resume-entry-heading {
+  margin: 1.75rem 0 0.2rem;
+  font: bold 1.05rem/1.35 Arial, Helvetica, sans-serif;
+}
+
+.retro-resume-paragraph {
+  margin: 0.45rem 0 0.9rem;
+}
+
+.retro-resume-entry-heading + .retro-resume-paragraph {
+  margin-top: 0;
+  color: #4a4a4a;
+  font: bold 0.8125rem/1.4 "Courier New", monospace;
+  letter-spacing: 0.04em;
+}
+
+.retro-resume-list {
+  margin: 0.75rem 0 1.5rem;
+  padding-left: 1.25rem;
+  list-style: square;
+}
+
+.retro-resume-list li {
+  margin-top: 0.55rem;
+  padding-left: 0.25rem;
+}
+
+.retro-resume-link {
+  color: #14146f;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
+}
+
+.retro-resume-link:hover {
+  color: var(--retro-red);
+}
+
+.retro-resume-label {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 520px) {
+  .retro-resume-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .retro-resume-actions .retro-button {
+    width: 100%;
+  }
+
+  .retro-resume-content {
+    font-size: 0.975rem;
+  }
+}
+
 .retro-destination-card {
   min-width: 0;
 }

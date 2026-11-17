@@ -1,164 +1,58 @@
 import type { Metadata } from "next";
-import {
-  EDUCATION,
-  RESUME,
-  RESUME_CONTACT,
-  ResumeItem,
-  SKILLS,
-} from "@/data/resume";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import ReactMarkdown, { type Components } from "react-markdown";
+import { RetroButtonLink } from "@/components/retro/RetroButtonLink";
+import { RetroDocument } from "@/components/retro/RetroDocument";
+import { RetroPageShell } from "@/components/retro/RetroPageShell";
 
 export const metadata: Metadata = {
   title: "Resume",
   description: "Andrew Hachten's experience as a technical lead and full-stack engineer.",
   alternates: { canonical: "/resume" },
-  openGraph: { title: "Andrew Hachten's Resume", description: "Andrew Hachten's experience as a technical lead and full-stack engineer.", url: "/resume", type: "website", siteName: "Andrew Hachten" },
-  twitter: { card: "summary", title: "Andrew Hachten's Resume", description: "Andrew Hachten's experience as a technical lead and full-stack engineer." },
+  openGraph: {
+    title: "Andrew Hachten's Resume",
+    description: "Andrew Hachten's experience as a technical lead and full-stack engineer.",
+    url: "/resume",
+    type: "website",
+    siteName: "Andrew Hachten",
+  },
+  twitter: {
+    card: "summary",
+    title: "Andrew Hachten's Resume",
+    description: "Andrew Hachten's experience as a technical lead and full-stack engineer.",
+  },
 };
 
-function ResumeRow({ item, index }: { item: ResumeItem; index: number }) {
-  const displayIndex = String(RESUME.length - index).padStart(2, "0");
+const markdownComponents: Components = {
+  h1: ({ children }) => <h1 className="retro-resume-name">{children}</h1>,
+  h2: ({ children }) => <h2 className="retro-resume-section-heading">{children}</h2>,
+  h3: ({ children }) => <h3 className="retro-resume-entry-heading">{children}</h3>,
+  p: ({ children }) => <p className="retro-resume-paragraph">{children}</p>,
+  ul: ({ children }) => <ul className="retro-resume-list">{children}</ul>,
+  li: ({ children }) => <li>{children}</li>,
+  a: ({ children, href }) => <a href={href} className="retro-resume-link">{children}</a>,
+  strong: ({ children }) => <strong className="retro-resume-label">{children}</strong>,
+};
+
+export default async function Resume() {
+  const source = await readFile(path.join(process.cwd(), "content/resume.md"), "utf8");
 
   return (
-    <div className="group relative py-8 md:py-12 flex gap-6 md:gap-10 items-start first:pt-0">
-      <span className="hidden md:block font-headline text-7xl italic leading-none text-secondary/20 group-hover:text-tertiary-fixed-dim/40 transition-colors duration-500 select-none w-20 shrink-0 pt-1 text-right">
-        {displayIndex}
-      </span>
-
-      <div className="flex-1 min-w-0">
-        <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-1 md:gap-2 mb-3 md:mb-4">
-          <h2 className="font-headline text-2xl md:text-4xl italic text-on-surface group-hover:text-tertiary transition-colors duration-300 leading-tight">
-            <span className="block md:inline">{item.role}</span>
-            <span className="hidden md:inline text-on-surface/40 group-hover:text-tertiary/60 transition-colors mx-3 font-light">
-              •
-            </span>
-            <span className="block md:inline text-secondary/80 group-hover:text-tertiary transition-colors">
-              {item.company}
-            </span>
-          </h2>
-          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase whitespace-nowrap md:pt-1">
-            {item.period}
-          </span>
-        </div>
-
-        <ul className="space-y-3 md:space-y-4">
-          {item.points.map((point, i) => (
-            <li key={i} className="flex gap-3 md:gap-4">
-              <span className="h-px w-3 bg-tertiary-fixed-dim/40 mt-4 shrink-0" />
-              <p className="font-body text-on-surface-variant text-base leading-relaxed">
-                {point}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="absolute left-0 bottom-0 h-px w-full bg-outline-variant/30 group-hover:bg-tertiary-fixed-dim/40 transition-colors duration-500" />
-    </div>
-  );
-}
-
-export default function Resume() {
-  const contactLinkClass =
-    "font-label text-xs tracking-[0.14em] uppercase text-secondary/80 hover:text-tertiary transition-colors duration-300";
-
-  return (
-    <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
-      <div className="mb-16">
-        <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary mb-4">
-          Catalogue
-        </p>
-        <div className="flex items-end justify-between gap-4">
-          <h1 className="font-headline text-6xl md:text-7xl lg:text-8xl italic leading-none text-on-surface">
-            Resume
-          </h1>
-          <span className="font-label text-xs tracking-[0.2em] text-on-surface/80 uppercase pb-1.5">
-            {RESUME.length} entries
-          </span>
-        </div>
-        <div className="mt-6 h-0.5 bg-tertiary-fixed-dim" />
-        <p className="mt-4 font-headline italic text-xl text-on-surface">
-          {RESUME_CONTACT.title}
-        </p>
-        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
-          <span className="font-label text-xs tracking-[0.14em] uppercase text-on-surface/60">
-            {RESUME_CONTACT.location}
-          </span>
-          <a
-            href={RESUME_CONTACT.site}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={contactLinkClass}
-          >
-            Personal Site
-          </a>
-          <a
-            href={RESUME_CONTACT.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={contactLinkClass}
-          >
-            GitHub
-          </a>
-          <a
-            href={RESUME_CONTACT.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={contactLinkClass}
-          >
-            LinkedIn
-          </a>
-        </div>
-      </div>
-
-      <section aria-labelledby="experience-heading">
-        <h2 id="experience-heading" className="sr-only">Experience</h2>
-        {RESUME.map((item, index) => (
-          <ResumeRow
-            key={`${item.company}-${item.role}`}
-            item={item}
-            index={index}
-          />
-        ))}
-      </section>
-
-      <section className="mt-20" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" className="font-headline text-4xl italic text-on-surface">
-          Skills
-        </h2>
-        <div className="mt-6 h-px bg-outline-variant/40" />
-        <dl className="mt-8 space-y-5">
-          {SKILLS.map((skill) => (
-            <div key={skill.label} className="grid gap-1 md:grid-cols-[9rem_1fr] md:gap-6">
-              <dt className="font-label text-xs tracking-[0.2em] uppercase text-secondary/80">
-                {skill.label}
-              </dt>
-              <dd className="font-body text-base leading-relaxed text-on-surface-variant">
-                {skill.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <section className="mt-20" aria-labelledby="education-heading">
-        <h2 id="education-heading" className="font-headline text-4xl italic text-on-surface">
-          Education
-        </h2>
-        <div className="mt-6 h-px bg-outline-variant/40" />
-        <div className="mt-8 flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
-          <div>
-            <h3 className="font-headline text-2xl italic text-on-surface">
-              {EDUCATION.degree}
-            </h3>
-            <p className="mt-1 font-body text-sm text-on-surface-variant">
-              {EDUCATION.school}
-            </p>
-          </div>
-          <p className="font-label text-xs tracking-[0.2em] uppercase text-on-surface/80">
-            {EDUCATION.period}
-          </p>
-        </div>
-      </section>
-    </main>
+    <RetroPageShell title="Andrew Hachten’s Résumé" homeHref="/">
+      <main id="main-content" className="retro-internal-main">
+        <nav className="retro-resume-actions" aria-label="Résumé actions">
+          <RetroButtonLink href="/andrew-hachten-resume.pdf" download>
+            Download PDF ↓
+          </RetroButtonLink>
+          <RetroButtonLink href="/about">About Andrew →</RetroButtonLink>
+        </nav>
+        <RetroDocument className="retro-resume-document">
+          <article className="retro-resume-content">
+            <ReactMarkdown components={markdownComponents}>{source}</ReactMarkdown>
+          </article>
+        </RetroDocument>
+      </main>
+    </RetroPageShell>
   );
 }
