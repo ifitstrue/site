@@ -220,6 +220,37 @@ body {
   box-shadow: inset 1px 1px #555;
 }
 
+.retro-internal-main {
+  width: min(100% - 2rem, 58rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4.5rem) 0;
+}
+
+.retro-about-document {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.retro-about-essay {
+  padding: clamp(1.5rem, 5vw, 4rem);
+  color: #181818;
+  font: 1rem/1.7 Georgia, "Times New Roman", serif;
+}
+
+.retro-about-essay h1 {
+  margin: 0 0 1.75rem;
+  font: bold clamp(2rem, 7vw, 4rem)/1 "Arial Black", Arial, sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.retro-about-essay p {
+  margin: 0 0 1.25rem;
+}
+
+.retro-about-essay .retro-button {
+  margin-top: 0.75rem;
+}
+
 .retro-destination-card {
   min-width: 0;
 }

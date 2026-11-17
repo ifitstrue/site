@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { RetroButtonLink } from "@/components/retro/RetroButtonLink";
+import { RetroDocument } from "@/components/retro/RetroDocument";
+import { RetroPageShell } from "@/components/retro/RetroPageShell";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,41 +13,31 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <main id="main-content" className="pt-24 px-8 md:px-16 pb-24 max-w-4xl mx-auto">
-      <div className="mb-16">
-        <p className="font-label text-xs tracking-[0.3em] uppercase text-tertiary mb-4">
-          Profile
-        </p>
-        <div className="flex items-end justify-between gap-4">
-          <h1 className="font-headline text-7xl md:text-8xl italic leading-none text-on-surface">
-            About
-          </h1>
-          <span className="font-label text-xs tracking-[0.2em] text-on-surface/60 uppercase pb-1.5">
-            1 person
-          </span>
-        </div>
-        <div className="mt-6 h-0.5 bg-tertiary-fixed-dim" />
-      </div>
-
-      <section className="space-y-8">
-        <div className="space-y-6">
-          <p className="font-body text-on-surface-variant text-lg leading-relaxed">
+    <RetroPageShell title="Andrew Hachten’s About Page" homeHref="/">
+      <main id="main-content" className="retro-internal-main">
+        <RetroDocument className="retro-about-document">
+          <section className="retro-about-essay" aria-labelledby="about-andrew">
+            <h1 id="about-andrew">About Andrew</h1>
+            {/* Temporary copy: review before publication because it references removed site content. */}
+            <p>
             Hi! My name is Andrew Hachten. I&apos;m a professional software engineer
             and a semi-professional baker, cocktail maker, and candlemaker. I live
             in Philadelphia with my wife, Hannah, and our dog, Duke.
-          </p>
-          <p className="font-body text-on-surface-variant text-lg leading-relaxed">
+            </p>
+            <p>
             I made this site as a home for the things I make and the occasional
             silly idea I wanted to turn into a real thing. Right now, that mostly
             means recipes, puzzle hints, and an unnecessarily complicated version
             of tic tac toe.
-          </p>
-          <p className="font-body text-on-surface-variant text-lg leading-relaxed">
+            </p>
+            <p>
             Feel free to reach out if you&apos;re looking for a software engineer,
             baker, cocktail maker, candlemaker, or someone named Andrew.
-          </p>
-        </div>
-      </section>
-    </main>
+            </p>
+            <RetroButtonLink href="/resume">View résumé →</RetroButtonLink>
+          </section>
+        </RetroDocument>
+      </main>
+    </RetroPageShell>
   );
 }
