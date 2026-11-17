@@ -351,6 +351,120 @@ body {
   margin-right: 0.24em;
 }
 
+.retro-home-content {
+  width: min(70rem, calc(100% - 3rem));
+  margin: 2.25rem auto 3.25rem;
+}
+
+.retro-home-welcome-frame {
+  padding: 0.5rem;
+  border: 2px solid;
+  border-color: #777 #fff #fff #777;
+  background: #a8a8a8;
+  box-shadow: inset 1px 1px #555;
+}
+
+.retro-home-welcome {
+  display: grid;
+  min-height: 14.75rem;
+  grid-template-columns: minmax(0, 1fr) 18.125rem;
+  align-items: center;
+  gap: 1.875rem;
+  padding: 1.375rem 2.125rem;
+  background: var(--retro-cream);
+}
+
+.retro-about-burst {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 10.75rem;
+  place-items: center;
+  color: var(--retro-red);
+  text-align: center;
+  text-decoration: none;
+  transform: rotate(-6deg);
+}
+
+.retro-about-burst::before {
+  position: absolute;
+  inset: 0;
+  background: var(--retro-yellow);
+  clip-path: polygon(50% 0,60% 17%,78% 6%,79% 26%,99% 23%,87% 42%,100% 55%,82% 62%,90% 84%,67% 80%,59% 100%,44% 84%,25% 98%,23% 78%,3% 81%,13% 60%,0 48%,19% 36%,13% 15%,36% 22%);
+  content: "";
+}
+
+.retro-about-burst > span {
+  position: relative;
+  max-width: 11.875rem;
+  font: bold 1.4375rem/1.15 Arial, sans-serif;
+}
+
+.retro-about-burst small {
+  display: block;
+  margin-top: 0.8125rem;
+  font: bold 0.875rem/1.4 "Courier New", monospace;
+}
+
+.retro-destinations {
+  margin-top: 2rem;
+}
+
+.retro-destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.875rem;
+}
+
+@media (max-width: 740px) {
+  .retro-home-content {
+    width: calc(100% - 2rem);
+    margin-top: 1.5625rem;
+  }
+
+  .retro-home-welcome {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1.25rem;
+  }
+
+  .retro-introduction-text > p {
+    font-size: 1.125rem;
+  }
+
+  .retro-about-burst {
+    width: 13.75rem;
+    min-height: 10.25rem;
+    justify-self: center;
+  }
+
+  .retro-destinations-grid--responsive {
+    grid-template-columns: 1fr;
+  }
+
+  .retro-destination-card {
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  .retro-destination-preview {
+    height: 13.125rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .retro-destination-heading h2 {
+    font-size: 1.25rem;
+  }
+
+  .retro-destination-heading .retro-button {
+    padding-inline: 0.5625rem;
+    font-size: 0.75rem;
+  }
+}
+
 @media (max-width: 740px) {
   .retro-titlebar-shell {
     padding: 0.75rem 0;
