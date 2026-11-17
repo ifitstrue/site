@@ -309,6 +309,48 @@ body {
   font-size: 0.9375rem;
 }
 
+.retro-introduction-text {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.retro-introduction-text h1 {
+  margin: 0 0 1.125rem;
+  font: bold clamp(1.6875rem, 3vw, 2.375rem) / 1.2 "Courier New", monospace;
+  letter-spacing: -0.0875rem;
+}
+
+.retro-introduction-text > p {
+  max-width: 43.125rem;
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.retro-draggable-token {
+  position: relative;
+  display: inline-block;
+  margin-right: 0.24em;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+}
+
+.retro-draggable-token--attached {
+  margin-right: 0;
+}
+
+.retro-draggable-token[data-dragging="true"] {
+  z-index: 5;
+  cursor: grabbing;
+}
+
+.retro-draggable-token--punctuation {
+  margin-right: 0.24em;
+}
+
 @media (max-width: 740px) {
   .retro-titlebar-shell {
     padding: 0.75rem 0;
