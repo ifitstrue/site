@@ -143,9 +143,14 @@ export function DraggableIntroduction({
       aria-label={`Move words in the introduction. ${allTokens[selectedIndex].text} is selected. Use Page Up and Page Down to select a word or punctuation mark, arrow keys to move it, Shift plus an arrow key to move farther, and Home to reset it.`}
       onKeyDown={handleKeyDown}
     >
-      <span className="sr-only">{copy.heading} {copy.body}</span>
-      <h1>{headingTokens.map(renderToken)}</h1>
-      <p>{bodyTokens.map(renderToken)}</p>
+      <h1>
+        <span className="sr-only">{copy.heading}</span>
+        {headingTokens.map(renderToken)}
+      </h1>
+      <p>
+        <span className="sr-only">{copy.body}</span>
+        {bodyTokens.map(renderToken)}
+      </p>
       <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
         {announcement}
       </span>

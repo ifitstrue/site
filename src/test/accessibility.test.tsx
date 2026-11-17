@@ -1,11 +1,12 @@
 import axe from "axe-core";
 import { render } from "@testing-library/react";
-import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { useGameStore } from "@/games/tictactoe/store";
-import SuperBoard from "@/games/tictactoe/components/SuperBoard";
-import PlayerEditor from "@/games/tictactoe/components/PlayerEditor";
+import { createElement, type ComponentType } from "react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import Home from "@/app/page";
+import About from "@/app/(pages)/about/page";
+import Resume from "@/app/(pages)/resume/page";
+import { IdentityDialog } from "@/components/home/IdentityDialog";
 import { DatePicker } from "@/games/connections/components/DatePicker";
-import { Modal } from "@/components/ui/Modal";
 
 const runAxe = (container: HTMLElement) =>
   axe.run(container, {
@@ -15,39 +16,44 @@ const runAxe = (container: HTMLElement) =>
     },
   });
 
-const originalCanvasContext = Object.getOwnPropertyDescriptor(
-  HTMLCanvasElement.prototype,
-  "getContext",
-);
-
-beforeAll(() => {
-  Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
-    configurable: true,
-    value() {
-      return {
-        canvas: this,
-        measureText: (text: string) => ({ width: text.length * 10 }),
-      };
-    },
-  });
-});
-
-afterAll(() => {
-  if (originalCanvasContext) {
-    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", originalCanvasContext);
-  }
-});
-
 describe("automated accessibility checks", () => {
-  beforeEach(() => useGameStore.getState().resetGame());
+  beforeEach(() => {
+    vi.stubGlobal("matchMedia", vi.fn().mockImplementation((query: string) => ({
+      media: query,
+      matches: false,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })));
+  });
 
-  it("finds no structural violations in the game board", async () => {
-    const { container } = render(<SuperBoard />);
+  afterEach(() => vi.unstubAllGlobals());
+
+  it.each([
+    ["homepage", Home],
+    ["About page", About],
+    ["résumé page", Resume],
+  ] satisfies [string, ComponentType][]) ("finds no structural violations on the %s", async (_name, Page) => {
+    const { container } = render(createElement(Page));
     const { violations } = await runAxe(container);
     expect(violations.map(({ id }) => id)).toEqual([]);
   });
 
-  it("finds no structural violations in the date picker", async () => {
+  it("finds no structural violations in the open identity dialog", async () => {
+    const { container } = render(
+      <>
+        <main data-retro-page-content><button type="button">Trigger</button></main>
+        <IdentityDialog open onClose={vi.fn()} />
+      </>,
+    );
+    const { violations } = await runAxe(container);
+    expect(violations.map(({ id }) => id)).toEqual([]);
+  });
+
+  it("finds no structural violations in the retained date picker", async () => {
     const { container } = render(
       <DatePicker
         value="2026-10-12"
@@ -56,20 +62,6 @@ describe("automated accessibility checks", () => {
         onClose={vi.fn()}
         onSelect={vi.fn()}
       />,
-    );
-    const { violations } = await runAxe(container);
-    expect(violations.map(({ id }) => id)).toEqual([]);
-  });
-
-  it("finds no structural violations in player settings", async () => {
-    const { container } = render(<PlayerEditor playerId={0} index={0} />);
-    const { violations } = await runAxe(container);
-    expect(violations.map(({ id }) => id)).toEqual([]);
-  });
-
-  it("labels a modal even when no visible title is supplied", async () => {
-    const { container } = render(
-      <Modal isOpen onClose={vi.fn()}><button type="button">Action</button></Modal>,
     );
     const { violations } = await runAxe(container);
     expect(violations.map(({ id }) => id)).toEqual([]);

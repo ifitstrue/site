@@ -72,11 +72,8 @@ describe("DraggableIntroduction", () => {
 
   it("exposes the complete introduction to assistive technology", () => {
     render(<Harness />);
-    expect(
-      screen.getByText(
-        "Hi, I'm Andrew! I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.",
-      ),
-    ).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Hi, I'm Andrew!" })).toBeTruthy();
+    expect(screen.getByText("I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.")).toBeTruthy();
   });
 });
 

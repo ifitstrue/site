@@ -24,7 +24,7 @@ function installMatchMedia(initialMatches = true) {
 }
 
 function installIdentityRects(ratios: Record<"projects" | "recipes" | "candles", number>) {
-  return vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function () {
+  return vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
     const identityWord = this.dataset.identityWord as keyof typeof ratios | undefined;
     if (identityWord) {
       return { left: 0, top: 0, right: 100, bottom: 20, width: 100, height: 20 } as DOMRect;
@@ -54,11 +54,8 @@ describe("personal homepage", () => {
     const { container } = render(<Home />);
 
     expect(screen.getByText("Andrew Hachten’s Home Page")).toBeTruthy();
-    expect(
-      screen.getByText(
-        "Hi, I'm Andrew! I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.",
-      ),
-    ).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Hi, I'm Andrew!" })).toBeTruthy();
+    expect(screen.getByText("I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.")).toBeTruthy();
     const about = screen.getByRole("link", { name: /Who’s making all this\? Meet Andrew/i });
     expect(about.getAttribute("href")).toBe("/about");
     expect(container.querySelector("footer")).toBeNull();
@@ -107,11 +104,8 @@ describe("identity Easter egg", () => {
     act(() => vi.advanceTimersByTime(1));
 
     expect(screen.getByRole("alertdialog")).toBeTruthy();
-    expect(
-      screen.getByText(
-        "Hi, you're Andrew! You're a software engineer, baker, and candlemaker living in Philadelphia. I can find links to your projects, recipes, and candles here! I can also move all of these words around, if I want.",
-      ),
-    ).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Hi, you're Andrew!" })).toBeTruthy();
+    expect(screen.getByText("You're a software engineer, baker, and candlemaker living in Philadelphia. I can find links to your projects, recipes, and candles here! I can also move all of these words around, if I want.")).toBeTruthy();
     expect(screen.getByRole("link", { name: /Meet Yourself/i })).toBeTruthy();
     expect(screen.getByText("Your games, tools, and other projects.")).toBeTruthy();
 

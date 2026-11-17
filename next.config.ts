@@ -11,6 +11,18 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      { source: "/projects", destination: "https://ifitstrue.dev", permanent: true },
+      {
+        source: "/candles",
+        destination: "https://www.sleepingstonecandles.com/",
+        permanent: true,
+      },
+      { source: "/recipes", destination: "https://edgecase.recipes", permanent: true },
+      { source: "/recipes/:path*", destination: "https://edgecase.recipes", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
