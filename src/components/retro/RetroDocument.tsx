@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { RetroInsetFrame } from "./RetroInsetFrame";
 
 type RetroDocumentProps = {
   children: ReactNode;
@@ -7,8 +8,8 @@ type RetroDocumentProps = {
 
 export function RetroDocument({ children, className }: RetroDocumentProps) {
   return (
-    <div className={["retro-document-frame", className].filter(Boolean).join(" ")}>
+    <RetroInsetFrame className={className}>
       <div className="retro-document">{children}</div>
-    </div>
+    </RetroInsetFrame>
   );
 }

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { RetroButtonLink } from "./RetroButtonLink";
 import { RetroActionBar } from "./RetroActionBar";
 import { RetroDocument } from "./RetroDocument";
+import { RetroInsetFrame } from "./RetroInsetFrame";
 import { RetroPageShell } from "./RetroPageShell";
 
 describe("retro page primitives", () => {
@@ -35,9 +36,9 @@ describe("retro page primitives", () => {
     expect(container.querySelector("footer")).toBeNull();
   });
 
-  it("keeps external links in the same tab", () => {
+  it("keeps links in the same tab", () => {
     render(
-      <RetroButtonLink href="https://ifitstrue.dev" external>
+      <RetroButtonLink href="https://ifitstrue.dev">
         Visit ↗
       </RetroButtonLink>,
     );
@@ -61,6 +62,19 @@ describe("retro page primitives", () => {
 
   it("provides a reusable document surface", () => {
     const { container } = render(<RetroDocument>Document copy</RetroDocument>);
+    expect(container.querySelector(".retro-inset-frame")).not.toBeNull();
     expect(container.querySelector(".retro-document")?.textContent).toBe("Document copy");
+  });
+
+  it("frames standalone semantic content without changing its element", () => {
+    const { container } = render(
+      <RetroInsetFrame className="example-frame">
+        <section aria-label="Example">Standalone content</section>
+      </RetroInsetFrame>,
+    );
+
+    const frame = container.querySelector(".retro-inset-frame");
+    expect(frame?.classList.contains("example-frame")).toBe(true);
+    expect(screen.getByRole("region", { name: "Example" }).textContent).toBe("Standalone content");
   });
 });

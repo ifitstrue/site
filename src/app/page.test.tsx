@@ -59,6 +59,7 @@ describe("personal homepage", () => {
     const about = screen.getByRole("link", { name: /Who’s making all this\? Meet Andrew/i });
     expect(about.getAttribute("href")).toBe("/about");
     expect(container.querySelector("footer")).toBeNull();
+    expect(container.querySelector(".retro-home-welcome-frame")?.classList.contains("retro-inset-frame")).toBe(true);
   });
 
   it("renders exactly the three external destinations without explanatory copy", () => {
@@ -78,11 +79,11 @@ describe("personal homepage", () => {
     expect(screen.queryByRole("link", { name: /resume|résumé/i })).toBeNull();
   });
 
-  it("uses a responsive destination grid and wrapping card headings", () => {
+  it("uses a destination grid and card headings", () => {
     const { container } = render(<Home />);
     const grid = container.querySelector(".retro-destinations-grid");
-    expect(grid?.classList.contains("retro-destinations-grid--responsive")).toBe(true);
-    expect(container.querySelectorAll(".retro-destination-heading--wrapping")).toHaveLength(3);
+    expect(grid).not.toBeNull();
+    expect(container.querySelectorAll(".retro-destination-heading")).toHaveLength(3);
   });
 });
 

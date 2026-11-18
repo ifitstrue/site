@@ -21,7 +21,7 @@ export default function About() {
         </RetroActionBar>
         <RetroDocument className="retro-about-document">
           <section
-            className="retro-about-essay retro-about-readable-copy"
+            className="retro-about-essay"
             aria-labelledby="about-andrew"
           >
             <h1 id="about-andrew" className="sr-only">About Andrew</h1>

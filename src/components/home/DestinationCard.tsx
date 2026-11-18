@@ -51,9 +51,9 @@ export const DestinationCard = forwardRef<HTMLDivElement, DestinationCardProps>(
             />
           )}
         </div>
-        <div className="retro-destination-heading retro-destination-heading--wrapping">
+        <div className="retro-destination-heading">
           <h2>{destination.title}</h2>
-          <RetroButtonLink href={destination.href} external>
+          <RetroButtonLink href={destination.href}>
             Visit ↗
           </RetroButtonLink>
         </div>

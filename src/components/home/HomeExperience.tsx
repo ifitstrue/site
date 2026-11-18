@@ -1,6 +1,7 @@
 "use client";
 
 import { RetroPageShell } from "@/components/retro/RetroPageShell";
+import { RetroInsetFrame } from "@/components/retro/RetroInsetFrame";
 import { allIdentityTargetsMatched, overlapRatio } from "@/lib/identityTrigger";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { DestinationCard } from "./DestinationCard";
@@ -105,7 +106,7 @@ export function HomeExperience() {
         data-retro-page-content
         data-dialog-background
       >
-        <div className="retro-home-welcome-frame">
+        <RetroInsetFrame className="retro-home-welcome-frame">
           <section className="retro-home-welcome" aria-label="Introduction">
             <DraggableIntroduction
               transformed={transformed}
@@ -127,10 +128,10 @@ export function HomeExperience() {
               </span>
             </a>
           </section>
-        </div>
+        </RetroInsetFrame>
 
         <section className="retro-destinations" aria-label="Andrew’s other websites">
-          <div className="retro-destinations-grid retro-destinations-grid--responsive">
+          <div className="retro-destinations-grid">
             {HOME_DESTINATIONS.map((destination) => (
               <DestinationCard
                 key={destination.key}

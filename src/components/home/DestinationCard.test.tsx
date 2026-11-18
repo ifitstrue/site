@@ -60,13 +60,12 @@ describe("DestinationCard", () => {
     expect(link.getAttribute("target")).toBeNull();
   });
 
-  it("puts the title and action in one wrapping row", () => {
+  it("puts the title and action in one row", () => {
     const { container } = render(
       <DestinationCard destination={HOME_DESTINATIONS[1]} transformed={false} />,
     );
     const row = container.querySelector(".retro-destination-heading");
     expect(row).not.toBeNull();
-    expect(row?.classList.contains("retro-destination-heading--wrapping")).toBe(true);
     expect((row as HTMLElement).style.width).toBe("");
   });
 

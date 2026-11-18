@@ -98,27 +98,6 @@ body {
   border-color: transparent;
 }
 
-/* Draggable Words */
-.draggable-word {
-  cursor: grab;
-  user-select: none;
-  display: inline-block;
-  touch-action: none;
-}
-
-.draggable-word[data-dragging="true"] {
-  will-change: transform;
-}
-
-.draggable-word:active {
-  cursor: grabbing;
-}
-
-.canvas-text > span {
-  margin-right: 0.2em;
-  margin-bottom: 0.1em;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -132,18 +111,27 @@ body {
 
 /* Personal-site retro shell. Scoped so temporarily retained tools keep their theme. */
 .retro-page-shell {
-  --retro-gray: #c3c3c3;
-  --retro-gray-dark: #777;
+  --retro-face: #c3c3c3;
+  --retro-frame: #a8a8a8;
+  --retro-bevel-edge: #777;
+  --retro-bevel-light: #fff;
+  --retro-inset-shadow: #555;
+  --retro-control-shadow: #343434;
   --retro-cream: #f5f1e7;
   --retro-ink: #202020;
+  --retro-copy: #181818;
+  --retro-muted-copy: #4a4a4a;
   --retro-red: #a32639;
   --retro-yellow: #f1cd27;
   --retro-link: #242a89;
+  --retro-font-ui: Arial, Helvetica, sans-serif;
+  --retro-font-copy: Georgia, "Times New Roman", serif;
+  --retro-font-mono: "Courier New", monospace;
   min-height: 100svh;
   overflow-x: clip;
-  background: var(--retro-gray);
+  background: var(--retro-face);
   color: var(--retro-ink);
-  font-family: Arial, sans-serif;
+  font-family: var(--retro-font-ui);
 }
 
 .retro-button {
@@ -153,11 +141,11 @@ body {
   justify-content: center;
   padding: 0.55rem 1rem;
   border: 2px solid;
-  border-color: #fff #343434 #343434 #fff;
-  background: var(--retro-gray);
-  box-shadow: 1px 1px #343434;
-  color: #181818;
-  font: bold 0.875rem/1.3 "Courier New", monospace;
+  border-color: var(--retro-bevel-light) var(--retro-control-shadow) var(--retro-control-shadow) var(--retro-bevel-light);
+  background: var(--retro-face);
+  box-shadow: 1px 1px var(--retro-control-shadow);
+  color: var(--retro-copy);
+  font: bold 0.875rem/1.3 var(--retro-font-mono);
   text-decoration: none;
 }
 
@@ -166,7 +154,7 @@ body {
 }
 
 .retro-button:active {
-  border-color: #343434 #fff #fff #343434;
+  border-color: var(--retro-control-shadow) var(--retro-bevel-light) var(--retro-bevel-light) var(--retro-control-shadow);
   box-shadow: none;
 }
 
@@ -175,19 +163,19 @@ body {
   outline-offset: 4px !important;
 }
 
-.retro-document-frame {
+.retro-inset-frame {
   padding: 0.5rem;
   border: 2px solid;
-  border-color: #777 #fff #fff #777;
-  background: #a8a8a8;
-  box-shadow: inset 1px 1px #555;
+  border-color: var(--retro-bevel-edge) var(--retro-bevel-light) var(--retro-bevel-light) var(--retro-bevel-edge);
+  background: var(--retro-frame);
+  box-shadow: inset 1px 1px var(--retro-inset-shadow);
 }
 
 .retro-document {
   border: 2px solid;
-  border-color: #777 #fff #fff #777;
+  border-color: var(--retro-bevel-edge) var(--retro-bevel-light) var(--retro-bevel-light) var(--retro-bevel-edge);
   background: var(--retro-cream);
-  box-shadow: inset 1px 1px #555;
+  box-shadow: inset 1px 1px var(--retro-inset-shadow);
 }
 
 .retro-internal-main {
@@ -203,8 +191,8 @@ body {
 
 .retro-about-essay {
   padding: clamp(1.5rem, 5vw, 4rem);
-  color: #181818;
-  font: 1.125rem/1.75 Georgia, "Times New Roman", serif;
+  color: var(--retro-copy);
+  font: 1.125rem/1.75 var(--retro-font-copy);
 }
 
 .retro-about-essay p {
@@ -240,13 +228,13 @@ body {
 
 .retro-resume-content {
   padding: clamp(1.5rem, 5vw, 4rem);
-  color: #181818;
-  font: 1rem/1.6 Georgia, "Times New Roman", serif;
+  color: var(--retro-copy);
+  font: 1rem/1.6 var(--retro-font-copy);
 }
 
 .retro-resume-name {
   margin: 0;
-  font: bold clamp(2.25rem, 7vw, 4rem)/1 "Arial Black", Arial, sans-serif;
+  font: bold clamp(2.25rem, 7vw, 4rem)/1 "Arial Black", var(--retro-font-ui);
   letter-spacing: -0.045em;
 }
 
@@ -259,16 +247,16 @@ body {
 .retro-resume-section-heading {
   margin: 2.75rem 0 1.25rem;
   padding: 0.4rem 0;
-  border-top: 3px double #181818;
-  border-bottom: 1px solid #181818;
-  font: bold 1rem/1.2 "Courier New", monospace;
+  border-top: 3px double var(--retro-copy);
+  border-bottom: 1px solid var(--retro-copy);
+  font: bold 1rem/1.2 var(--retro-font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .retro-resume-entry-heading {
   margin: 1.75rem 0 0.2rem;
-  font: bold 1.05rem/1.35 Arial, Helvetica, sans-serif;
+  font: bold 1.05rem/1.35 var(--retro-font-ui);
 }
 
 .retro-resume-paragraph {
@@ -277,8 +265,8 @@ body {
 
 .retro-resume-entry-heading + .retro-resume-paragraph {
   margin-top: 0;
-  color: #4a4a4a;
-  font: bold 0.8125rem/1.4 "Courier New", monospace;
+  color: var(--retro-muted-copy);
+  font: bold 0.8125rem/1.4 var(--retro-font-mono);
   letter-spacing: 0.04em;
 }
 
@@ -305,7 +293,7 @@ body {
 }
 
 .retro-resume-label {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--retro-font-ui);
 }
 
 @media (max-width: 520px) {
@@ -338,7 +326,7 @@ body {
   padding: 1.125rem;
   border: 3px solid;
   border-color: #727272 #eee #eee #727272;
-  box-shadow: inset 2px 2px #555;
+  box-shadow: inset 2px 2px var(--retro-inset-shadow);
   text-align: center;
 }
 
@@ -394,11 +382,6 @@ body {
   text-transform: uppercase;
 }
 
-.ec-wordmark:focus-visible {
-  outline: 3px solid #783b36;
-  outline-offset: 5px;
-}
-
 .retro-destination-preview--candles {
   background: #f3efe5;
 }
@@ -417,15 +400,12 @@ body {
   justify-content: space-between;
   gap: 0.75rem;
   margin: 1.125rem 0 0.5rem;
-}
-
-.retro-destination-heading--wrapping {
   flex-wrap: wrap;
 }
 
 .retro-destination-heading h2 {
   margin: 0;
-  font: bold 1.4375rem/1.2 "Courier New", monospace;
+  font: bold 1.4375rem/1.2 var(--retro-font-mono);
 }
 
 .retro-destination-heading .retro-button {
@@ -465,7 +445,7 @@ body {
 
 .retro-introduction-text h1 {
   margin: 0 0 1.125rem;
-  font: bold clamp(1.6875rem, 3vw, 2.375rem) / 1.2 "Courier New", monospace;
+  font: bold clamp(1.6875rem, 3vw, 2.375rem) / 1.2 var(--retro-font-mono);
   letter-spacing: -0.025rem;
 }
 
@@ -512,14 +492,6 @@ body {
   margin: 2.25rem auto 3.25rem;
 }
 
-.retro-home-welcome-frame {
-  padding: 0.5rem;
-  border: 2px solid;
-  border-color: #777 #fff #fff #777;
-  background: #a8a8a8;
-  box-shadow: inset 1px 1px #555;
-}
-
 .retro-home-welcome {
   display: grid;
   min-height: 14.75rem;
@@ -553,13 +525,13 @@ body {
 .retro-about-burst > span {
   position: relative;
   max-width: 11.875rem;
-  font: bold 1.4375rem/1.15 Arial, sans-serif;
+  font: bold 1.4375rem/1.15 var(--retro-font-ui);
 }
 
 .retro-about-burst small {
   display: block;
   margin-top: 0.8125rem;
-  font: bold 0.875rem/1.4 "Courier New", monospace;
+  font: bold 0.875rem/1.4 var(--retro-font-mono);
 }
 
 .retro-destinations {
@@ -595,7 +567,7 @@ body {
     justify-self: center;
   }
 
-  .retro-destinations-grid--responsive {
+  .retro-destinations-grid {
     grid-template-columns: 1fr;
   }
 
@@ -635,9 +607,9 @@ body {
   width: min(25rem, 100%);
   padding: 0.25rem;
   border: 2px solid;
-  border-color: #fff #343434 #343434 #fff;
-  background: #c3c3c3;
-  box-shadow: 5px 5px #202020;
+  border-color: var(--retro-bevel-light) var(--retro-control-shadow) var(--retro-control-shadow) var(--retro-bevel-light);
+  background: var(--retro-face);
+  box-shadow: 5px 5px var(--retro-ink);
 }
 
 .retro-identity-body {
@@ -648,7 +620,7 @@ body {
 
 .retro-identity-body p {
   margin: 0 0 1.5rem;
-  font: bold 1.125rem/1.45 "Courier New", monospace;
+  font: bold 1.125rem/1.45 var(--retro-font-mono);
   text-align: center;
 }
 
