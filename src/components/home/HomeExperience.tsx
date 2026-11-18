@@ -98,7 +98,7 @@ export function HomeExperience() {
   }, [cancelIdentityTimer, identityTargetsMatch, positions, transformed]);
 
   return (
-    <RetroPageShell title="Andrew Hachten’s Home Page">
+    <RetroPageShell>
       <main
         id="main-content"
         className="retro-home-content"

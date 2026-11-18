@@ -13,8 +13,17 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <RetroPageShell title="Andrew Hachten’s About Page" homeHref="/">
+    <RetroPageShell>
       <main id="main-content" className="retro-internal-main">
+        <nav
+          className="retro-internal-actions retro-about-actions"
+          aria-label="About page actions"
+        >
+          <RetroButtonLink href="/">← Home</RetroButtonLink>
+          <div className="retro-internal-actions__group">
+            <RetroButtonLink href="/resume">View résumé →</RetroButtonLink>
+          </div>
+        </nav>
         <RetroDocument className="retro-about-document">
           <section
             className="retro-about-essay retro-about-readable-copy"
@@ -37,7 +46,6 @@ export default function About() {
               Feel free to reach out if you&apos;re looking for a software engineer,
               baker, cocktail maker, candlemaker, or someone named Andrew.
             </p>
-            <RetroButtonLink href="/resume">View résumé →</RetroButtonLink>
           </section>
         </RetroDocument>
       </main>

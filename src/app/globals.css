@@ -146,36 +146,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.retro-titlebar-shell {
-  padding: 1rem 0;
-  border-bottom: 2px solid var(--retro-gray-dark);
-  box-shadow: 0 2px #eee;
-}
-
-.retro-titlebar {
-  background: repeating-linear-gradient(
-    to bottom,
-    #777 0 1px,
-    #d9d9d9 1px 4px
-  );
-  text-align: center;
-}
-
-.retro-titlebar > span,
-.retro-titlebar > a {
-  display: inline-block;
-  padding: 0 0.95rem;
-  background: var(--retro-gray);
-  color: var(--retro-ink);
-  font: bold 1.1875rem/1.5 "Courier New", monospace;
-  text-decoration: none;
-}
-
-.retro-titlebar > a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
 .retro-button {
   display: inline-flex;
   min-height: 2.75rem;
@@ -241,17 +211,26 @@ body {
   margin: 0 0 1.25rem;
 }
 
-.retro-about-essay .retro-button {
-  margin-top: 0.75rem;
+.retro-internal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 auto 1rem;
+}
+
+.retro-internal-actions__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.retro-about-actions {
+  max-width: 48rem;
 }
 
 .retro-resume-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.75rem;
   max-width: 52rem;
-  margin: 0 auto 1rem;
 }
 
 .retro-resume-document {
@@ -330,12 +309,13 @@ body {
 }
 
 @media (max-width: 520px) {
-  .retro-resume-actions {
+  .retro-internal-actions,
+  .retro-internal-actions__group {
     display: grid;
     grid-template-columns: 1fr;
   }
 
-  .retro-resume-actions .retro-button {
+  .retro-internal-actions .retro-button {
     width: 100%;
   }
 
@@ -677,16 +657,4 @@ body {
 
 .retro-identity-body .retro-button {
   min-width: 5.75rem;
-}
-
-@media (max-width: 740px) {
-  .retro-titlebar-shell {
-    padding: 0.75rem 0;
-  }
-
-  .retro-titlebar > span,
-  .retro-titlebar > a {
-    padding-inline: 0.4rem;
-    font-size: 0.9375rem;
-  }
 }

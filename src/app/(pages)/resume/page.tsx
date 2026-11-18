@@ -39,13 +39,19 @@ export default async function Resume() {
   const source = await readFile(path.join(process.cwd(), "content/resume.md"), "utf8");
 
   return (
-    <RetroPageShell title="Andrew Hachten’s Résumé" homeHref="/">
+    <RetroPageShell>
       <main id="main-content" className="retro-internal-main">
-        <nav className="retro-resume-actions" aria-label="Résumé actions">
-          <RetroButtonLink href="/andrew-hachten-resume.pdf" download>
-            Download PDF ↓
-          </RetroButtonLink>
-          <RetroButtonLink href="/about">About Andrew →</RetroButtonLink>
+        <nav
+          className="retro-internal-actions retro-resume-actions"
+          aria-label="Résumé actions"
+        >
+          <RetroButtonLink href="/">← Home</RetroButtonLink>
+          <div className="retro-internal-actions__group">
+            <RetroButtonLink href="/andrew-hachten-resume.pdf" download>
+              Download PDF ↓
+            </RetroButtonLink>
+            <RetroButtonLink href="/about">About Andrew →</RetroButtonLink>
+          </div>
         </nav>
         <RetroDocument className="retro-resume-document">
           <article className="retro-resume-content">

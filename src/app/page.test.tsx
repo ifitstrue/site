@@ -53,7 +53,7 @@ describe("personal homepage", () => {
   it("renders the approved introduction and About invitation", () => {
     const { container } = render(<Home />);
 
-    expect(screen.getByText("Andrew Hachten’s Home Page")).toBeTruthy();
+    expect(screen.queryByText("Andrew Hachten’s Home Page")).toBeNull();
     expect(screen.getByRole("heading", { name: "Hi, I'm Andrew!" })).toBeTruthy();
     expect(screen.getByText("I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.")).toBeTruthy();
     const about = screen.getByRole("link", { name: /Who’s making all this\? Meet Andrew/i });

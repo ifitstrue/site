@@ -6,7 +6,7 @@ describe("résumé page", () => {
   it("renders the semantic web résumé inside the retro document", async () => {
     const { container } = render(await Resume());
 
-    expect(screen.getByRole("link", { name: "Andrew Hachten’s Résumé" }).getAttribute("href")).toBe("/");
+    expect(screen.queryByRole("link", { name: "Andrew Hachten’s Résumé" })).toBeNull();
     expect(screen.getByRole("heading", { level: 1, name: "Andrew Hachten" })).toBeTruthy();
     expect(screen.getByRole("heading", { level: 2, name: "Experience" })).toBeTruthy();
     expect(screen.getByRole("heading", { level: 2, name: "Skills" })).toBeTruthy();
@@ -40,6 +40,7 @@ describe("résumé page", () => {
   it("offers the unchanged PDF and a return to About", async () => {
     render(await Resume());
 
+    expect(screen.getByRole("link", { name: "← Home" }).getAttribute("href")).toBe("/");
     const download = screen.getByRole("link", { name: "Download PDF ↓" });
     expect(download.getAttribute("href")).toBe("/andrew-hachten-resume.pdf");
     expect(download.hasAttribute("download")).toBe(true);

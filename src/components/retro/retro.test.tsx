@@ -5,30 +5,17 @@ import { RetroDocument } from "./RetroDocument";
 import { RetroPageShell } from "./RetroPageShell";
 
 describe("retro page primitives", () => {
-  it("renders an internal page title as a home link without adding another main landmark", () => {
+  it("renders page content without a separate masthead", () => {
     const { container } = render(
-      <RetroPageShell title="Andrew Hachten’s Résumé" homeHref="/">
+      <RetroPageShell>
         <main id="main-content">Résumé content</main>
       </RetroPageShell>,
     );
 
-    expect(container.querySelector("header")).not.toBeNull();
-    expect(
-      screen.getByRole("link", { name: "Andrew Hachten’s Résumé" }).getAttribute("href"),
-    ).toBe("/");
+    expect(container.querySelector("header")).toBeNull();
+    expect(screen.queryByText("Andrew Hachten’s Résumé")).toBeNull();
     expect(container.querySelectorAll("main")).toHaveLength(1);
     expect(container.querySelector("footer")).toBeNull();
-  });
-
-  it("renders the homepage title as text when no home link is supplied", () => {
-    render(
-      <RetroPageShell title="Andrew Hachten’s Home Page">
-        <main id="main-content">Home</main>
-      </RetroPageShell>,
-    );
-
-    expect(screen.queryByRole("link", { name: "Andrew Hachten’s Home Page" })).toBeNull();
-    expect(screen.getByText("Andrew Hachten’s Home Page")).toBeTruthy();
   });
 
   it("keeps external links in the same tab", () => {
