@@ -131,7 +131,7 @@ describe("identity Easter egg", () => {
     installIdentityRects({ projects: 1, recipes: 1, candles: 1 });
     render(<Home />);
 
-    fireEvent.pointerCancel(screen.getByTestId("identity-word-projects"));
+    fireEvent.pointerCancel(screen.getByTestId("identity-word-engineer"));
     act(() => vi.advanceTimersByTime(2000));
     expect(screen.queryByRole("alertdialog")).toBeNull();
   });
@@ -158,21 +158,21 @@ describe("identity Easter egg", () => {
   it("resets the three target words without resetting other words", () => {
     installIdentityRects({ projects: 1, recipes: 1, candles: 1 });
     render(<Home />);
-    const projects = screen.getByTestId("identity-word-projects");
-    const recipes = screen.getByTestId("identity-word-recipes");
-    const candles = screen.getByTestId("identity-word-candles");
+    const engineer = screen.getByTestId("identity-word-engineer");
+    const baker = screen.getByTestId("identity-word-baker");
+    const candlemaker = screen.getByTestId("identity-word-candlemaker");
     const hi = screen.getByTestId("token-heading-0");
 
-    for (const [index, element] of [projects, recipes, candles, hi].entries()) {
+    for (const [index, element] of [engineer, baker, candlemaker, hi].entries()) {
       fireEvent.pointerDown(element, { pointerId: index + 1, clientX: 0, clientY: 0 });
       fireEvent.pointerMove(element, { pointerId: index + 1, clientX: 20, clientY: 10 });
       fireEvent.pointerUp(element, { pointerId: index + 1 });
     }
     act(() => vi.advanceTimersByTime(1500));
 
-    expect(projects.style.transform).toBe("translate3d(0px, 0px, 0)");
-    expect(recipes.style.transform).toBe("translate3d(0px, 0px, 0)");
-    expect(candles.style.transform).toBe("translate3d(0px, 0px, 0)");
+    expect(engineer.style.transform).toBe("translate3d(0px, 0px, 0)");
+    expect(baker.style.transform).toBe("translate3d(0px, 0px, 0)");
+    expect(candlemaker.style.transform).toBe("translate3d(0px, 0px, 0)");
     expect(hi.style.transform).toBe("translate3d(20px, 10px, 0)");
   });
 });

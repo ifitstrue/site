@@ -75,4 +75,15 @@ describe("DraggableIntroduction", () => {
     expect(screen.getByRole("heading", { name: "Hi, I'm Andrew!" })).toBeTruthy();
     expect(screen.getByText("I'm a software engineer, baker, and candlemaker living in Philadelphia. You can find links to my projects, recipes, and candles here! You can also move all of these words around, if you want.")).toBeTruthy();
   });
+
+  it("uses the identity-focused profession words as Easter Egg targets", () => {
+    render(<Harness />);
+
+    expect(screen.getByTestId("identity-word-engineer").dataset.identityWord).toBe("projects");
+    expect(screen.getByTestId("identity-word-baker").dataset.identityWord).toBe("recipes");
+    expect(screen.getByTestId("identity-word-candlemaker").dataset.identityWord).toBe("candles");
+    expect(screen.queryByTestId("identity-word-projects")).toBeNull();
+    expect(screen.queryByTestId("identity-word-recipes")).toBeNull();
+    expect(screen.queryByTestId("identity-word-candles")).toBeNull();
+  });
 });

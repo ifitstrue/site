@@ -32,7 +32,11 @@ const MOVEMENT_KEYS = new Set<MovementKey>([
   "ArrowDown",
   "Home",
 ]);
-const TARGET_WORDS = new Set<DestinationKey>(["projects", "recipes", "candles"]);
+const IDENTITY_WORD_TARGETS: Readonly<Record<string, DestinationKey>> = {
+  engineer: "projects",
+  baker: "recipes",
+  candlemaker: "candles",
+};
 
 function tokenPosition(positions: DraggablePositions, token: DraggableToken) {
   return positions[token.id] ?? ZERO_POSITION;
@@ -90,19 +94,20 @@ export function DraggableIntroduction({
 
   const renderToken = (token: DraggableToken, index: number, tokens: DraggableToken[]) => {
     const position = tokenPosition(positions, token);
-    const targetKey = token.text.toLowerCase() as DestinationKey;
-    const isTarget = token.kind === "word" && TARGET_WORDS.has(targetKey);
+    const identityWord = token.text.toLowerCase();
+    const targetKey = token.kind === "word" ? IDENTITY_WORD_TARGETS[identityWord] : undefined;
+    const isTarget = targetKey !== undefined;
     const nextIsPunctuation = tokens[index + 1]?.kind === "punctuation";
 
     return (
       <span
         key={token.id}
-        ref={isTarget ? (element) => { tokenRefs.current[targetKey] = element; } : undefined}
+        ref={targetKey ? (element) => { tokenRefs.current[targetKey] = element; } : undefined}
         aria-hidden="true"
-        data-testid={isTarget ? `identity-word-${targetKey}` : `token-${token.id}`}
+        data-testid={isTarget ? `identity-word-${identityWord}` : `token-${token.id}`}
         data-token-id={token.id}
         data-token-kind={token.kind}
-        data-identity-word={isTarget ? targetKey : undefined}
+        data-identity-word={targetKey}
         data-dragging={draggingId === token.id}
         className={`retro-draggable-token retro-draggable-token--${token.kind}${
           nextIsPunctuation ? " retro-draggable-token--attached" : ""
