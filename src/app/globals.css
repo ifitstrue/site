@@ -466,7 +466,7 @@ body {
 .retro-introduction-text h1 {
   margin: 0 0 1.125rem;
   font: bold clamp(1.6875rem, 3vw, 2.375rem) / 1.2 "Courier New", monospace;
-  letter-spacing: -0.0875rem;
+  letter-spacing: -0.025rem;
 }
 
 .retro-introduction-text > p {
@@ -500,7 +500,7 @@ body {
 }
 
 .retro-introduction-text h1 .retro-draggable-token {
-  margin-right: 0.36em;
+  margin-right: 0.45em;
 }
 
 .retro-introduction-text h1 .retro-draggable-token--attached {
