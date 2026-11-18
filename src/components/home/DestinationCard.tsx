@@ -16,7 +16,7 @@ export const DestinationCard = forwardRef<HTMLDivElement, DestinationCardProps>(
           ref={ref}
           className={`retro-destination-preview retro-destination-preview--${destination.preview}`}
           data-destination={destination.key}
-          aria-hidden={destination.preview === "projects" ? undefined : true}
+          aria-hidden={destination.preview === "candles" ? true : undefined}
         >
           {destination.preview === "projects" && (
             <a
@@ -28,11 +28,19 @@ export const DestinationCard = forwardRef<HTMLDivElement, DestinationCardProps>(
             </a>
           )}
           {destination.preview === "recipes" && (
-            <span>
-              Edge Case
-              <br />
-              Recipes
-            </span>
+            <a
+              className="ec-wordmark"
+              href="https://edgecase.recipes/"
+              aria-label="Edge Case Recipes"
+            >
+              <span className="ec-wordmark__words" aria-hidden="true">
+                <span>edge</span>
+                <span>case</span>
+              </span>
+              <span className="ec-wordmark__descriptor" aria-hidden="true">
+                recipes
+              </span>
+            </a>
           )}
           {destination.preview === "candles" && (
             <Image

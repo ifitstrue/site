@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Newsreader, Space_Grotesk } from "next/font/google";
+import {
+  Be_Vietnam_Pro,
+  IBM_Plex_Serif,
+  Instrument_Sans,
+  Newsreader,
+  Space_Grotesk,
+} from "next/font/google";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -19,6 +25,20 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-label",
   subsets: ["latin"],
   weight: "variable",
+});
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  variable: "--font-ec-serif",
+  subsets: ["latin"],
+  weight: "500",
+  style: "normal",
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-ec-sans",
+  subsets: ["latin"],
+  weight: "600",
+  style: "normal",
 });
 
 export const metadata: Metadata = {
@@ -51,7 +71,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${beVietnamPro.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${beVietnamPro.variable} ${spaceGrotesk.variable} ${ibmPlexSerif.variable} ${instrumentSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body bg-surface text-on-surface selection:bg-primary-container/30 selection:text-on-primary-container">
         <a

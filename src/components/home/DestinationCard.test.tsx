@@ -88,6 +88,16 @@ describe("DestinationCard", () => {
     expect(wordmark.innerHTML).toBe("if<br>it’s<br>true.");
   });
 
+  it("renders the Edge Case Recipes preview as the approved live-text wordmark", () => {
+    render(<DestinationCard destination={HOME_DESTINATIONS[1]} transformed={false} />);
+
+    const wordmark = screen.getByRole("link", { name: "Edge Case Recipes" });
+    expect(wordmark.getAttribute("href")).toBe("https://edgecase.recipes/");
+    expect(wordmark.classList.contains("ec-wordmark")).toBe(true);
+    expect(wordmark.querySelector(".ec-wordmark__words")?.textContent).toBe("edgecase");
+    expect(wordmark.querySelector(".ec-wordmark__descriptor")?.textContent?.trim()).toBe("recipes");
+  });
+
   it("uses the transformed description after the identity change", () => {
     render(<DestinationCard destination={HOME_DESTINATIONS[0]} transformed />);
     expect(screen.getByText("Your games, tools, and other projects.")).toBeTruthy();
