@@ -6,10 +6,10 @@ import { RetroPageShell } from "@/components/retro/RetroPageShell";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Andrew Hachten, a software engineer, baker, cocktail maker, and candlemaker in Philadelphia.",
+  description: "About Andrew Hachten, a software engineer, baker, and candlemaker in Philadelphia.",
   alternates: { canonical: "/about" },
-  openGraph: { title: "About Andrew Hachten", description: "About Andrew Hachten, a software engineer, baker, cocktail maker, and candlemaker in Philadelphia.", url: "/about", type: "website", siteName: "Andrew Hachten" },
-  twitter: { card: "summary", title: "About Andrew Hachten", description: "About Andrew Hachten, a software engineer, baker, cocktail maker, and candlemaker in Philadelphia." },
+  openGraph: { title: "About Andrew Hachten", description: "About Andrew Hachten, a software engineer, baker, and candlemaker in Philadelphia.", url: "/about", type: "website", siteName: "Andrew Hachten" },
+  twitter: { card: "summary", title: "About Andrew Hachten", description: "About Andrew Hachten, a software engineer, baker, and candlemaker in Philadelphia." },
 };
 
 export default function About() {
@@ -25,22 +25,26 @@ export default function About() {
             aria-labelledby="about-andrew"
           >
             <h1 id="about-andrew" className="sr-only">About Andrew</h1>
-            {/* Temporary copy: review before publication because it references removed site content. */}
             <p>
-              Hi! My name is Andrew Hachten. I&apos;m a professional software engineer
-              and a semi-professional baker, cocktail maker, and candlemaker. I live
-              in Philadelphia with my wife, Hannah, and our dog, Duke.
+              Hi! My name is Andrew Hachten. I live in Philadelphia with my wife,
+              Hannah, and our dog, Duke.
             </p>
             <p>
-              I made this site as a home for the things I make and the occasional
-              silly idea I wanted to turn into a real thing. Right now, that mostly
-              means recipes, puzzle hints, and an unnecessarily complicated version
-              of tic tac toe.
+              I&apos;m a professional software engineer and a semi-professional baker
+              and candlemaker. I&apos;ve been a full-stack engineer for over a decade;
+              I&apos;ve also baked for weddings and sold baked goods and candles at
+              craft fairs.
+            </p>
+            <p>
+              I made this site to serve as a hub for my other sites and projects.
+              The design is inspired by the World Wide Websites I browsed when I
+              was a kid.
             </p>
             <p>
               Feel free to reach out if you&apos;re looking for a software engineer,
-              baker, cocktail maker, candlemaker, or someone named Andrew.
+              baker, candlemaker, or someone named Andrew.
             </p>
+            <p>P.S. See if you can find the Easter eggs ☺</p>
           </section>
         </RetroDocument>
       </main>

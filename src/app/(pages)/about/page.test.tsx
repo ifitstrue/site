@@ -10,8 +10,10 @@ describe("About page", () => {
     expect(screen.getByRole("heading", { name: "About Andrew" }).classList.contains("sr-only")).toBe(true);
     expect(container.querySelector("section[aria-labelledby='about-andrew']")).not.toBeNull();
     expect(screen.getByText(/Hi! My name is Andrew Hachten/)).toBeTruthy();
-    expect(screen.getByText(/unnecessarily complicated version of tic tac toe/)).toBeTruthy();
+    expect(screen.getByText(/full-stack engineer for over a decade/)).toBeTruthy();
+    expect(screen.getByText(/World Wide Websites I browsed when I was a kid/)).toBeTruthy();
     expect(screen.getByText(/someone named Andrew/)).toBeTruthy();
+    expect(screen.getByText("P.S. See if you can find the Easter eggs ☺")).toBeTruthy();
     expect(container.querySelector(".retro-document")).not.toBeNull();
   });
 
