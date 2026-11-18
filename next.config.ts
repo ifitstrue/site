@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
       },
       { source: "/recipes", destination: "https://edgecase.recipes", permanent: true },
       { source: "/recipes/:path*", destination: "https://edgecase.recipes", permanent: true },
+      { source: "/tools", destination: "https://ifitstrue.dev", permanent: true },
+      { source: "/tools/:path*", destination: "https://ifitstrue.dev", permanent: true },
     ];
   },
   async headers() {

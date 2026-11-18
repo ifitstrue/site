@@ -11,8 +11,10 @@ describe("permanent route redirects", () => {
         { source: "/candles", destination: "https://www.sleepingstonecandles.com/", permanent: true },
         { source: "/recipes", destination: "https://edgecase.recipes", permanent: true },
         { source: "/recipes/:path*", destination: "https://edgecase.recipes", permanent: true },
+        { source: "/tools", destination: "https://ifitstrue.dev", permanent: true },
+        { source: "/tools/:path*", destination: "https://ifitstrue.dev", permanent: true },
       ]),
     );
-    expect(redirects?.some(({ source }) => source === "/games/tictactoe")).toBe(false);
+    expect(redirects?.some(({ source }) => source.startsWith("/api/"))).toBe(false);
   });
 });

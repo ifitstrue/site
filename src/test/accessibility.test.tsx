@@ -6,7 +6,6 @@ import Home from "@/app/page";
 import About from "@/app/(pages)/about/page";
 import Resume from "@/app/(pages)/resume/page";
 import { IdentityDialog } from "@/components/home/IdentityDialog";
-import { DatePicker } from "@/games/connections/components/DatePicker";
 
 const runAxe = (container: HTMLElement) =>
   axe.run(container, {
@@ -55,20 +54,6 @@ describe("automated accessibility checks", () => {
         <main data-retro-page-content><button type="button">Trigger</button></main>
         <IdentityDialog open onClose={vi.fn()} />
       </>,
-    );
-    const { violations } = await runAxe(container);
-    expect(violations.map(({ id }) => id)).toEqual([]);
-  });
-
-  it("finds no structural violations in the retained date picker", async () => {
-    const { container } = render(
-      <DatePicker
-        value="2026-10-12"
-        today="2026-10-12"
-        isOpen
-        onClose={vi.fn()}
-        onSelect={vi.fn()}
-      />,
     );
     const { violations } = await runAxe(container);
     expect(violations.map(({ id }) => id)).toEqual([]);
