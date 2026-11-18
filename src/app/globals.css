@@ -225,11 +225,11 @@ body {
   gap: 0.75rem;
 }
 
-.retro-about-actions {
+.retro-internal-actions--narrow {
   max-width: 48rem;
 }
 
-.retro-resume-actions {
+.retro-internal-actions--wide {
   max-width: 52rem;
 }
 

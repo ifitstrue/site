@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import ReactMarkdown, { type Components } from "react-markdown";
 import { RetroButtonLink } from "@/components/retro/RetroButtonLink";
+import { RetroActionBar } from "@/components/retro/RetroActionBar";
 import { RetroDocument } from "@/components/retro/RetroDocument";
 import { RetroPageShell } from "@/components/retro/RetroPageShell";
 
@@ -41,18 +42,12 @@ export default async function Resume() {
   return (
     <RetroPageShell>
       <main id="main-content" className="retro-internal-main">
-        <nav
-          className="retro-internal-actions retro-resume-actions"
-          aria-label="Résumé actions"
-        >
-          <RetroButtonLink href="/">← Home</RetroButtonLink>
-          <div className="retro-internal-actions__group">
-            <RetroButtonLink href="/andrew-hachten-resume.pdf" download>
-              Download PDF ↓
-            </RetroButtonLink>
-            <RetroButtonLink href="/about">About Andrew →</RetroButtonLink>
-          </div>
-        </nav>
+        <RetroActionBar ariaLabel="Résumé actions" width="wide">
+          <RetroButtonLink href="/andrew-hachten-resume.pdf" download>
+            Download PDF ↓
+          </RetroButtonLink>
+          <RetroButtonLink href="/about">About Andrew →</RetroButtonLink>
+        </RetroActionBar>
         <RetroDocument className="retro-resume-document">
           <article className="retro-resume-content">
             <ReactMarkdown components={markdownComponents}>{source}</ReactMarkdown>

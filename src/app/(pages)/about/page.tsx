@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { RetroButtonLink } from "@/components/retro/RetroButtonLink";
+import { RetroActionBar } from "@/components/retro/RetroActionBar";
 import { RetroDocument } from "@/components/retro/RetroDocument";
 import { RetroPageShell } from "@/components/retro/RetroPageShell";
 
@@ -15,15 +16,9 @@ export default function About() {
   return (
     <RetroPageShell>
       <main id="main-content" className="retro-internal-main">
-        <nav
-          className="retro-internal-actions retro-about-actions"
-          aria-label="About page actions"
-        >
-          <RetroButtonLink href="/">← Home</RetroButtonLink>
-          <div className="retro-internal-actions__group">
-            <RetroButtonLink href="/resume">View résumé →</RetroButtonLink>
-          </div>
-        </nav>
+        <RetroActionBar ariaLabel="About page actions" width="narrow">
+          <RetroButtonLink href="/resume">View résumé →</RetroButtonLink>
+        </RetroActionBar>
         <RetroDocument className="retro-about-document">
           <section
             className="retro-about-essay retro-about-readable-copy"

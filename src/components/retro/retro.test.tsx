@@ -1,10 +1,27 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { RetroButtonLink } from "./RetroButtonLink";
+import { RetroActionBar } from "./RetroActionBar";
 import { RetroDocument } from "./RetroDocument";
 import { RetroPageShell } from "./RetroPageShell";
 
 describe("retro page primitives", () => {
+  it.each([
+    ["narrow", "retro-internal-actions--narrow"],
+    ["wide", "retro-internal-actions--wide"],
+  ] as const)("renders the %s internal action bar with Home and supplied actions", (width, widthClass) => {
+    render(
+      <RetroActionBar ariaLabel="Page actions" width={width}>
+        <RetroButtonLink href="/next">Next →</RetroButtonLink>
+      </RetroActionBar>,
+    );
+
+    const navigation = screen.getByRole("navigation", { name: "Page actions" });
+    expect(navigation.classList.contains(widthClass)).toBe(true);
+    expect(screen.getByRole("link", { name: "← Home" }).getAttribute("href")).toBe("/");
+    expect(screen.getByRole("link", { name: "Next →" }).getAttribute("href")).toBe("/next");
+  });
+
   it("renders page content without a separate masthead", () => {
     const { container } = render(
       <RetroPageShell>
