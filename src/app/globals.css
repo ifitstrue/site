@@ -479,7 +479,7 @@ body {
 .retro-draggable-token {
   position: relative;
   display: inline-block;
-  margin-right: 0.24em;
+  margin-right: 0.28em;
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -496,7 +496,15 @@ body {
 }
 
 .retro-draggable-token--punctuation {
-  margin-right: 0.24em;
+  margin-right: 0.28em;
+}
+
+.retro-introduction-text h1 .retro-draggable-token {
+  margin-right: 0.36em;
+}
+
+.retro-introduction-text h1 .retro-draggable-token--attached {
+  margin-right: 0;
 }
 
 .retro-home-content {
