@@ -1,31 +1,9 @@
 import type { Metadata } from "next";
 import {
-  Be_Vietnam_Pro,
   IBM_Plex_Serif,
   Instrument_Sans,
-  Newsreader,
-  Space_Grotesk,
 } from "next/font/google";
 import "./globals.css";
-
-const newsreader = Newsreader({
-  variable: "--font-headline",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: "variable",
-});
-
-const beVietnamPro = Be_Vietnam_Pro({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-label",
-  subsets: ["latin"],
-  weight: "variable",
-});
 
 const ibmPlexSerif = IBM_Plex_Serif({
   variable: "--font-ec-serif",
@@ -71,13 +49,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${beVietnamPro.variable} ${spaceGrotesk.variable} ${ibmPlexSerif.variable} ${instrumentSans.variable} h-full antialiased`}
+      className={`${ibmPlexSerif.variable} ${instrumentSans.variable}`}
     >
-      <body className="min-h-full flex flex-col font-body bg-surface text-on-surface selection:bg-primary-container/30 selection:text-on-primary-container">
+      <body className="site-body">
         <a
           href="#main-content"
           data-dialog-background
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-200 focus:px-4 focus:py-2 focus:rounded focus:bg-primary focus:text-on-primary focus:font-label focus:text-sm focus:tracking-widest focus:uppercase"
+          className="site-skip-link"
         >
           Skip to main content
         </a>

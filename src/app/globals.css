@@ -1,101 +1,116 @@
-@import "tailwindcss";
-
-@theme {
-  /* Editorial Greenhouse Palette — matches stitch_ui design */
-  --color-primary: #486730;
-  --color-primary-fixed: #c9eea9;
-  --color-primary-fixed-dim: #aed18f;
-  --color-primary-container: #87a96b;
-  --color-on-primary: #ffffff;
-  --color-on-primary-container: #213d0b;
-  --color-on-primary-fixed: #0b2000;
-  --color-on-primary-fixed-variant: #314e1b;
-  --color-inverse-primary: #aed18f;
-
-  --color-secondary: #556349;
-  --color-secondary-container: #d8e8c7;
-  --color-secondary-fixed: #d8e8c7;
-  --color-secondary-fixed-dim: #bdcbac;
-  --color-on-secondary: #ffffff;
-  --color-on-secondary-container: #5b694e;
-  --color-on-secondary-fixed: #131f0a;
-  --color-on-secondary-fixed-variant: #3e4b33;
-
-  --color-tertiary: #795900;
-  --color-tertiary-container: #ca9700;
-  --color-tertiary-fixed: #ffdfa0;
-  --color-tertiary-fixed-dim: #fbbc00;
-  --color-on-tertiary: #ffffff;
-  --color-on-tertiary-container: #473300;
-  --color-on-tertiary-fixed: #261a00;
-  --color-on-tertiary-fixed-variant: #5c4300;
-
-  --color-surface: #fcf9f4;
-  --color-surface-bright: #fcf9f4;
-  --color-surface-dim: #dcdad5;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f6f3ee;
-  --color-surface-container: #f0ede9;
-  --color-surface-container-high: #ebe8e3;
-  --color-surface-container-highest: #e5e2dd;
-  --color-surface-variant: #e5e2dd;
-  --color-surface-tint: #486730;
-
-  --color-on-surface: #1c1c19;
-  --color-on-surface-variant: #43483d;
-  --color-inverse-surface: #31302d;
-  --color-inverse-on-surface: #f3f0eb;
-
-  --color-outline: #74796c;
-  --color-outline-variant: #c4c8ba;
-
-  --color-background: #fcf9f4;
-  --color-on-background: #1c1c19;
-
-  --color-error: #ba1a1a;
-  --color-error-container: #ffdad6;
-  --color-on-error: #ffffff;
-  --color-on-error-container: #93000a;
-
-  /* Typography */
-  --font-headline: var(--font-headline), serif;
-  --font-body: var(--font-body), sans-serif;
-  --font-label: var(--font-label), monospace;
-
-  --text-display-lg: 3.5rem;
-  --text-display-md: 2.5rem;
-  --text-title-md: 1.25rem;
-
-  /* Elevation */
-  --shadow-editorial: 0px 10px 30px rgba(28, 28, 25, 0.05);
-
-  /* Organic Radius Scale */
-  --radius-sm: 0.5rem;
-  --radius-md: 1.5rem;
-  --radius-lg: 2rem;
-  --radius-xl: 3rem;
-  --radius-organic: 2rem 1rem 3rem 1.5rem;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid transparent;
 }
 
-:root {
-  --background: #fcf9f4;
-  --foreground: #1c1c19;
+html {
+  height: 100%;
+  line-height: 1.5;
+  text-size-adjust: 100%;
+  tab-size: 4;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background-color: var(--color-surface);
-  color: var(--color-on-surface);
+  min-height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  vertical-align: middle;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+.site-body {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  background: #fcf9f4;
+  color: #1c1c19;
   -webkit-font-smoothing: antialiased;
 }
 
-:focus-visible {
-  outline: 3px solid var(--color-tertiary) !important;
-  outline-offset: 3px !important;
+.site-body ::selection {
+  background: rgb(135 169 107 / 30%);
+  color: #213d0b;
 }
 
-/* No-Line Rule */
-* {
-  border-color: transparent;
+.sr-only,
+.site-skip-link:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.site-skip-link:focus {
+  position: fixed;
+  z-index: 200;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background: #486730;
+  color: #fff;
+  font: 0.875rem/1.5 "Courier New", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+:focus-visible {
+  outline: 3px solid #795900 !important;
+  outline-offset: 3px !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -109,7 +124,7 @@ body {
   }
 }
 
-/* Personal-site retro shell. Scoped so temporarily retained tools keep their theme. */
+/* Personal-site retro shell. */
 .retro-page-shell {
   --retro-face: #c3c3c3;
   --retro-frame: #a8a8a8;
