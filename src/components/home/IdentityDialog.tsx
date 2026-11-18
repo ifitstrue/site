@@ -52,10 +52,8 @@ export function IdentityDialog({ open, onClose }: IdentityDialogProps) {
           }
         }}
       >
-        <div className="retro-identity-titlebar">
-          <h2 id="identity-dialog-title">Identity Update</h2>
-        </div>
         <div className="retro-identity-body">
+          <h2 id="identity-dialog-title" className="sr-only">Identity Update</h2>
           <p id="identity-dialog-message">Congratulations! You are now Andrew Hachten.</p>
           <button ref={confirmRef} className="retro-button" type="button" onClick={onClose}>
             OK

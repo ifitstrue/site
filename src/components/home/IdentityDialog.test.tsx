@@ -25,6 +25,8 @@ describe("IdentityDialog", () => {
     fireEvent.click(screen.getByRole("button", { name: "Trigger" }));
 
     expect(screen.getByRole("alertdialog", { name: "Identity Update" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Identity Update" }).classList.contains("sr-only")).toBe(true);
+    expect(document.querySelector(".retro-identity-titlebar")).toBeNull();
     expect(screen.getByText("Congratulations! You are now Andrew Hachten.")).toBeTruthy();
     await waitFor(() => expect(document.activeElement).toBe(screen.getByRole("button", { name: "OK" })));
     expect(document.querySelector("[data-retro-page-content]")?.hasAttribute("inert")).toBe(true);
