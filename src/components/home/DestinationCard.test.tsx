@@ -69,11 +69,15 @@ describe("DestinationCard", () => {
     expect((row as HTMLElement).style.width).toBe("");
   });
 
-  it("renders the Sleeping Stone logo as decorative beside its heading", () => {
+  it("links the Sleeping Stone logo to the candle site", () => {
     const { container } = render(
       <DestinationCard destination={HOME_DESTINATIONS[2]} transformed={false} />,
     );
+    const logoLink = screen.getByRole("link", { name: "Sleeping Stone" });
     const logo = container.querySelector("img");
+
+    expect(logoLink.getAttribute("href")).toBe(HOME_DESTINATIONS[2].href);
+    expect(logoLink.getAttribute("target")).toBeNull();
     expect(logo?.getAttribute("alt")).toBe("");
     expect(logo?.getAttribute("src")).toContain("sleeping-stone-primary-logo.svg");
   });

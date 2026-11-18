@@ -16,7 +16,6 @@ export const DestinationCard = forwardRef<HTMLDivElement, DestinationCardProps>(
           ref={ref}
           className={`retro-destination-preview retro-destination-preview--${destination.preview}`}
           data-destination={destination.key}
-          aria-hidden={destination.preview === "candles" ? true : undefined}
         >
           {destination.preview === "projects" && (
             <a
@@ -43,12 +42,18 @@ export const DestinationCard = forwardRef<HTMLDivElement, DestinationCardProps>(
             </a>
           )}
           {destination.preview === "candles" && (
-            <Image
-              src="/brands/sleeping-stone-primary-logo.svg"
-              alt=""
-              width={720}
-              height={720}
-            />
+            <a
+              className="sleeping-stone-wordmark"
+              href={destination.href}
+              aria-label="Sleeping Stone"
+            >
+              <Image
+                src="/brands/sleeping-stone-primary-logo.svg"
+                alt=""
+                width={720}
+                height={720}
+              />
+            </a>
           )}
         </div>
         <div className="retro-destination-heading">

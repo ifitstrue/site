@@ -401,6 +401,14 @@ button,
   background: #f3efe5;
 }
 
+.sleeping-stone-wordmark {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 .retro-destination-preview--candles img {
   width: auto;
   height: auto;
